@@ -48,7 +48,6 @@ import androidx.compose.ui.unit.dp
 import com.kingkharnivore.chefesque.data.local.entity.IngredientEntity
 import com.kingkharnivore.chefesque.domain.model.IngredientSource
 import com.kingkharnivore.chefesque.domain.model.RecipeType
-import com.kingkharnivore.chefesque.ui.theme.ChefesqueTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -266,17 +265,17 @@ private fun RecipeType.displayName(): String = when (this) {
 
 @Preview(showBackground = true)
 @Composable
-private fun AddRecipeScreenEmptyPreview() = ChefesqueTheme { AddRecipeScreenPreview(AddRecipeUiState()) }
+private fun AddRecipeScreenEmptyPreview() = MaterialTheme { AddRecipeScreenPreview(AddRecipeUiState()) }
 
 @Preview(showBackground = true)
 @Composable
-private fun AddRecipeScreenIngredientPreview() = ChefesqueTheme {
+private fun AddRecipeScreenIngredientPreview() = MaterialTheme {
     AddRecipeScreenPreview(AddRecipeUiState(title = "Pasta night", ingredients = listOf(IngredientInputState(localId = "1", query = "Garlic", quantityText = "2", unit = "cloves", prepNote = "minced"))))
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun IngredientRowSuggestionsPreview() = ChefesqueTheme {
+private fun IngredientRowSuggestionsPreview() = MaterialTheme {
     RecipeIngredientRow(
         number = 1,
         ingredient = IngredientInputState(localId = "1", query = "gar", suggestions = listOf(previewIngredient("garlic", "Garlic"), previewIngredient("garlic-powder", "Garlic powder"))),
