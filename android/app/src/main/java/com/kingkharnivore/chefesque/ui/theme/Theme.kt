@@ -40,7 +40,7 @@ fun ChefesqueTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = ChefesqueTypography,
         content = content,
     )
 }
