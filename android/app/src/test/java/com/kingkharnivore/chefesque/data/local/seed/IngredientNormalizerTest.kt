@@ -18,6 +18,15 @@ class IngredientNormalizerTest {
     @Test
     fun normalize_keepsUsefulWordsAndRemovesAccents() {
         assertEquals("jalapeno pepper", IngredientNormalizer.normalize("Jalapeño pepper"))
+        assertEquals("jalapeno", IngredientNormalizer.normalize("Jalapeño"))
         assertEquals("chilli powder", IngredientNormalizer.normalize("Chilli Powder"))
+    }
+
+    @Test
+    fun normalize_hyphenAndSpaceQueriesMatch() {
+        assertEquals(
+            IngredientNormalizer.normalize("all-purpose flour"),
+            IngredientNormalizer.normalize("all purpose flour"),
+        )
     }
 }

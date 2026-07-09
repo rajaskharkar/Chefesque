@@ -61,7 +61,10 @@
         "oz",
         "lb"
       ],
-      "aliases": []
+      "aliases": [
+        "confectioners sugar",
+        "caster sugar"
+      ]
     },
     {
       "id": "curated_brown_sugar",
@@ -82,7 +85,7 @@
       "displayName": "Honey",
       "canonicalName": "honey",
       "category": "sweetener",
-      "defaultUnit": "cup",
+      "defaultUnit": "tbsp",
       "commonUnits": [
         "cup",
         "g",
@@ -96,7 +99,7 @@
       "displayName": "Maple syrup",
       "canonicalName": "maple syrup",
       "category": "sweetener",
-      "defaultUnit": "cup",
+      "defaultUnit": "tbsp",
       "commonUnits": [
         "cup",
         "g",
@@ -110,7 +113,7 @@
       "displayName": "Baking soda",
       "canonicalName": "baking soda",
       "category": "baking",
-      "defaultUnit": "cup",
+      "defaultUnit": "tsp",
       "commonUnits": [
         "cup",
         "g",
@@ -124,7 +127,7 @@
       "displayName": "Baking powder",
       "canonicalName": "baking powder",
       "category": "baking",
-      "defaultUnit": "cup",
+      "defaultUnit": "tsp",
       "commonUnits": [
         "cup",
         "g",
@@ -236,7 +239,7 @@
       "displayName": "Yeast",
       "canonicalName": "yeast",
       "category": "baking",
-      "defaultUnit": "cup",
+      "defaultUnit": "tsp",
       "commonUnits": [
         "cup",
         "g",
@@ -250,7 +253,7 @@
       "displayName": "Vanilla extract",
       "canonicalName": "vanilla extract",
       "category": "baking",
-      "defaultUnit": "cup",
+      "defaultUnit": "tsp",
       "commonUnits": [
         "cup",
         "g",
@@ -513,7 +516,9 @@
         "ml",
         "l"
       ],
-      "aliases": []
+      "aliases": [
+        "evoo"
+      ]
     },
     {
       "id": "curated_vegetable_oil",
@@ -664,7 +669,7 @@
       "displayName": "Milk",
       "canonicalName": "milk",
       "category": "dairy",
-      "defaultUnit": "piece",
+      "defaultUnit": "cup",
       "commonUnits": [
         "piece",
         "g",
@@ -679,7 +684,7 @@
       "displayName": "Whole milk",
       "canonicalName": "whole milk",
       "category": "dairy",
-      "defaultUnit": "piece",
+      "defaultUnit": "cup",
       "commonUnits": [
         "piece",
         "g",
@@ -724,7 +729,7 @@
       "displayName": "Heavy cream",
       "canonicalName": "heavy cream",
       "category": "dairy",
-      "defaultUnit": "piece",
+      "defaultUnit": "cup",
       "commonUnits": [
         "piece",
         "g",
@@ -909,7 +914,7 @@
       "displayName": "Ricotta",
       "canonicalName": "ricotta",
       "category": "dairy",
-      "defaultUnit": "piece",
+      "defaultUnit": "cup",
       "commonUnits": [
         "piece",
         "g",
@@ -924,7 +929,7 @@
       "displayName": "Cottage cheese",
       "canonicalName": "cottage cheese",
       "category": "dairy",
-      "defaultUnit": "piece",
+      "defaultUnit": "cup",
       "commonUnits": [
         "piece",
         "g",
@@ -939,7 +944,7 @@
       "displayName": "Buttermilk",
       "canonicalName": "buttermilk",
       "category": "dairy",
-      "defaultUnit": "piece",
+      "defaultUnit": "cup",
       "commonUnits": [
         "piece",
         "g",
@@ -1190,7 +1195,9 @@
         "lb",
         "cup"
       ],
-      "aliases": []
+      "aliases": [
+        "capsicum"
+      ]
     },
     {
       "id": "curated_jalapeno",
@@ -1400,7 +1407,9 @@
         "lb",
         "cup"
       ],
-      "aliases": []
+      "aliases": [
+        "courgette"
+      ]
     },
     {
       "id": "curated_eggplant",
@@ -1415,7 +1424,9 @@
         "lb",
         "cup"
       ],
-      "aliases": []
+      "aliases": [
+        "aubergine"
+      ]
     },
     {
       "id": "curated_cucumber",
@@ -1626,7 +1637,8 @@
       ],
       "aliases": [
         "coriander leaves",
-        "fresh coriander"
+        "fresh coriander",
+        "dhaniya"
       ]
     },
     {
@@ -1796,7 +1808,8 @@
         "g"
       ],
       "aliases": [
-        "kasuri methi"
+        "kasuri methi",
+        "methi"
       ]
     },
     {
@@ -2068,7 +2081,9 @@
         "tbsp",
         "g"
       ],
-      "aliases": []
+      "aliases": [
+        "methi seeds"
+      ]
     },
     {
       "id": "curated_nigella_seeds",

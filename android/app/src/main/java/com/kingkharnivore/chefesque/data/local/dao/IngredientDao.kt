@@ -31,6 +31,9 @@ interface IngredientDao {
     @Query("SELECT * FROM ingredient_aliases WHERE ingredientId = :ingredientId ORDER BY alias ASC")
     suspend fun getAliasesForIngredient(ingredientId: String): List<IngredientAliasEntity>
 
+    @Query("SELECT * FROM ingredient_aliases WHERE ingredientId IN (:ingredientIds)")
+    suspend fun getAliasesForIngredients(ingredientIds: List<String>): List<IngredientAliasEntity>
+
     @Query("""
         SELECT * FROM ingredients
         WHERE displayName LIKE '%' || :query || '%'

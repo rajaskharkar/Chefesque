@@ -1,6 +1,7 @@
 package com.kingkharnivore.chefesque.data.repository
 
-import com.kingkharnivore.chefesque.data.local.dao.IngredientDao
+import androidx.room.withTransaction
+import com.kingkharnivore.chefesque.data.local.db.ChefesqueDatabase
 import com.kingkharnivore.chefesque.data.local.entity.IngredientAliasEntity
 import com.kingkharnivore.chefesque.data.local.entity.IngredientEntity
 import com.kingkharnivore.chefesque.data.local.seed.IngredientNormalizer
@@ -9,7 +10,9 @@ import com.kingkharnivore.chefesque.domain.model.IngredientSource
 import kotlinx.coroutines.flow.Flow
 import java.util.UUID
 
-class IngredientRepository(private val ingredientDao: IngredientDao) {
+class IngredientRepository(private val database: ChefesqueDatabase) {
+    private val ingredientDao = database.ingredientDao()
+
     fun observeIngredients(): Flow<List<IngredientEntity>> = ingredientDao.observeIngredients()
     suspend fun getIngredient(id: String): IngredientEntity? = ingredientDao.getIngredient(id)
     suspend fun searchIngredientsByName(query: String, limit: Int = 25): List<IngredientEntity> = ingredientDao.searchIngredientsByName(query, limit)
@@ -21,13 +24,14 @@ class IngredientRepository(private val ingredientDao: IngredientDao) {
 
         val nameResults = ingredientDao.searchIngredientsByName(normalizedQuery, limit * 2)
         val aliasResults = ingredientDao.searchIngredientsByAlias(normalizedQuery, limit * 2)
-        val aliasMatchesByIngredientId = aliasResults.associate { ingredient ->
-            ingredient.id to ingredientDao.getAliasesForIngredient(ingredient.id).map { it.normalizedAlias }
-        }
+        val combinedResults = (nameResults + aliasResults).distinctBy { it.id }
+        if (combinedResults.isEmpty()) return emptyList()
 
-        return (nameResults + aliasResults)
-            .distinctBy { it.id }
-            .sortedWith(compareBy<IngredientEntity> { ingredient -> ingredient.searchRank(normalizedQuery, aliasMatchesByIngredientId[ingredient.id].orEmpty()) }
+        val aliasesByIngredientId = ingredientDao.getAliasesForIngredients(combinedResults.map { it.id })
+            .groupBy({ it.ingredientId }, { it.normalizedAlias })
+
+        return combinedResults
+            .sortedWith(compareBy<IngredientEntity> { ingredient -> ingredient.searchRank(normalizedQuery, aliasesByIngredientId[ingredient.id].orEmpty()) }
                 .thenBy { it.displayName.lowercase() })
             .take(limit)
     }
@@ -38,11 +42,15 @@ class IngredientRepository(private val ingredientDao: IngredientDao) {
         defaultUnit: String? = null,
         commonUnits: List<String> = emptyList(),
     ): IngredientEntity {
+        val trimmedDisplayName = displayName.trim()
+        require(trimmedDisplayName.isNotBlank()) {
+            "Custom ingredient display name cannot be blank."
+        }
         val now = System.currentTimeMillis()
         val ingredient = IngredientEntity(
             id = "user_${UUID.randomUUID()}",
-            displayName = displayName.trim(),
-            canonicalName = IngredientNormalizer.normalize(displayName),
+            displayName = trimmedDisplayName,
+            canonicalName = IngredientNormalizer.normalize(trimmedDisplayName),
             category = category,
             defaultUnit = defaultUnit,
             commonUnitsJson = IngredientSeedDataSource.commonUnitsToJson(commonUnits),
@@ -54,6 +62,14 @@ class IngredientRepository(private val ingredientDao: IngredientDao) {
         )
         upsertIngredient(ingredient)
         return ingredient
+    }
+
+    suspend fun seedCuratedIngredients(
+        ingredients: List<IngredientEntity>,
+        aliases: List<IngredientAliasEntity>,
+    ) = database.withTransaction {
+        ingredientDao.upsertIngredients(ingredients)
+        ingredientDao.upsertAliases(aliases)
     }
 
     suspend fun countIngredientsBySource(source: String): Int = ingredientDao.countIngredientsBySource(source)
