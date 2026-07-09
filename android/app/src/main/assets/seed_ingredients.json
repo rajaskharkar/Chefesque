@@ -1,0 +1,4361 @@
+{
+  "version": 1,
+  "ingredients": [
+    {
+      "id": "curated_white_pepper",
+      "displayName": "White pepper",
+      "canonicalName": "white pepper",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_black_pepper",
+      "displayName": "Black pepper",
+      "canonicalName": "black pepper",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": [
+        "ground black pepper"
+      ]
+    },
+    {
+      "id": "curated_salt",
+      "displayName": "Salt",
+      "canonicalName": "salt",
+      "category": "seasoning",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": [
+        "kosher salt",
+        "sea salt",
+        "table salt"
+      ]
+    },
+    {
+      "id": "curated_sugar",
+      "displayName": "Sugar",
+      "canonicalName": "sugar",
+      "category": "sweetener",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": [
+        "confectioners sugar",
+        "caster sugar"
+      ]
+    },
+    {
+      "id": "curated_brown_sugar",
+      "displayName": "Brown sugar",
+      "canonicalName": "brown sugar",
+      "category": "sweetener",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_honey",
+      "displayName": "Honey",
+      "canonicalName": "honey",
+      "category": "sweetener",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_maple_syrup",
+      "displayName": "Maple syrup",
+      "canonicalName": "maple syrup",
+      "category": "sweetener",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_baking_soda",
+      "displayName": "Baking soda",
+      "canonicalName": "baking soda",
+      "category": "baking",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_baking_powder",
+      "displayName": "Baking powder",
+      "canonicalName": "baking powder",
+      "category": "baking",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_cornstarch",
+      "displayName": "Cornstarch",
+      "canonicalName": "cornstarch",
+      "category": "baking",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_all_purpose_flour",
+      "displayName": "All-purpose flour",
+      "canonicalName": "all-purpose flour",
+      "category": "baking",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_whole_wheat_flour",
+      "displayName": "Whole wheat flour",
+      "canonicalName": "whole wheat flour",
+      "category": "baking",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_bread_flour",
+      "displayName": "Bread flour",
+      "canonicalName": "bread flour",
+      "category": "baking",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_rice_flour",
+      "displayName": "Rice flour",
+      "canonicalName": "rice flour",
+      "category": "baking",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_breadcrumbs",
+      "displayName": "Breadcrumbs",
+      "canonicalName": "breadcrumbs",
+      "category": "baking",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_panko_breadcrumbs",
+      "displayName": "Panko breadcrumbs",
+      "canonicalName": "panko breadcrumbs",
+      "category": "baking",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_yeast",
+      "displayName": "Yeast",
+      "canonicalName": "yeast",
+      "category": "baking",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_vanilla_extract",
+      "displayName": "Vanilla extract",
+      "canonicalName": "vanilla extract",
+      "category": "baking",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_cocoa_powder",
+      "displayName": "Cocoa powder",
+      "canonicalName": "cocoa powder",
+      "category": "baking",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_cornmeal",
+      "displayName": "Cornmeal",
+      "canonicalName": "cornmeal",
+      "category": "grain",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_rice",
+      "displayName": "Rice",
+      "canonicalName": "rice",
+      "category": "grain",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_basmati_rice",
+      "displayName": "Basmati rice",
+      "canonicalName": "basmati rice",
+      "category": "grain",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_jasmine_rice",
+      "displayName": "Jasmine rice",
+      "canonicalName": "jasmine rice",
+      "category": "grain",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_brown_rice",
+      "displayName": "Brown rice",
+      "canonicalName": "brown rice",
+      "category": "grain",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_arborio_rice",
+      "displayName": "Arborio rice",
+      "canonicalName": "arborio rice",
+      "category": "grain",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_quinoa",
+      "displayName": "Quinoa",
+      "canonicalName": "quinoa",
+      "category": "grain",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_couscous",
+      "displayName": "Couscous",
+      "canonicalName": "couscous",
+      "category": "grain",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_oats",
+      "displayName": "Oats",
+      "canonicalName": "oats",
+      "category": "grain",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_rolled_oats",
+      "displayName": "Rolled oats",
+      "canonicalName": "rolled oats",
+      "category": "grain",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_bread",
+      "displayName": "Bread",
+      "canonicalName": "bread",
+      "category": "grain",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_tortilla",
+      "displayName": "Tortilla",
+      "canonicalName": "tortilla",
+      "category": "grain",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_naan",
+      "displayName": "Naan",
+      "canonicalName": "naan",
+      "category": "grain",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_pita",
+      "displayName": "Pita",
+      "canonicalName": "pita",
+      "category": "grain",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_pizza_dough",
+      "displayName": "Pizza dough",
+      "canonicalName": "pizza dough",
+      "category": "grain",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_olive_oil",
+      "displayName": "Olive oil",
+      "canonicalName": "olive oil",
+      "category": "oil_fat",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_extra_virgin_olive_oil",
+      "displayName": "Extra virgin olive oil",
+      "canonicalName": "extra virgin olive oil",
+      "category": "oil_fat",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": [
+        "evoo"
+      ]
+    },
+    {
+      "id": "curated_vegetable_oil",
+      "displayName": "Vegetable oil",
+      "canonicalName": "vegetable oil",
+      "category": "oil_fat",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_canola_oil",
+      "displayName": "Canola oil",
+      "canonicalName": "canola oil",
+      "category": "oil_fat",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_coconut_oil",
+      "displayName": "Coconut oil",
+      "canonicalName": "coconut oil",
+      "category": "oil_fat",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_sesame_oil",
+      "displayName": "Sesame oil",
+      "canonicalName": "sesame oil",
+      "category": "oil_fat",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_ghee",
+      "displayName": "Ghee",
+      "canonicalName": "ghee",
+      "category": "oil_fat",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": [
+        "clarified butter"
+      ]
+    },
+    {
+      "id": "curated_lard",
+      "displayName": "Lard",
+      "canonicalName": "lard",
+      "category": "oil_fat",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_shortening",
+      "displayName": "Shortening",
+      "canonicalName": "shortening",
+      "category": "oil_fat",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_butter",
+      "displayName": "Butter",
+      "canonicalName": "butter",
+      "category": "dairy",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_unsalted_butter",
+      "displayName": "Unsalted butter",
+      "canonicalName": "unsalted butter",
+      "category": "dairy",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_milk",
+      "displayName": "Milk",
+      "canonicalName": "milk",
+      "category": "dairy",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_whole_milk",
+      "displayName": "Whole milk",
+      "canonicalName": "whole milk",
+      "category": "dairy",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_evaporated_milk",
+      "displayName": "Evaporated milk",
+      "canonicalName": "evaporated milk",
+      "category": "dairy",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_condensed_milk",
+      "displayName": "Condensed milk",
+      "canonicalName": "condensed milk",
+      "category": "dairy",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_heavy_cream",
+      "displayName": "Heavy cream",
+      "canonicalName": "heavy cream",
+      "category": "dairy",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_half_and_half",
+      "displayName": "Half and half",
+      "canonicalName": "half and half",
+      "category": "dairy",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_yogurt",
+      "displayName": "Yogurt",
+      "canonicalName": "yogurt",
+      "category": "dairy",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": [
+        "curd",
+        "dahi"
+      ]
+    },
+    {
+      "id": "curated_greek_yogurt",
+      "displayName": "Greek yogurt",
+      "canonicalName": "greek yogurt",
+      "category": "dairy",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_sour_cream",
+      "displayName": "Sour cream",
+      "canonicalName": "sour cream",
+      "category": "dairy",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_cream_cheese",
+      "displayName": "Cream cheese",
+      "canonicalName": "cream cheese",
+      "category": "dairy",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_cheddar",
+      "displayName": "Cheddar",
+      "canonicalName": "cheddar",
+      "category": "dairy",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_mozzarella",
+      "displayName": "Mozzarella",
+      "canonicalName": "mozzarella",
+      "category": "dairy",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_parmesan",
+      "displayName": "Parmesan",
+      "canonicalName": "parmesan",
+      "category": "dairy",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": [
+        "parm"
+      ]
+    },
+    {
+      "id": "curated_pecorino_romano",
+      "displayName": "Pecorino Romano",
+      "canonicalName": "pecorino romano",
+      "category": "dairy",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_feta",
+      "displayName": "Feta",
+      "canonicalName": "feta",
+      "category": "dairy",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_goat_cheese",
+      "displayName": "Goat cheese",
+      "canonicalName": "goat cheese",
+      "category": "dairy",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_ricotta",
+      "displayName": "Ricotta",
+      "canonicalName": "ricotta",
+      "category": "dairy",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_cottage_cheese",
+      "displayName": "Cottage cheese",
+      "canonicalName": "cottage cheese",
+      "category": "dairy",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_buttermilk",
+      "displayName": "Buttermilk",
+      "canonicalName": "buttermilk",
+      "category": "dairy",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_onion",
+      "displayName": "Onion",
+      "canonicalName": "onion",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_red_onion",
+      "displayName": "Red onion",
+      "canonicalName": "red onion",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_yellow_onion",
+      "displayName": "Yellow onion",
+      "canonicalName": "yellow onion",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_white_onion",
+      "displayName": "White onion",
+      "canonicalName": "white onion",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_shallot",
+      "displayName": "Shallot",
+      "canonicalName": "shallot",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_garlic",
+      "displayName": "Garlic",
+      "canonicalName": "garlic",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_ginger",
+      "displayName": "Ginger",
+      "canonicalName": "ginger",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_green_onion",
+      "displayName": "Green onion",
+      "canonicalName": "green onion",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": [
+        "scallion",
+        "spring onion"
+      ]
+    },
+    {
+      "id": "curated_leek",
+      "displayName": "Leek",
+      "canonicalName": "leek",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_carrot",
+      "displayName": "Carrot",
+      "canonicalName": "carrot",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_celery",
+      "displayName": "Celery",
+      "canonicalName": "celery",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_potato",
+      "displayName": "Potato",
+      "canonicalName": "potato",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_sweet_potato",
+      "displayName": "Sweet potato",
+      "canonicalName": "sweet potato",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_tomato",
+      "displayName": "Tomato",
+      "canonicalName": "tomato",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_cherry_tomato",
+      "displayName": "Cherry tomato",
+      "canonicalName": "cherry tomato",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_bell_pepper",
+      "displayName": "Bell pepper",
+      "canonicalName": "bell pepper",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": [
+        "capsicum"
+      ]
+    },
+    {
+      "id": "curated_jalapeno",
+      "displayName": "Jalapeño",
+      "canonicalName": "jalapeno",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_serrano_pepper",
+      "displayName": "Serrano pepper",
+      "canonicalName": "serrano pepper",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_poblano_pepper",
+      "displayName": "Poblano pepper",
+      "canonicalName": "poblano pepper",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_habanero_pepper",
+      "displayName": "Habanero pepper",
+      "canonicalName": "habanero pepper",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_mushroom",
+      "displayName": "Mushroom",
+      "canonicalName": "mushroom",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_button_mushroom",
+      "displayName": "Button mushroom",
+      "canonicalName": "button mushroom",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_cremini_mushroom",
+      "displayName": "Cremini mushroom",
+      "canonicalName": "cremini mushroom",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_portobello_mushroom",
+      "displayName": "Portobello mushroom",
+      "canonicalName": "portobello mushroom",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_spinach",
+      "displayName": "Spinach",
+      "canonicalName": "spinach",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_kale",
+      "displayName": "Kale",
+      "canonicalName": "kale",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_cabbage",
+      "displayName": "Cabbage",
+      "canonicalName": "cabbage",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_cauliflower",
+      "displayName": "Cauliflower",
+      "canonicalName": "cauliflower",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_broccoli",
+      "displayName": "Broccoli",
+      "canonicalName": "broccoli",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_zucchini",
+      "displayName": "Zucchini",
+      "canonicalName": "zucchini",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": [
+        "courgette"
+      ]
+    },
+    {
+      "id": "curated_eggplant",
+      "displayName": "Eggplant",
+      "canonicalName": "eggplant",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": [
+        "aubergine"
+      ]
+    },
+    {
+      "id": "curated_cucumber",
+      "displayName": "Cucumber",
+      "canonicalName": "cucumber",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_lettuce",
+      "displayName": "Lettuce",
+      "canonicalName": "lettuce",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_romaine_lettuce",
+      "displayName": "Romaine lettuce",
+      "canonicalName": "romaine lettuce",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_arugula",
+      "displayName": "Arugula",
+      "canonicalName": "arugula",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_corn",
+      "displayName": "Corn",
+      "canonicalName": "corn",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_peas",
+      "displayName": "Peas",
+      "canonicalName": "peas",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_green_beans",
+      "displayName": "Green beans",
+      "canonicalName": "green beans",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_okra",
+      "displayName": "Okra",
+      "canonicalName": "okra",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_beet",
+      "displayName": "Beet",
+      "canonicalName": "beet",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_radish",
+      "displayName": "Radish",
+      "canonicalName": "radish",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_turnip",
+      "displayName": "Turnip",
+      "canonicalName": "turnip",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_butternut_squash",
+      "displayName": "Butternut squash",
+      "canonicalName": "butternut squash",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_pumpkin",
+      "displayName": "Pumpkin",
+      "canonicalName": "pumpkin",
+      "category": "vegetable",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_cilantro",
+      "displayName": "Cilantro",
+      "canonicalName": "cilantro",
+      "category": "herb",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": [
+        "coriander leaves",
+        "fresh coriander",
+        "dhaniya"
+      ]
+    },
+    {
+      "id": "curated_parsley",
+      "displayName": "Parsley",
+      "canonicalName": "parsley",
+      "category": "herb",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_basil",
+      "displayName": "Basil",
+      "canonicalName": "basil",
+      "category": "herb",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_thai_basil",
+      "displayName": "Thai basil",
+      "canonicalName": "thai basil",
+      "category": "herb",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_mint",
+      "displayName": "Mint",
+      "canonicalName": "mint",
+      "category": "herb",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_dill",
+      "displayName": "Dill",
+      "canonicalName": "dill",
+      "category": "herb",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_rosemary",
+      "displayName": "Rosemary",
+      "canonicalName": "rosemary",
+      "category": "herb",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_thyme",
+      "displayName": "Thyme",
+      "canonicalName": "thyme",
+      "category": "herb",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_oregano",
+      "displayName": "Oregano",
+      "canonicalName": "oregano",
+      "category": "herb",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_sage",
+      "displayName": "Sage",
+      "canonicalName": "sage",
+      "category": "herb",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_bay_leaf",
+      "displayName": "Bay leaf",
+      "canonicalName": "bay leaf",
+      "category": "herb",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_curry_leaves",
+      "displayName": "Curry leaves",
+      "canonicalName": "curry leaves",
+      "category": "herb",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_fenugreek_leaves",
+      "displayName": "Fenugreek leaves",
+      "canonicalName": "fenugreek leaves",
+      "category": "herb",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": [
+        "kasuri methi",
+        "methi"
+      ]
+    },
+    {
+      "id": "curated_chives",
+      "displayName": "Chives",
+      "canonicalName": "chives",
+      "category": "herb",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_cumin_seeds",
+      "displayName": "Cumin seeds",
+      "canonicalName": "cumin seeds",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_ground_cumin",
+      "displayName": "Ground cumin",
+      "canonicalName": "ground cumin",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_coriander_seeds",
+      "displayName": "Coriander seeds",
+      "canonicalName": "coriander seeds",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_ground_coriander",
+      "displayName": "Ground coriander",
+      "canonicalName": "ground coriander",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": [
+        "coriander powder"
+      ]
+    },
+    {
+      "id": "curated_turmeric",
+      "displayName": "Turmeric",
+      "canonicalName": "turmeric",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_red_chili_powder",
+      "displayName": "Red chili powder",
+      "canonicalName": "red chili powder",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": [
+        "chilli powder",
+        "red chilli powder"
+      ]
+    },
+    {
+      "id": "curated_kashmiri_chili_powder",
+      "displayName": "Kashmiri chili powder",
+      "canonicalName": "kashmiri chili powder",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_cayenne_pepper",
+      "displayName": "Cayenne pepper",
+      "canonicalName": "cayenne pepper",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_paprika",
+      "displayName": "Paprika",
+      "canonicalName": "paprika",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_smoked_paprika",
+      "displayName": "Smoked paprika",
+      "canonicalName": "smoked paprika",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_garam_masala",
+      "displayName": "Garam masala",
+      "canonicalName": "garam masala",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_chaat_masala",
+      "displayName": "Chaat masala",
+      "canonicalName": "chaat masala",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_tandoori_masala",
+      "displayName": "Tandoori masala",
+      "canonicalName": "tandoori masala",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_curry_powder",
+      "displayName": "Curry powder",
+      "canonicalName": "curry powder",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_mustard_seeds",
+      "displayName": "Mustard seeds",
+      "canonicalName": "mustard seeds",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_black_mustard_seeds",
+      "displayName": "Black mustard seeds",
+      "canonicalName": "black mustard seeds",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_fennel_seeds",
+      "displayName": "Fennel seeds",
+      "canonicalName": "fennel seeds",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_fenugreek_seeds",
+      "displayName": "Fenugreek seeds",
+      "canonicalName": "fenugreek seeds",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": [
+        "methi seeds"
+      ]
+    },
+    {
+      "id": "curated_nigella_seeds",
+      "displayName": "Nigella seeds",
+      "canonicalName": "nigella seeds",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_carom_seeds",
+      "displayName": "Carom seeds",
+      "canonicalName": "carom seeds",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": [
+        "ajwain"
+      ]
+    },
+    {
+      "id": "curated_asafoetida",
+      "displayName": "Asafoetida",
+      "canonicalName": "asafoetida",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": [
+        "hing"
+      ]
+    },
+    {
+      "id": "curated_cardamom",
+      "displayName": "Cardamom",
+      "canonicalName": "cardamom",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_green_cardamom",
+      "displayName": "Green cardamom",
+      "canonicalName": "green cardamom",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_black_cardamom",
+      "displayName": "Black cardamom",
+      "canonicalName": "black cardamom",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_clove",
+      "displayName": "Clove",
+      "canonicalName": "clove",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_cinnamon",
+      "displayName": "Cinnamon",
+      "canonicalName": "cinnamon",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_cinnamon_stick",
+      "displayName": "Cinnamon stick",
+      "canonicalName": "cinnamon stick",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_nutmeg",
+      "displayName": "Nutmeg",
+      "canonicalName": "nutmeg",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_mace",
+      "displayName": "Mace",
+      "canonicalName": "mace",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_star_anise",
+      "displayName": "Star anise",
+      "canonicalName": "star anise",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_black_peppercorns",
+      "displayName": "Black peppercorns",
+      "canonicalName": "black peppercorns",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_saffron",
+      "displayName": "Saffron",
+      "canonicalName": "saffron",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_dried_red_chili",
+      "displayName": "Dried red chili",
+      "canonicalName": "dried red chili",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_crushed_red_pepper",
+      "displayName": "Crushed red pepper",
+      "canonicalName": "crushed red pepper",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_italian_seasoning",
+      "displayName": "Italian seasoning",
+      "canonicalName": "italian seasoning",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_everything_bagel_seasoning",
+      "displayName": "Everything bagel seasoning",
+      "canonicalName": "everything bagel seasoning",
+      "category": "spice",
+      "defaultUnit": "tsp",
+      "commonUnits": [
+        "pinch",
+        "tsp",
+        "tbsp",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_sesame_seeds",
+      "displayName": "Sesame seeds",
+      "canonicalName": "sesame seeds",
+      "category": "nut_seed",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_poppy_seeds",
+      "displayName": "Poppy seeds",
+      "canonicalName": "poppy seeds",
+      "category": "nut_seed",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_almonds",
+      "displayName": "Almonds",
+      "canonicalName": "almonds",
+      "category": "nut_seed",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_cashews",
+      "displayName": "Cashews",
+      "canonicalName": "cashews",
+      "category": "nut_seed",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_peanuts",
+      "displayName": "Peanuts",
+      "canonicalName": "peanuts",
+      "category": "nut_seed",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_walnuts",
+      "displayName": "Walnuts",
+      "canonicalName": "walnuts",
+      "category": "nut_seed",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_pecans",
+      "displayName": "Pecans",
+      "canonicalName": "pecans",
+      "category": "nut_seed",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_pistachios",
+      "displayName": "Pistachios",
+      "canonicalName": "pistachios",
+      "category": "nut_seed",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_sunflower_seeds",
+      "displayName": "Sunflower seeds",
+      "canonicalName": "sunflower seeds",
+      "category": "nut_seed",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_pumpkin_seeds",
+      "displayName": "Pumpkin seeds",
+      "canonicalName": "pumpkin seeds",
+      "category": "nut_seed",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_chia_seeds",
+      "displayName": "Chia seeds",
+      "canonicalName": "chia seeds",
+      "category": "nut_seed",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_flax_seeds",
+      "displayName": "Flax seeds",
+      "canonicalName": "flax seeds",
+      "category": "nut_seed",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_pine_nuts",
+      "displayName": "Pine nuts",
+      "canonicalName": "pine nuts",
+      "category": "nut_seed",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_chicken_breast",
+      "displayName": "Chicken breast",
+      "canonicalName": "chicken breast",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_chicken_thigh",
+      "displayName": "Chicken thigh",
+      "canonicalName": "chicken thigh",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_chicken_drumstick",
+      "displayName": "Chicken drumstick",
+      "canonicalName": "chicken drumstick",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_whole_chicken",
+      "displayName": "Whole chicken",
+      "canonicalName": "whole chicken",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_ground_chicken",
+      "displayName": "Ground chicken",
+      "canonicalName": "ground chicken",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_turkey",
+      "displayName": "Turkey",
+      "canonicalName": "turkey",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_ground_turkey",
+      "displayName": "Ground turkey",
+      "canonicalName": "ground turkey",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_beef",
+      "displayName": "Beef",
+      "canonicalName": "beef",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_ground_beef",
+      "displayName": "Ground beef",
+      "canonicalName": "ground beef",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": [
+        "minced beef"
+      ]
+    },
+    {
+      "id": "curated_steak",
+      "displayName": "Steak",
+      "canonicalName": "steak",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_short_ribs",
+      "displayName": "Short ribs",
+      "canonicalName": "short ribs",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_pork",
+      "displayName": "Pork",
+      "canonicalName": "pork",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_pork_shoulder",
+      "displayName": "Pork shoulder",
+      "canonicalName": "pork shoulder",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_pork_chop",
+      "displayName": "Pork chop",
+      "canonicalName": "pork chop",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_bacon",
+      "displayName": "Bacon",
+      "canonicalName": "bacon",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_sausage",
+      "displayName": "Sausage",
+      "canonicalName": "sausage",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_lamb",
+      "displayName": "Lamb",
+      "canonicalName": "lamb",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_ground_lamb",
+      "displayName": "Ground lamb",
+      "canonicalName": "ground lamb",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": [
+        "minced lamb"
+      ]
+    },
+    {
+      "id": "curated_lamb_shoulder",
+      "displayName": "Lamb shoulder",
+      "canonicalName": "lamb shoulder",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_lamb_chops",
+      "displayName": "Lamb chops",
+      "canonicalName": "lamb chops",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_tofu",
+      "displayName": "Tofu",
+      "canonicalName": "tofu",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_tempeh",
+      "displayName": "Tempeh",
+      "canonicalName": "tempeh",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_paneer",
+      "displayName": "Paneer",
+      "canonicalName": "paneer",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": [
+        "indian cottage cheese"
+      ]
+    },
+    {
+      "id": "curated_seitan",
+      "displayName": "Seitan",
+      "canonicalName": "seitan",
+      "category": "protein",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_fish",
+      "displayName": "Fish",
+      "canonicalName": "fish",
+      "category": "seafood",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_salmon",
+      "displayName": "Salmon",
+      "canonicalName": "salmon",
+      "category": "seafood",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_cod",
+      "displayName": "Cod",
+      "canonicalName": "cod",
+      "category": "seafood",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_tilapia",
+      "displayName": "Tilapia",
+      "canonicalName": "tilapia",
+      "category": "seafood",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_tuna",
+      "displayName": "Tuna",
+      "canonicalName": "tuna",
+      "category": "seafood",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_shrimp",
+      "displayName": "Shrimp",
+      "canonicalName": "shrimp",
+      "category": "seafood",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": [
+        "prawns"
+      ]
+    },
+    {
+      "id": "curated_scallops",
+      "displayName": "Scallops",
+      "canonicalName": "scallops",
+      "category": "seafood",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_crab",
+      "displayName": "Crab",
+      "canonicalName": "crab",
+      "category": "seafood",
+      "defaultUnit": "lb",
+      "commonUnits": [
+        "g",
+        "kg",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_egg",
+      "displayName": "Egg",
+      "canonicalName": "egg",
+      "category": "egg",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "dozen",
+        "g"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_pasta",
+      "displayName": "Pasta",
+      "canonicalName": "pasta",
+      "category": "pasta_noodle",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_spaghetti",
+      "displayName": "Spaghetti",
+      "canonicalName": "spaghetti",
+      "category": "pasta_noodle",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_penne",
+      "displayName": "Penne",
+      "canonicalName": "penne",
+      "category": "pasta_noodle",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_rigatoni",
+      "displayName": "Rigatoni",
+      "canonicalName": "rigatoni",
+      "category": "pasta_noodle",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_fettuccine",
+      "displayName": "Fettuccine",
+      "canonicalName": "fettuccine",
+      "category": "pasta_noodle",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_lasagna_noodles",
+      "displayName": "Lasagna noodles",
+      "canonicalName": "lasagna noodles",
+      "category": "pasta_noodle",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_macaroni",
+      "displayName": "Macaroni",
+      "canonicalName": "macaroni",
+      "category": "pasta_noodle",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_egg_noodles",
+      "displayName": "Egg noodles",
+      "canonicalName": "egg noodles",
+      "category": "pasta_noodle",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_rice_noodles",
+      "displayName": "Rice noodles",
+      "canonicalName": "rice noodles",
+      "category": "pasta_noodle",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_ramen_noodles",
+      "displayName": "Ramen noodles",
+      "canonicalName": "ramen noodles",
+      "category": "pasta_noodle",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_udon_noodles",
+      "displayName": "Udon noodles",
+      "canonicalName": "udon noodles",
+      "category": "pasta_noodle",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_soba_noodles",
+      "displayName": "Soba noodles",
+      "canonicalName": "soba noodles",
+      "category": "pasta_noodle",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_chickpeas",
+      "displayName": "Chickpeas",
+      "canonicalName": "chickpeas",
+      "category": "legume",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": [
+        "garbanzo beans"
+      ]
+    },
+    {
+      "id": "curated_black_beans",
+      "displayName": "Black beans",
+      "canonicalName": "black beans",
+      "category": "legume",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_kidney_beans",
+      "displayName": "Kidney beans",
+      "canonicalName": "kidney beans",
+      "category": "legume",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": [
+        "rajma"
+      ]
+    },
+    {
+      "id": "curated_pinto_beans",
+      "displayName": "Pinto beans",
+      "canonicalName": "pinto beans",
+      "category": "legume",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_cannellini_beans",
+      "displayName": "Cannellini beans",
+      "canonicalName": "cannellini beans",
+      "category": "legume",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_lentils",
+      "displayName": "Lentils",
+      "canonicalName": "lentils",
+      "category": "legume",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_red_lentils",
+      "displayName": "Red lentils",
+      "canonicalName": "red lentils",
+      "category": "legume",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_green_lentils",
+      "displayName": "Green lentils",
+      "canonicalName": "green lentils",
+      "category": "legume",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_black_lentils",
+      "displayName": "Black lentils",
+      "canonicalName": "black lentils",
+      "category": "legume",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_split_peas",
+      "displayName": "Split peas",
+      "canonicalName": "split peas",
+      "category": "legume",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_toor_dal",
+      "displayName": "Toor dal",
+      "canonicalName": "toor dal",
+      "category": "legume",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": [
+        "split pigeon peas"
+      ]
+    },
+    {
+      "id": "curated_moong_dal",
+      "displayName": "Moong dal",
+      "canonicalName": "moong dal",
+      "category": "legume",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": [
+        "split mung beans"
+      ]
+    },
+    {
+      "id": "curated_chana_dal",
+      "displayName": "Chana dal",
+      "canonicalName": "chana dal",
+      "category": "legume",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": [
+        "split chickpeas"
+      ]
+    },
+    {
+      "id": "curated_urad_dal",
+      "displayName": "Urad dal",
+      "canonicalName": "urad dal",
+      "category": "legume",
+      "defaultUnit": "cup",
+      "commonUnits": [
+        "cup",
+        "g",
+        "oz",
+        "lb"
+      ],
+      "aliases": [
+        "black gram"
+      ]
+    },
+    {
+      "id": "curated_soy_sauce",
+      "displayName": "Soy sauce",
+      "canonicalName": "soy sauce",
+      "category": "sauce",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_dark_soy_sauce",
+      "displayName": "Dark soy sauce",
+      "canonicalName": "dark soy sauce",
+      "category": "sauce",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_fish_sauce",
+      "displayName": "Fish sauce",
+      "canonicalName": "fish sauce",
+      "category": "sauce",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_oyster_sauce",
+      "displayName": "Oyster sauce",
+      "canonicalName": "oyster sauce",
+      "category": "sauce",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_hoisin_sauce",
+      "displayName": "Hoisin sauce",
+      "canonicalName": "hoisin sauce",
+      "category": "sauce",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_worcestershire_sauce",
+      "displayName": "Worcestershire sauce",
+      "canonicalName": "worcestershire sauce",
+      "category": "sauce",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_marinara_sauce",
+      "displayName": "Marinara sauce",
+      "canonicalName": "marinara sauce",
+      "category": "sauce",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_pesto",
+      "displayName": "Pesto",
+      "canonicalName": "pesto",
+      "category": "sauce",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_hot_sauce",
+      "displayName": "Hot sauce",
+      "canonicalName": "hot sauce",
+      "category": "condiment",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_sriracha",
+      "displayName": "Sriracha",
+      "canonicalName": "sriracha",
+      "category": "condiment",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_ketchup",
+      "displayName": "Ketchup",
+      "canonicalName": "ketchup",
+      "category": "condiment",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_mustard",
+      "displayName": "Mustard",
+      "canonicalName": "mustard",
+      "category": "condiment",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_dijon_mustard",
+      "displayName": "Dijon mustard",
+      "canonicalName": "dijon mustard",
+      "category": "condiment",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_mayonnaise",
+      "displayName": "Mayonnaise",
+      "canonicalName": "mayonnaise",
+      "category": "condiment",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_salsa",
+      "displayName": "Salsa",
+      "canonicalName": "salsa",
+      "category": "condiment",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_tahini",
+      "displayName": "Tahini",
+      "canonicalName": "tahini",
+      "category": "condiment",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_peanut_butter",
+      "displayName": "Peanut butter",
+      "canonicalName": "peanut butter",
+      "category": "condiment",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_almond_butter",
+      "displayName": "Almond butter",
+      "canonicalName": "almond butter",
+      "category": "condiment",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_lemon_juice",
+      "displayName": "Lemon juice",
+      "canonicalName": "lemon juice",
+      "category": "condiment",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_lime_juice",
+      "displayName": "Lime juice",
+      "canonicalName": "lime juice",
+      "category": "condiment",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_tamarind_paste",
+      "displayName": "Tamarind paste",
+      "canonicalName": "tamarind paste",
+      "category": "condiment",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_tomato_paste",
+      "displayName": "Tomato paste",
+      "canonicalName": "tomato paste",
+      "category": "canned_jarred",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_tomato_sauce",
+      "displayName": "Tomato sauce",
+      "canonicalName": "tomato sauce",
+      "category": "canned_jarred",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_crushed_tomatoes",
+      "displayName": "Crushed tomatoes",
+      "canonicalName": "crushed tomatoes",
+      "category": "canned_jarred",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_diced_tomatoes",
+      "displayName": "Diced tomatoes",
+      "canonicalName": "diced tomatoes",
+      "category": "canned_jarred",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_coconut_milk",
+      "displayName": "Coconut milk",
+      "canonicalName": "coconut milk",
+      "category": "canned_jarred",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_coconut_cream",
+      "displayName": "Coconut cream",
+      "canonicalName": "coconut cream",
+      "category": "canned_jarred",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_apple_cider_vinegar",
+      "displayName": "Apple cider vinegar",
+      "canonicalName": "apple cider vinegar",
+      "category": "vinegar",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_white_vinegar",
+      "displayName": "White vinegar",
+      "canonicalName": "white vinegar",
+      "category": "vinegar",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_rice_vinegar",
+      "displayName": "Rice vinegar",
+      "canonicalName": "rice vinegar",
+      "category": "vinegar",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_balsamic_vinegar",
+      "displayName": "Balsamic vinegar",
+      "canonicalName": "balsamic vinegar",
+      "category": "vinegar",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_red_wine_vinegar",
+      "displayName": "Red wine vinegar",
+      "canonicalName": "red wine vinegar",
+      "category": "vinegar",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_white_wine_vinegar",
+      "displayName": "White wine vinegar",
+      "canonicalName": "white wine vinegar",
+      "category": "vinegar",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_chicken_stock",
+      "displayName": "Chicken stock",
+      "canonicalName": "chicken stock",
+      "category": "stock_broth",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_chicken_broth",
+      "displayName": "Chicken broth",
+      "canonicalName": "chicken broth",
+      "category": "stock_broth",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_vegetable_stock",
+      "displayName": "Vegetable stock",
+      "canonicalName": "vegetable stock",
+      "category": "stock_broth",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_vegetable_broth",
+      "displayName": "Vegetable broth",
+      "canonicalName": "vegetable broth",
+      "category": "stock_broth",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_beef_stock",
+      "displayName": "Beef stock",
+      "canonicalName": "beef stock",
+      "category": "stock_broth",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_beef_broth",
+      "displayName": "Beef broth",
+      "canonicalName": "beef broth",
+      "category": "stock_broth",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_fish_stock",
+      "displayName": "Fish stock",
+      "canonicalName": "fish stock",
+      "category": "stock_broth",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_bone_broth",
+      "displayName": "Bone broth",
+      "canonicalName": "bone broth",
+      "category": "stock_broth",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_bouillon_cube",
+      "displayName": "Bouillon cube",
+      "canonicalName": "bouillon cube",
+      "category": "stock_broth",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_lemon",
+      "displayName": "Lemon",
+      "canonicalName": "lemon",
+      "category": "fruit",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_lime",
+      "displayName": "Lime",
+      "canonicalName": "lime",
+      "category": "fruit",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_orange",
+      "displayName": "Orange",
+      "canonicalName": "orange",
+      "category": "fruit",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_apple",
+      "displayName": "Apple",
+      "canonicalName": "apple",
+      "category": "fruit",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_banana",
+      "displayName": "Banana",
+      "canonicalName": "banana",
+      "category": "fruit",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_strawberry",
+      "displayName": "Strawberry",
+      "canonicalName": "strawberry",
+      "category": "fruit",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_blueberry",
+      "displayName": "Blueberry",
+      "canonicalName": "blueberry",
+      "category": "fruit",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_raspberry",
+      "displayName": "Raspberry",
+      "canonicalName": "raspberry",
+      "category": "fruit",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_mango",
+      "displayName": "Mango",
+      "canonicalName": "mango",
+      "category": "fruit",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_pineapple",
+      "displayName": "Pineapple",
+      "canonicalName": "pineapple",
+      "category": "fruit",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_avocado",
+      "displayName": "Avocado",
+      "canonicalName": "avocado",
+      "category": "fruit",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_coconut",
+      "displayName": "Coconut",
+      "canonicalName": "coconut",
+      "category": "fruit",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_raisins",
+      "displayName": "Raisins",
+      "canonicalName": "raisins",
+      "category": "fruit",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_dates",
+      "displayName": "Dates",
+      "canonicalName": "dates",
+      "category": "fruit",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_water",
+      "displayName": "Water",
+      "canonicalName": "water",
+      "category": "beverage",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_coffee",
+      "displayName": "Coffee",
+      "canonicalName": "coffee",
+      "category": "beverage",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_tea",
+      "displayName": "Tea",
+      "canonicalName": "tea",
+      "category": "beverage",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_white_wine",
+      "displayName": "White wine",
+      "canonicalName": "white wine",
+      "category": "alcohol",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_red_wine",
+      "displayName": "Red wine",
+      "canonicalName": "red wine",
+      "category": "alcohol",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_beer",
+      "displayName": "Beer",
+      "canonicalName": "beer",
+      "category": "alcohol",
+      "defaultUnit": "tbsp",
+      "commonUnits": [
+        "tsp",
+        "tbsp",
+        "fl oz",
+        "cup",
+        "ml",
+        "l"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_frozen_peas",
+      "displayName": "Frozen peas",
+      "canonicalName": "frozen peas",
+      "category": "frozen",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "curated_frozen_corn",
+      "displayName": "Frozen corn",
+      "canonicalName": "frozen corn",
+      "category": "frozen",
+      "defaultUnit": "piece",
+      "commonUnits": [
+        "piece",
+        "g",
+        "oz",
+        "lb",
+        "cup"
+      ],
+      "aliases": []
+    }
+  ]
+}
