@@ -8,6 +8,7 @@ package com.kingkharnivore.chefesque.ui.navigation
  * changing the starter app behavior in Pass 0.
  */
 sealed class ChefesqueDestination(val route: String) {
+    data object Main : ChefesqueDestination("main")
     data object MyRecipes : ChefesqueDestination("my_recipes")
     data object CookingLog : ChefesqueDestination("cooking_log")
     data object AddRecipe : ChefesqueDestination("add_recipe")
