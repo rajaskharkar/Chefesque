@@ -17,7 +17,7 @@ import com.kingkharnivore.chefesque.ui.component.RecipeSummaryCard
 import com.kingkharnivore.chefesque.ui.theme.ChefesqueTheme
 
 @Composable
-fun MyRecipesScreen(uiState: RecipesUiState, onAddRecipeClick: () -> Unit, modifier: Modifier = Modifier) {
+fun MyRecipesScreen(uiState: RecipesUiState, onAddRecipeClick: () -> Unit, onRecipeClick: (String) -> Unit, modifier: Modifier = Modifier) {
     Box(modifier = modifier.fillMaxSize()) {
         when {
             uiState.isLoading -> CircularProgressIndicator(Modifier.align(Alignment.Center))
@@ -29,7 +29,7 @@ fun MyRecipesScreen(uiState: RecipesUiState, onAddRecipeClick: () -> Unit, modif
                 modifier = Modifier.align(Alignment.Center),
             )
             else -> LazyColumn(contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                items(uiState.recipes, key = { it.id }) { RecipeSummaryCard(it) }
+                items(uiState.recipes, key = { it.id }) { recipe -> RecipeSummaryCard(recipe = recipe, onClick = { onRecipeClick(recipe.id) }) }
             }
         }
     }
@@ -38,5 +38,5 @@ fun MyRecipesScreen(uiState: RecipesUiState, onAddRecipeClick: () -> Unit, modif
 @Preview(showBackground = true)
 @Composable
 private fun MyRecipesScreenEmptyPreview() {
-    ChefesqueTheme { MyRecipesScreen(RecipesUiState(isLoading = false), {}) }
+    ChefesqueTheme { MyRecipesScreen(RecipesUiState(isLoading = false), {}, {}) }
 }

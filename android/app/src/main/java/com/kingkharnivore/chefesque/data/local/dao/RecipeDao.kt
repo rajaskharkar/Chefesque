@@ -13,10 +13,10 @@ interface RecipeDao {
     @Query("SELECT * FROM recipes WHERE archivedAt IS NULL ORDER BY updatedAt DESC")
     fun observeActiveRecipes(): Flow<List<RecipeEntity>>
 
-    @Query("SELECT * FROM recipes WHERE id = :id")
+    @Query("SELECT * FROM recipes WHERE id = :id AND archivedAt IS NULL")
     fun observeRecipe(id: String): Flow<RecipeEntity?>
 
-    @Query("SELECT * FROM recipes WHERE id = :id")
+    @Query("SELECT * FROM recipes WHERE id = :id AND archivedAt IS NULL")
     suspend fun getRecipe(id: String): RecipeEntity?
 
     @Query("SELECT * FROM recipes WHERE title LIKE '%' || :query || '%' AND archivedAt IS NULL ORDER BY updatedAt DESC")

@@ -1,5 +1,6 @@
 package com.kingkharnivore.chefesque.ui.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,13 +17,14 @@ import com.kingkharnivore.chefesque.data.local.entity.RecipeEntity
 import com.kingkharnivore.chefesque.ui.theme.ChefesqueTheme
 
 @Composable
-fun RecipeSummaryCard(recipe: RecipeEntity, modifier: Modifier = Modifier) {
+fun RecipeSummaryCard(recipe: RecipeEntity, onClick: (() -> Unit)? = null, modifier: Modifier = Modifier) {
     val metadata = buildList {
         recipe.servings?.takeIf { it > 0 }?.let { add("Serves $it") }
         recipe.prepTimeMinutes?.takeIf { it > 0 }?.let { add("Prep $it min") }
         recipe.cookTimeMinutes?.takeIf { it > 0 }?.let { add("Cook $it min") }
     }.joinToString(" · ")
-    Card(modifier = modifier.fillMaxWidth()) {
+    val cardModifier = if (onClick != null) modifier.fillMaxWidth().clickable(onClick = onClick) else modifier.fillMaxWidth()
+    Card(modifier = cardModifier) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Text(recipe.title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
             if (metadata.isNotBlank()) Text(metadata, style = MaterialTheme.typography.bodyMedium)
