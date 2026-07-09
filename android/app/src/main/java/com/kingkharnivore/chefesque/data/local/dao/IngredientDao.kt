@@ -25,6 +25,12 @@ interface IngredientDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertAliases(aliases: List<IngredientAliasEntity>)
 
+    @Query("SELECT COUNT(*) FROM ingredients WHERE source = :source")
+    suspend fun countIngredientsBySource(source: String): Int
+
+    @Query("SELECT * FROM ingredient_aliases WHERE ingredientId = :ingredientId ORDER BY alias ASC")
+    suspend fun getAliasesForIngredient(ingredientId: String): List<IngredientAliasEntity>
+
     @Query("""
         SELECT * FROM ingredients
         WHERE displayName LIKE '%' || :query || '%'
