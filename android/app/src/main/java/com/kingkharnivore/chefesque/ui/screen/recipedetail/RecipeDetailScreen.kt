@@ -34,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kingkharnivore.chefesque.data.local.entity.RecipeEntity
 import com.kingkharnivore.chefesque.data.local.entity.RecipeIngredientEntity
+import com.kingkharnivore.chefesque.data.local.entity.RecipeStepEntity
 import com.kingkharnivore.chefesque.ui.theme.ChefesqueTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,14 +60,14 @@ fun RecipeDetailScreen(
             when {
                 uiState.isLoading -> CircularProgressIndicator(Modifier.align(Alignment.Center))
                 uiState.notFound || uiState.recipe == null -> RecipeNotFound(onBackClick, Modifier.align(Alignment.Center).padding(24.dp))
-                else -> RecipeDetailContent(uiState.recipe, uiState.ingredients, onCookAlongClick)
+                else -> RecipeDetailContent(uiState.recipe, uiState.ingredients, uiState.steps, onCookAlongClick)
             }
         }
     }
 }
 
 @Composable
-private fun RecipeDetailContent(recipe: RecipeEntity, ingredients: List<RecipeIngredientEntity>, onCookAlongClick: () -> Unit) {
+private fun RecipeDetailContent(recipe: RecipeEntity, ingredients: List<RecipeIngredientEntity>, steps: List<RecipeStepEntity>, onCookAlongClick: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -81,6 +82,7 @@ private fun RecipeDetailContent(recipe: RecipeEntity, ingredients: List<RecipeIn
         }
         Button(onClick = onCookAlongClick, modifier = Modifier.fillMaxWidth()) { Text("Start Cook Along") }
         DetailSectionCard("Ingredients") { IngredientsContent(ingredients) }
+        DetailSectionCard("Steps") { StepsContent(steps) }
         recipe.notes?.trim()?.takeIf { it.isNotBlank() }?.let { notes -> DetailSectionCard("Private notes") { Text(notes, style = MaterialTheme.typography.bodyMedium) } }
     }
 }
@@ -129,6 +131,35 @@ private fun IngredientDisplayRow(ingredient: RecipeIngredientEntity) {
     }
 }
 
+
+@Composable
+private fun StepsContent(steps: List<RecipeStepEntity>) {
+    if (steps.isEmpty()) {
+        Text("No steps added yet.", style = MaterialTheme.typography.bodyMedium)
+        return
+    }
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        steps.forEachIndexed { index, step -> StepDisplayRow(index + 1, step) }
+    }
+}
+
+@Composable
+private fun StepDisplayRow(number: Int, step: RecipeStepEntity) {
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Text("$number. ${step.instruction}", style = MaterialTheme.typography.bodyLarge)
+        formatStepTimer(step.timerSeconds)?.let { DetailLabel("Timer", it) }
+        step.warning?.trim()?.takeIf { it.isNotBlank() }?.let { DetailLabel("Warning", it) }
+        step.equipment?.trim()?.takeIf { it.isNotBlank() }?.let { DetailLabel("Equipment", it) }
+        step.whileTimerRuns?.trim()?.takeIf { it.isNotBlank() }?.let { DetailLabel("While timer runs", it) }
+        step.checkpoint?.trim()?.takeIf { it.isNotBlank() }?.let { Text("Checkpoint", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold) }
+    }
+}
+
+@Composable
+private fun DetailLabel(label: String, value: String) {
+    Text("$label: $value", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+}
+
 @Composable
 private fun DetailSectionCard(title: String, content: @Composable () -> Unit) {
     Card(modifier = Modifier.fillMaxWidth()) {
@@ -153,7 +184,7 @@ private fun RecipeNotFound(onBackClick: () -> Unit, modifier: Modifier = Modifie
 private fun RecipeDetailScreenPreview() {
     ChefesqueTheme {
         RecipeDetailScreen(
-            uiState = RecipeDetailUiState(isLoading = false, recipe = RecipeEntity("1", "Sunday Sauce", "A cozy all-day sauce.", 6, 20, 180, null, null, null, "FULL_DISH", "Use the big pot.", 0, 0, null), ingredients = listOf(RecipeIngredientEntity("i1", "1", null, "Garlic", null, "2", "cloves", "minced", "Sauce", false, 0))),
+            uiState = RecipeDetailUiState(isLoading = false, recipe = RecipeEntity("1", "Sunday Sauce", "A cozy all-day sauce.", 6, 20, 180, null, null, null, "FULL_DISH", "Use the big pot.", 0, 0, null), ingredients = listOf(RecipeIngredientEntity("i1", "1", null, "Garlic", null, "2", "cloves", "minced", "Sauce", false, 0)), steps = listOf(RecipeStepEntity("s1", "1", "Chop onion and garlic.", 300, null, null, null, "Do not let garlic burn.", "Large skillet", "Start pasta water.", 0))),
             onBackClick = {}, onEditClick = {}, onCookAlongClick = {},
         )
     }

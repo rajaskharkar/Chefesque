@@ -50,3 +50,15 @@ fun ingredientSectionGroups(ingredients: List<RecipeIngredientEntity>): List<Ing
 data class IngredientSectionGroup(val title: String, val ingredients: List<RecipeIngredientEntity>)
 
 private fun formatQuantity(quantity: Double): String = BigDecimal.valueOf(quantity).stripTrailingZeros().toPlainString()
+
+
+fun formatStepTimer(seconds: Int?): String? {
+    val total = seconds?.takeIf { it > 0 } ?: return null
+    val minutes = total / 60
+    val remainingSeconds = total % 60
+    return when {
+        minutes == 0 -> "$remainingSeconds sec"
+        remainingSeconds == 0 -> "$minutes min"
+        else -> "$minutes min $remainingSeconds sec"
+    }
+}

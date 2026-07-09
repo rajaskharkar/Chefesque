@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.kingkharnivore.chefesque.data.local.entity.RecipeEntity
 import com.kingkharnivore.chefesque.data.local.entity.RecipeIngredientEntity
+import com.kingkharnivore.chefesque.data.local.entity.RecipeStepEntity
 import com.kingkharnivore.chefesque.data.repository.RecipeRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -15,6 +16,7 @@ data class RecipeDetailUiState(
     val isLoading: Boolean = true,
     val recipe: RecipeEntity? = null,
     val ingredients: List<RecipeIngredientEntity> = emptyList(),
+    val steps: List<RecipeStepEntity> = emptyList(),
     val notFound: Boolean = false,
 )
 
@@ -25,11 +27,13 @@ class RecipeDetailViewModel(
     val uiState: StateFlow<RecipeDetailUiState> = combine(
         recipeRepository.observeRecipe(recipeId),
         recipeRepository.observeIngredientsForRecipe(recipeId),
-    ) { recipe, ingredients ->
+        recipeRepository.observeStepsForRecipe(recipeId),
+    ) { recipe, ingredients, steps ->
         RecipeDetailUiState(
             isLoading = false,
             recipe = recipe?.takeIf { it.archivedAt == null },
             ingredients = ingredients,
+            steps = steps,
             notFound = recipe == null || recipe.archivedAt != null,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RecipeDetailUiState())
