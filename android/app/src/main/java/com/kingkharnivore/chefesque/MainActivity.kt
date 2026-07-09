@@ -4,44 +4,26 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.activity.viewModels
+import com.kingkharnivore.chefesque.ui.navigation.ChefesqueApp
+import com.kingkharnivore.chefesque.ui.screen.main.MainViewModel
+import com.kingkharnivore.chefesque.ui.screen.main.MainViewModelFactory
 import com.kingkharnivore.chefesque.ui.theme.ChefesqueTheme
 
 class MainActivity : ComponentActivity() {
+    private val appContainer by lazy { (application as ChefesqueApplication).appContainer }
+    private val mainViewModel: MainViewModel by viewModels {
+        MainViewModelFactory(appContainer.ingredientSeeder)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        mainViewModel
         setContent {
             ChefesqueTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                ChefesqueApp(appContainer = appContainer)
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ChefesqueTheme {
-        Greeting("Android")
     }
 }
