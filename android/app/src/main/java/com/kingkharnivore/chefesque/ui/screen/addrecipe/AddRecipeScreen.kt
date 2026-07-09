@@ -15,6 +15,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
@@ -22,6 +23,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -72,6 +74,18 @@ fun AddRecipeScreen(
     onPrepNoteChange: (String, String) -> Unit,
     onSectionChange: (String, String) -> Unit,
     onOptionalChange: (String, Boolean) -> Unit,
+    onAddStep: () -> Unit,
+    onRemoveStep: (String) -> Unit,
+    onMoveStepUp: (String) -> Unit,
+    onMoveStepDown: (String) -> Unit,
+    onStepInstructionChange: (String, String) -> Unit,
+    onStepTimerMinutesChange: (String, String) -> Unit,
+    onStepTimerSecondsChange: (String, String) -> Unit,
+    onStepWarningChange: (String, String) -> Unit,
+    onStepEquipmentChange: (String, String) -> Unit,
+    onStepWhileTimerRunsChange: (String, String) -> Unit,
+    onStepCheckpointChange: (String, Boolean) -> Unit,
+    onToggleStepIngredientLink: (String, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LaunchedEffect(uiState.savedRecipeId) {
@@ -97,6 +111,7 @@ fun AddRecipeScreen(
         ) {
             RecipeBasicInfoSection(uiState, onTitleChange, onDescriptionChange, onServingsChange, onPrepTimeChange, onCookTimeChange, onRecipeTypeChange)
             RecipeIngredientEditorSection(uiState, onAddIngredient, onRemoveIngredient, onIngredientQueryChange, onIngredientSelected, onQuantityChange, onUnitChange, onPrepNoteChange, onSectionChange, onOptionalChange)
+            RecipeStepEditorSection(uiState, onAddStep, onRemoveStep, onMoveStepUp, onMoveStepDown, onStepInstructionChange, onStepTimerMinutesChange, onStepTimerSecondsChange, onStepWarningChange, onStepEquipmentChange, onStepWhileTimerRunsChange, onStepCheckpointChange, onToggleStepIngredientLink)
             RecipeNotesSection(notes = uiState.notes, onNotesChange = onNotesChange)
             uiState.saveError?.let { ErrorText(it) }
             Button(onClick = onSaveClick, enabled = !uiState.isSaving, modifier = Modifier.fillMaxWidth()) {
@@ -220,6 +235,114 @@ private fun IngredientSearchField(
     }
 }
 
+
+@Composable
+private fun RecipeStepEditorSection(
+    uiState: AddRecipeUiState,
+    onAddStep: () -> Unit,
+    onRemoveStep: (String) -> Unit,
+    onMoveStepUp: (String) -> Unit,
+    onMoveStepDown: (String) -> Unit,
+    onStepInstructionChange: (String, String) -> Unit,
+    onStepTimerMinutesChange: (String, String) -> Unit,
+    onStepTimerSecondsChange: (String, String) -> Unit,
+    onStepWarningChange: (String, String) -> Unit,
+    onStepEquipmentChange: (String, String) -> Unit,
+    onStepWhileTimerRunsChange: (String, String) -> Unit,
+    onStepCheckpointChange: (String, Boolean) -> Unit,
+    onToggleStepIngredientLink: (String, String) -> Unit,
+) {
+    SectionCard(title = "Steps") {
+        uiState.stepError?.let { ErrorText(it) }
+        if (uiState.steps.isEmpty()) {
+            Text("No steps added yet. Add steps now, or save the recipe and fill them in later.", style = MaterialTheme.typography.bodyMedium)
+        }
+        val linkableIngredients = uiState.ingredients.filter { it.query.isNotBlank() }
+        uiState.steps.forEachIndexed { index, step ->
+            RecipeStepRow(
+                number = index + 1,
+                step = step,
+                isFirst = index == 0,
+                isLast = index == uiState.steps.lastIndex,
+                linkableIngredients = linkableIngredients,
+                onRemoveStep = onRemoveStep,
+                onMoveStepUp = onMoveStepUp,
+                onMoveStepDown = onMoveStepDown,
+                onStepInstructionChange = onStepInstructionChange,
+                onStepTimerMinutesChange = onStepTimerMinutesChange,
+                onStepTimerSecondsChange = onStepTimerSecondsChange,
+                onStepWarningChange = onStepWarningChange,
+                onStepEquipmentChange = onStepEquipmentChange,
+                onStepWhileTimerRunsChange = onStepWhileTimerRunsChange,
+                onStepCheckpointChange = onStepCheckpointChange,
+                onToggleStepIngredientLink = onToggleStepIngredientLink,
+            )
+        }
+        OutlinedButton(onClick = onAddStep, modifier = Modifier.fillMaxWidth()) { Text("Add Step") }
+    }
+}
+
+@Composable
+private fun RecipeStepRow(
+    number: Int,
+    step: StepInputState,
+    isFirst: Boolean,
+    isLast: Boolean,
+    linkableIngredients: List<IngredientInputState>,
+    onRemoveStep: (String) -> Unit,
+    onMoveStepUp: (String) -> Unit,
+    onMoveStepDown: (String) -> Unit,
+    onStepInstructionChange: (String, String) -> Unit,
+    onStepTimerMinutesChange: (String, String) -> Unit,
+    onStepTimerSecondsChange: (String, String) -> Unit,
+    onStepWarningChange: (String, String) -> Unit,
+    onStepEquipmentChange: (String, String) -> Unit,
+    onStepWhileTimerRunsChange: (String, String) -> Unit,
+    onStepCheckpointChange: (String, Boolean) -> Unit,
+    onToggleStepIngredientLink: (String, String) -> Unit,
+) {
+    Card(modifier = Modifier.fillMaxWidth()) {
+        Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("Step $number", style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f))
+                TextButton(onClick = { onMoveStepUp(step.localId) }, enabled = !isFirst) { Text("Move up") }
+                TextButton(onClick = { onMoveStepDown(step.localId) }, enabled = !isLast) { Text("Move down") }
+                IconButton(onClick = { onRemoveStep(step.localId) }, modifier = Modifier.semantics { contentDescription = "Remove step" }) { Icon(Icons.Default.Delete, contentDescription = null) }
+            }
+            OutlinedTextField(value = step.instruction, onValueChange = { onStepInstructionChange(step.localId, it) }, label = { Text("Instruction") }, minLines = 2, modifier = Modifier.fillMaxWidth())
+            Text("Optional timer for this step.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                OutlinedTextField(value = step.timerMinutes, onValueChange = { onStepTimerMinutesChange(step.localId, it) }, label = { Text("Min") }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number), singleLine = true, modifier = Modifier.weight(1f))
+                OutlinedTextField(value = step.timerSeconds, onValueChange = { onStepTimerSecondsChange(step.localId, it) }, label = { Text("Sec") }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number), singleLine = true, modifier = Modifier.weight(1f))
+            }
+            OutlinedTextField(value = step.warning, onValueChange = { onStepWarningChange(step.localId, it) }, label = { Text("Warning") }, supportingText = { Text("Anything the cook should be careful about.") }, minLines = 2, modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(value = step.equipment, onValueChange = { onStepEquipmentChange(step.localId, it) }, label = { Text("Equipment") }, modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(value = step.whileTimerRuns, onValueChange = { onStepWhileTimerRunsChange(step.localId, it) }, label = { Text("While timer runs") }, supportingText = { Text("What can the cook do while this timer is running?") }, minLines = 2, modifier = Modifier.fillMaxWidth())
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Checkbox(checked = step.checkpoint, onCheckedChange = { onStepCheckpointChange(step.localId, it) })
+                Column {
+                    Text("Checkpoint")
+                    Text("Mark this as a pause or doneness check.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+            }
+            Text("Linked ingredients", style = MaterialTheme.typography.titleSmall)
+            if (linkableIngredients.isEmpty()) {
+                Text("Add ingredients above to link them to steps.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            } else {
+                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    linkableIngredients.forEach { ingredient ->
+                        FilterChip(
+                            selected = ingredient.localId in step.linkedIngredientLocalIds,
+                            onClick = { onToggleStepIngredientLink(step.localId, ingredient.localId) },
+                            label = { Text(ingredient.query.trim()) },
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
 @Composable
 private fun RecipeNotesSection(notes: String, onNotesChange: (String) -> Unit) = SectionCard(title = "Private notes") {
     OutlinedTextField(
@@ -286,7 +409,7 @@ private fun IngredientRowSuggestionsPreview() = MaterialTheme {
 @Composable
 private fun AddRecipeScreenPreview(state: AddRecipeUiState) = AddRecipeScreen(
     uiState = state,
-    onBackClick = {}, onSaveClick = {}, onSaveComplete = {}, onTitleChange = {}, onDescriptionChange = {}, onServingsChange = {}, onPrepTimeChange = {}, onCookTimeChange = {}, onRecipeTypeChange = {}, onNotesChange = {}, onAddIngredient = {}, onRemoveIngredient = {}, onIngredientQueryChange = { _, _ -> }, onIngredientSelected = { _, _ -> }, onQuantityChange = { _, _ -> }, onUnitChange = { _, _ -> }, onPrepNoteChange = { _, _ -> }, onSectionChange = { _, _ -> }, onOptionalChange = { _, _ -> },
+    onBackClick = {}, onSaveClick = {}, onSaveComplete = {}, onTitleChange = {}, onDescriptionChange = {}, onServingsChange = {}, onPrepTimeChange = {}, onCookTimeChange = {}, onRecipeTypeChange = {}, onNotesChange = {}, onAddIngredient = {}, onRemoveIngredient = {}, onIngredientQueryChange = { _, _ -> }, onIngredientSelected = { _, _ -> }, onQuantityChange = { _, _ -> }, onUnitChange = { _, _ -> }, onPrepNoteChange = { _, _ -> }, onSectionChange = { _, _ -> }, onOptionalChange = { _, _ -> }, onAddStep = {}, onRemoveStep = {}, onMoveStepUp = {}, onMoveStepDown = {}, onStepInstructionChange = { _, _ -> }, onStepTimerMinutesChange = { _, _ -> }, onStepTimerSecondsChange = { _, _ -> }, onStepWarningChange = { _, _ -> }, onStepEquipmentChange = { _, _ -> }, onStepWhileTimerRunsChange = { _, _ -> }, onStepCheckpointChange = { _, _ -> }, onToggleStepIngredientLink = { _, _ -> },
 )
 
 private fun previewIngredient(id: String, name: String) = IngredientEntity(id = id, displayName = name, canonicalName = name.lowercase(), category = "vegetable", defaultUnit = null, commonUnitsJson = null, source = IngredientSource.CURATED.name, sourceId = id, isUserCreated = false, createdAt = 0L, updatedAt = 0L)

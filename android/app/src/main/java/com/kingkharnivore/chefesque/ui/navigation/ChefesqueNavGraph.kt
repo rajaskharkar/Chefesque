@@ -66,6 +66,18 @@ fun ChefesqueApp(appContainer: AppContainer) {
                 onPrepNoteChange = addRecipeViewModel::updatePrepNote,
                 onSectionChange = addRecipeViewModel::updateSection,
                 onOptionalChange = addRecipeViewModel::updateOptional,
+                onAddStep = addRecipeViewModel::addStep,
+                onRemoveStep = addRecipeViewModel::removeStep,
+                onMoveStepUp = addRecipeViewModel::moveStepUp,
+                onMoveStepDown = addRecipeViewModel::moveStepDown,
+                onStepInstructionChange = addRecipeViewModel::updateStepInstruction,
+                onStepTimerMinutesChange = addRecipeViewModel::updateStepTimerMinutes,
+                onStepTimerSecondsChange = addRecipeViewModel::updateStepTimerSeconds,
+                onStepWarningChange = addRecipeViewModel::updateStepWarning,
+                onStepEquipmentChange = addRecipeViewModel::updateStepEquipment,
+                onStepWhileTimerRunsChange = addRecipeViewModel::updateStepWhileTimerRuns,
+                onStepCheckpointChange = addRecipeViewModel::updateStepCheckpoint,
+                onToggleStepIngredientLink = addRecipeViewModel::toggleStepIngredientLink,
             )
         }
         composable(ChefesqueDestination.AddLog.route) { AddLogPlaceholderScreen(onBackClick = { navController.popBackStack() }) }
