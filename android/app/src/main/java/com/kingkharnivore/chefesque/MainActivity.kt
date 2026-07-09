@@ -19,6 +19,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        // Access the ViewModel so startup ingredient seeding begins.
         mainViewModel
         setContent {
             ChefesqueTheme {
