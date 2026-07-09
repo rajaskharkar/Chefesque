@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey
         ForeignKey(entity = RecipeEntity::class, parentColumns = ["id"], childColumns = ["recipeId"], onDelete = ForeignKey.CASCADE),
         ForeignKey(entity = IngredientEntity::class, parentColumns = ["id"], childColumns = ["ingredientId"], onDelete = ForeignKey.SET_NULL),
     ],
-    indices = [Index("recipeId"), Index("ingredientId"), Index("section"), Index("sortOrder")],
+    indices = [Index("recipeId"), Index("ingredientId"), Index("section"), Index("sortOrder"), Index(value = ["recipeId", "sortOrder"])],
 )
 data class RecipeIngredientEntity(
     @PrimaryKey val id: String,

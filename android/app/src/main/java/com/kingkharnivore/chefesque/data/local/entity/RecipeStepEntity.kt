@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 @Entity(
     tableName = "recipe_steps",
     foreignKeys = [ForeignKey(entity = RecipeEntity::class, parentColumns = ["id"], childColumns = ["recipeId"], onDelete = ForeignKey.CASCADE)],
-    indices = [Index("recipeId"), Index("sortOrder")],
+    indices = [Index("recipeId"), Index("sortOrder"), Index(value = ["recipeId", "sortOrder"])],
 )
 data class RecipeStepEntity(
     @PrimaryKey val id: String,

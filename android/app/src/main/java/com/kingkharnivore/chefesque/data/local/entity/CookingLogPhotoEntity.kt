@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 @Entity(
     tableName = "cooking_log_photos",
     foreignKeys = [ForeignKey(entity = CookingLogEntity::class, parentColumns = ["id"], childColumns = ["cookingLogId"], onDelete = ForeignKey.CASCADE)],
-    indices = [Index("cookingLogId"), Index("photoType"), Index("sortOrder"), Index("createdAt")],
+    indices = [Index("cookingLogId"), Index("photoType"), Index("sortOrder"), Index("createdAt"), Index(value = ["cookingLogId", "sortOrder"])],
 )
 data class CookingLogPhotoEntity(
     @PrimaryKey val id: String,

@@ -19,6 +19,9 @@ interface RecipeComponentDao {
     @Query("SELECT * FROM recipe_components WHERE childRecipeId = :recipeId")
     suspend fun getUsagesOfRecipeAsComponent(recipeId: String): List<RecipeComponentEntity>
 
+    @Query("SELECT COUNT(*) FROM recipe_components WHERE childRecipeId = :recipeId")
+    suspend fun countUsagesOfRecipeAsComponent(recipeId: String): Int
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertRecipeComponent(component: RecipeComponentEntity)
 

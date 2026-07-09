@@ -23,6 +23,8 @@ data class RecipeEntity(
     val coverImageUri: String?,
     val cuisine: String?,
     val difficulty: String?,
+    val recipeType: String?,
+    val notes: String?,
     val createdAt: Long,
     val updatedAt: Long,
     val archivedAt: Long?,

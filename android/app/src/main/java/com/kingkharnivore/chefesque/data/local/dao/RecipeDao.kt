@@ -19,6 +19,9 @@ interface RecipeDao {
     @Query("SELECT * FROM recipes WHERE id = :id")
     suspend fun getRecipe(id: String): RecipeEntity?
 
+    @Query("SELECT * FROM recipes WHERE title LIKE '%' || :query || '%' AND archivedAt IS NULL ORDER BY updatedAt DESC")
+    suspend fun searchActiveRecipesByTitle(query: String): List<RecipeEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertRecipe(recipe: RecipeEntity)
 
