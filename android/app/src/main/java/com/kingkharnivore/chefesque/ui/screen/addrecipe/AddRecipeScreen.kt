@@ -2,6 +2,7 @@ package com.kingkharnivore.chefesque.ui.screen.addrecipe
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -233,7 +234,7 @@ private fun RecipeNotesSection(notes: String, onNotesChange: (String) -> Unit) =
 }
 
 @Composable
-private fun SectionCard(title: String, content: @Composable Column.() -> Unit) {
+private fun SectionCard(title: String, content: @Composable ColumnScope.() -> Unit) {
     Card(modifier = Modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text(title, style = MaterialTheme.typography.titleMedium)

@@ -81,13 +81,18 @@ class AddRecipeViewModel(
         _uiState.update { state ->
             state.copy(
                 ingredients = state.ingredients.map { ingredient ->
-                    if (ingredient.localId != localId) ingredient else ingredient.copy(
-                        query = value,
-                        selectedIngredientId = ingredient.selectedIngredientId.takeIf { value == ingredient.selectedIngredientDisplayName },
-                        selectedIngredientDisplayName = ingredient.selectedIngredientDisplayName.takeIf { value == ingredient.selectedIngredientDisplayName },
-                        suggestions = if (value.isBlank()) emptyList() else ingredient.suggestions,
-                        isSearching = value.isNotBlank(),
-                    )
+                    if (ingredient.localId != localId) {
+                        ingredient
+                    } else {
+                        val matchesSelected = value.trim() == ingredient.selectedIngredientDisplayName
+                        ingredient.copy(
+                            query = value,
+                            selectedIngredientId = ingredient.selectedIngredientId.takeIf { matchesSelected },
+                            selectedIngredientDisplayName = ingredient.selectedIngredientDisplayName.takeIf { matchesSelected },
+                            suggestions = if (value.isBlank()) emptyList() else ingredient.suggestions,
+                            isSearching = value.isNotBlank(),
+                        )
+                    }
                 },
                 ingredientError = null,
             )
@@ -97,10 +102,16 @@ class AddRecipeViewModel(
             _uiState.updateIngredient(localId) { it.copy(suggestions = emptyList(), isSearching = false) }
             return
         }
-        searchJobs[localId] = viewModelScope.launch {
+        val job = viewModelScope.launch {
             val suggestions = ingredientRepository.searchIngredients(value, IngredientSuggestionLimit)
             _uiState.updateIngredient(localId) { current ->
                 if (current.query == value) current.copy(suggestions = suggestions, isSearching = false) else current
+            }
+        }
+        searchJobs[localId] = job
+        job.invokeOnCompletion {
+            if (searchJobs[localId] == job) {
+                searchJobs.remove(localId)
             }
         }
     }
@@ -123,6 +134,8 @@ class AddRecipeViewModel(
     fun updateOptional(localId: String, value: Boolean) = _uiState.updateIngredient(localId) { it.copy(optional = value) }
 
     fun saveRecipe() {
+        if (uiState.value.isSaving) return
+
         val state = uiState.value
         val trimmedTitle = state.title.trim()
         val servings = state.servings.parsePositiveIntOrNull()
@@ -142,8 +155,8 @@ class AddRecipeViewModel(
         }
         if (trimmedTitle.isBlank() || (state.servings.isNotBlank() && servings == null) || (state.prepTimeMinutes.isNotBlank() && prep == null) || (state.cookTimeMinutes.isNotBlank() && cook == null) || ingredientValidationError) return
 
+        _uiState.update { it.copy(isSaving = true, saveError = null) }
         viewModelScope.launch {
-            _uiState.update { it.copy(isSaving = true, saveError = null) }
             runCatching {
                 val now = System.currentTimeMillis()
                 val recipeId = UUID.randomUUID().toString()
