@@ -15,6 +15,9 @@ import com.kingkharnivore.chefesque.ui.screen.addrecipe.AddRecipeViewModel
 import com.kingkharnivore.chefesque.ui.screen.addrecipe.AddRecipeViewModelFactory
 import com.kingkharnivore.chefesque.ui.screen.cookinglog.CookingLogViewModel
 import com.kingkharnivore.chefesque.ui.screen.cookinglog.CookingLogViewModelFactory
+import com.kingkharnivore.chefesque.ui.screen.editrecipe.EditRecipeScreen
+import com.kingkharnivore.chefesque.ui.screen.editrecipe.EditRecipeViewModel
+import com.kingkharnivore.chefesque.ui.screen.editrecipe.EditRecipeViewModelFactory
 import com.kingkharnivore.chefesque.ui.screen.main.ChefesqueMainScreen
 import com.kingkharnivore.chefesque.ui.screen.main.PlaceholderScreen
 import com.kingkharnivore.chefesque.ui.screen.recipes.RecipesViewModel
@@ -99,11 +102,48 @@ fun ChefesqueApp(appContainer: AppContainer) {
         composable(
             route = ChefesqueDestination.EditRecipe.route,
             arguments = listOf(navArgument("recipeId") { type = NavType.StringType }),
-        ) {
-            PlaceholderScreen(
-                title = "Edit Recipe",
-                body = "Recipe editing starts in a later pass.",
+        ) { backStackEntry ->
+            val recipeId = backStackEntry.arguments?.getString("recipeId").orEmpty()
+            val editRecipeViewModel: EditRecipeViewModel = viewModel(
+                factory = EditRecipeViewModelFactory(
+                    recipeId = recipeId,
+                    recipeRepository = appContainer.recipeRepository,
+                    ingredientRepository = appContainer.ingredientRepository,
+                ),
+            )
+            EditRecipeScreen(
+                uiState = editRecipeViewModel.uiState.collectAsStateWithLifecycle().value,
                 onBackClick = { navController.popBackStack() },
+                onSaveClick = editRecipeViewModel::saveRecipe,
+                onSaveComplete = { navController.popBackStack(ChefesqueDestination.RecipeDetail.createRoute(recipeId), inclusive = false) },
+                onTitleChange = editRecipeViewModel::updateTitle,
+                onDescriptionChange = editRecipeViewModel::updateDescription,
+                onServingsChange = editRecipeViewModel::updateServings,
+                onPrepTimeChange = editRecipeViewModel::updatePrepTimeMinutes,
+                onCookTimeChange = editRecipeViewModel::updateCookTimeMinutes,
+                onRecipeTypeChange = editRecipeViewModel::updateRecipeType,
+                onNotesChange = editRecipeViewModel::updateNotes,
+                onAddIngredient = editRecipeViewModel::addIngredientRow,
+                onRemoveIngredient = editRecipeViewModel::removeIngredientRow,
+                onIngredientQueryChange = editRecipeViewModel::updateIngredientQuery,
+                onIngredientSelected = editRecipeViewModel::selectIngredient,
+                onQuantityChange = editRecipeViewModel::updateQuantity,
+                onUnitChange = editRecipeViewModel::updateUnit,
+                onPrepNoteChange = editRecipeViewModel::updatePrepNote,
+                onSectionChange = editRecipeViewModel::updateSection,
+                onOptionalChange = editRecipeViewModel::updateOptional,
+                onAddStep = editRecipeViewModel::addStep,
+                onRemoveStep = editRecipeViewModel::removeStep,
+                onMoveStepUp = editRecipeViewModel::moveStepUp,
+                onMoveStepDown = editRecipeViewModel::moveStepDown,
+                onStepInstructionChange = editRecipeViewModel::updateStepInstruction,
+                onStepTimerMinutesChange = editRecipeViewModel::updateStepTimerMinutes,
+                onStepTimerSecondsChange = editRecipeViewModel::updateStepTimerSeconds,
+                onStepWarningChange = editRecipeViewModel::updateStepWarning,
+                onStepEquipmentChange = editRecipeViewModel::updateStepEquipment,
+                onStepWhileTimerRunsChange = editRecipeViewModel::updateStepWhileTimerRuns,
+                onStepCheckpointChange = editRecipeViewModel::updateStepCheckpoint,
+                onToggleStepIngredientLink = editRecipeViewModel::toggleStepIngredientLink,
             )
         }
         composable(ChefesqueDestination.CookAlong.route) {
