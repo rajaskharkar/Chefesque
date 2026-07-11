@@ -87,6 +87,10 @@ fun AddRecipeScreen(
     onStepCheckpointChange: (String, Boolean) -> Unit,
     onToggleStepIngredientLink: (String, String) -> Unit,
     modifier: Modifier = Modifier,
+    screenTitle: String = "Add Recipe",
+    saveActionLabel: String = "Save",
+    saveButtonLabel: String = "Save Recipe",
+    savingButtonLabel: String = "Saving recipe…",
 ) {
     LaunchedEffect(uiState.savedRecipeId) {
         if (uiState.savedRecipeId != null) onSaveComplete()
@@ -96,9 +100,9 @@ fun AddRecipeScreen(
         modifier = modifier,
         topBar = {
             TopAppBar(
-                title = { Text("Add Recipe") },
+                title = { Text(screenTitle) },
                 navigationIcon = { IconButton(onClick = onBackClick) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back") } },
-                actions = { TextButton(onClick = onSaveClick, enabled = !uiState.isSaving) { Text(if (uiState.isSaving) "Saving" else "Save") } },
+                actions = { TextButton(onClick = onSaveClick, enabled = !uiState.isSaving) { Text(if (uiState.isSaving) "Saving" else saveActionLabel) } },
             )
         },
     ) { paddingValues ->
@@ -119,7 +123,7 @@ fun AddRecipeScreen(
                     CircularProgressIndicator(modifier = Modifier.height(18.dp).width(18.dp), strokeWidth = 2.dp)
                     Spacer(Modifier.width(8.dp))
                 }
-                Text(if (uiState.isSaving) "Saving recipe…" else "Save Recipe")
+                Text(if (uiState.isSaving) savingButtonLabel else saveButtonLabel)
             }
         }
     }
