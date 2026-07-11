@@ -6,7 +6,7 @@ import org.junit.Test
 
 class CookingLogFormattersTest {
     @Test
-    fun durationFormattingRoundsSecondsUpToMinutes() {
+    fun durationFormattingUsesFriendlyWholeMinutes() {
         assertNull(formatCookingLogDuration(null))
         assertEquals("0 min", formatCookingLogDuration(0))
         assertEquals("1 min", formatCookingLogDuration(59))
@@ -14,6 +14,7 @@ class CookingLogFormattersTest {
         assertEquals("59 min", formatCookingLogDuration(3599))
         assertEquals("1 hr", formatCookingLogDuration(3600))
         assertEquals("1 hr 1 min", formatCookingLogDuration(3660))
+        assertEquals("1 hr 30 min", formatCookingLogDuration(5400))
     }
 
     @Test

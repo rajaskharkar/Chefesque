@@ -3,17 +3,22 @@ package com.kingkharnivore.chefesque.ui.screen.cookinglog
 import java.text.DateFormat
 import java.util.Date
 import java.util.Locale
-import kotlin.math.ceil
 
 fun formatCookingLogDate(cookedAt: Long): String = DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(cookedAt))
 
 fun formatCookingLogDuration(seconds: Int?): String? {
-    if (seconds == null) return null
-    val minutes = ceil(seconds.coerceAtLeast(0) / 60.0).toInt()
-    if (minutes < 60) return "$minutes min"
-    val hours = minutes / 60
-    val remainingMinutes = minutes % 60
-    return if (remainingMinutes == 0) "$hours hr" else "$hours hr $remainingMinutes min"
+    val safeSeconds = seconds ?: return null
+    if (safeSeconds <= 0) return "0 min"
+
+    val totalMinutes = if (safeSeconds < 60) 1 else safeSeconds / 60
+    val hours = totalMinutes / 60
+    val minutes = totalMinutes % 60
+
+    return when {
+        hours <= 0 -> "$totalMinutes min"
+        minutes == 0 -> "$hours ${if (hours == 1) "hr" else "hrs"}"
+        else -> "$hours ${if (hours == 1) "hr" else "hrs"} $minutes min"
+    }
 }
 
 fun formatCookingLogResult(result: String?): String? = when (result?.trim()?.uppercase(Locale.US)) {
