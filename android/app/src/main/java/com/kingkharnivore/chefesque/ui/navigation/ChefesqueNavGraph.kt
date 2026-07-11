@@ -15,11 +15,16 @@ import com.kingkharnivore.chefesque.ui.screen.addrecipe.AddRecipeViewModel
 import com.kingkharnivore.chefesque.ui.screen.addrecipe.AddRecipeViewModelFactory
 import com.kingkharnivore.chefesque.ui.screen.cookinglog.CookingLogViewModel
 import com.kingkharnivore.chefesque.ui.screen.cookinglog.CookingLogViewModelFactory
+import com.kingkharnivore.chefesque.ui.screen.cookalong.CookAlongScreen
+import com.kingkharnivore.chefesque.ui.screen.cookalong.CookAlongViewModel
+import com.kingkharnivore.chefesque.ui.screen.cookalong.CookAlongViewModelFactory
+import com.kingkharnivore.chefesque.ui.screen.cookalongcompletion.CookAlongCompletionScreen
+import com.kingkharnivore.chefesque.ui.screen.cookalongcompletion.CookAlongCompletionViewModel
+import com.kingkharnivore.chefesque.ui.screen.cookalongcompletion.CookAlongCompletionViewModelFactory
 import com.kingkharnivore.chefesque.ui.screen.editrecipe.EditRecipeScreen
 import com.kingkharnivore.chefesque.ui.screen.editrecipe.EditRecipeViewModel
 import com.kingkharnivore.chefesque.ui.screen.editrecipe.EditRecipeViewModelFactory
 import com.kingkharnivore.chefesque.ui.screen.main.ChefesqueMainScreen
-import com.kingkharnivore.chefesque.ui.screen.main.PlaceholderScreen
 import com.kingkharnivore.chefesque.ui.screen.recipes.RecipesViewModel
 import com.kingkharnivore.chefesque.ui.screen.recipes.RecipesViewModelFactory
 import com.kingkharnivore.chefesque.ui.screen.recipedetail.RecipeDetailScreen
@@ -96,7 +101,7 @@ fun ChefesqueApp(appContainer: AppContainer) {
                 uiState = recipeDetailViewModel.uiState.collectAsStateWithLifecycle().value,
                 onBackClick = { navController.popBackStack(ChefesqueDestination.Main.route, inclusive = false) },
                 onEditClick = { navController.navigate(ChefesqueDestination.EditRecipe.createRoute(recipeId)) },
-                onCookAlongClick = { navController.navigate(ChefesqueDestination.CookAlong.route) },
+                onCookAlongClick = { navController.navigate(ChefesqueDestination.CookAlong.createRoute(recipeId)) },
             )
         }
         composable(
@@ -146,11 +151,67 @@ fun ChefesqueApp(appContainer: AppContainer) {
                 onToggleStepIngredientLink = editRecipeViewModel::toggleStepIngredientLink,
             )
         }
-        composable(ChefesqueDestination.CookAlong.route) {
-            PlaceholderScreen(
-                title = "Cook Along",
-                body = "Cook Along starts in a later pass.",
-                onBackClick = { navController.popBackStack() },
+        composable(
+            route = ChefesqueDestination.CookAlong.route,
+            arguments = listOf(navArgument("recipeId") { type = NavType.StringType }),
+        ) { backStackEntry ->
+            val recipeId = backStackEntry.arguments?.getString("recipeId").orEmpty()
+            val cookAlongViewModel: CookAlongViewModel = viewModel(
+                factory = CookAlongViewModelFactory(recipeId, appContainer.recipeRepository, appContainer.cookSessionRepository),
+            )
+            val returnToRecipeDetail: () -> Unit = {
+                navController.popBackStack(ChefesqueDestination.RecipeDetail.createRoute(recipeId), inclusive = false)
+            }
+            CookAlongScreen(
+                uiState = cookAlongViewModel.uiState.collectAsStateWithLifecycle().value,
+                onBackClick = { cookAlongViewModel.leaveCookAlong(returnToRecipeDetail) },
+                onPreviousClick = cookAlongViewModel::goToPreviousStep,
+                onNextClick = cookAlongViewModel::goToNextStep,
+                onFinishClick = {
+                    cookAlongViewModel.finishCookAlong(
+                        onCompleted = { sessionId -> navController.navigate(ChefesqueDestination.CookAlongCompletion.createRoute(sessionId)) },
+                        onFallback = returnToRecipeDetail,
+                    )
+                },
+                onStartTimerClick = cookAlongViewModel::startTimer,
+                onPauseTimerClick = cookAlongViewModel::pauseTimer,
+                onResumeTimerClick = cookAlongViewModel::resumeTimer,
+                onResetTimerClick = cookAlongViewModel::resetTimer,
+                onAddMinuteClick = cookAlongViewModel::addOneMinute,
+            )
+        }
+
+        composable(
+            route = ChefesqueDestination.CookAlongCompletion.route,
+            arguments = listOf(navArgument("sessionId") { type = NavType.StringType }),
+        ) { backStackEntry ->
+            val sessionId = backStackEntry.arguments?.getString("sessionId").orEmpty()
+            val completionViewModel: CookAlongCompletionViewModel = viewModel(
+                factory = CookAlongCompletionViewModelFactory(
+                    sessionId = sessionId,
+                    cookSessionRepository = appContainer.cookSessionRepository,
+                    cookingLogRepository = appContainer.cookingLogRepository,
+                    recipeRepository = appContainer.recipeRepository,
+                ),
+            )
+            val completionUiState = completionViewModel.uiState.collectAsStateWithLifecycle().value
+            val returnAfterCompletion: () -> Unit = {
+                val recipeId = completionUiState.session?.recipeId
+                if (recipeId != null) {
+                    val route = ChefesqueDestination.RecipeDetail.createRoute(recipeId)
+                    if (!navController.popBackStack(route, inclusive = false)) navController.navigate(route)
+                } else {
+                    navController.popBackStack(ChefesqueDestination.Main.route, inclusive = false)
+                }
+            }
+            CookAlongCompletionScreen(
+                uiState = completionUiState,
+                onBackClick = returnAfterCompletion,
+                onResultSelected = completionViewModel::updateResult,
+                onWouldMakeAgainSelected = completionViewModel::updateWouldMakeAgain,
+                onNotesChange = completionViewModel::updateNotesForNextTime,
+                onSaveClick = { completionViewModel.saveCookingLog(returnAfterCompletion) },
+                onSkipClick = returnAfterCompletion,
             )
         }
     }

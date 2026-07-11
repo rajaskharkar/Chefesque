@@ -14,6 +14,7 @@ class CookingLogRepository(private val database: ChefesqueDatabase) {
     fun observeLogsForRecipe(recipeId: String): Flow<List<CookingLogEntity>> = logDao.observeLogsForRecipe(recipeId)
     fun observeLog(id: String): Flow<CookingLogEntity?> = logDao.observeLog(id)
     suspend fun getLog(id: String): CookingLogEntity? = logDao.getLog(id)
+    suspend fun getLogForCookSession(cookSessionId: String): CookingLogEntity? = logDao.getLogForCookSession(cookSessionId)
     suspend fun upsertLog(log: CookingLogEntity) = logDao.upsertLog(log)
     suspend fun deleteLog(log: CookingLogEntity) = logDao.deleteLog(log)
     suspend fun updateFavorite(id: String, isFavorite: Boolean, updatedAt: Long) = logDao.updateFavorite(id, isFavorite, updatedAt)
