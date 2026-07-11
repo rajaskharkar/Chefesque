@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CookingLogDao {
-    @Query("SELECT * FROM cooking_logs ORDER BY cookedAt DESC")
+    @Query("SELECT * FROM cooking_logs ORDER BY cookedAt DESC, createdAt DESC")
     fun observeAllLogs(): Flow<List<CookingLogEntity>>
 
-    @Query("SELECT * FROM cooking_logs WHERE recipeId = :recipeId ORDER BY cookedAt DESC")
+    @Query("SELECT * FROM cooking_logs WHERE recipeId = :recipeId ORDER BY cookedAt DESC, createdAt DESC")
     fun observeLogsForRecipe(recipeId: String): Flow<List<CookingLogEntity>>
 
     @Query("SELECT * FROM cooking_logs WHERE id = :id")

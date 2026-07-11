@@ -23,8 +23,8 @@ fun CookingLogScreen(uiState: CookingLogUiState, onAddLogClick: () -> Unit, modi
             uiState.isLoading -> CircularProgressIndicator(Modifier.align(Alignment.Center))
             uiState.logs.isEmpty() -> ChefesqueEmptyState(
                 title = "No cooking logs yet",
-                body = "After you cook, save what happened — photos, changes, timing, and notes for next time.",
-                actionLabel = "Add Log",
+                body = "Finish a Cook Along to save your first cooking log.",
+                actionLabel = null,
                 onActionClick = onAddLogClick,
                 modifier = Modifier.align(Alignment.Center),
             )
