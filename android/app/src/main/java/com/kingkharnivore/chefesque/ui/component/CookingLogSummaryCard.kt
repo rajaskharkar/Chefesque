@@ -19,8 +19,8 @@ import com.kingkharnivore.chefesque.ui.screen.cookinglog.CookingLogCardUiModel
 import com.kingkharnivore.chefesque.ui.theme.ChefesqueTheme
 
 @Composable
-fun CookingLogSummaryCard(log: CookingLogCardUiModel, modifier: Modifier = Modifier) {
-    Card(modifier = modifier.fillMaxWidth()) {
+fun CookingLogSummaryCard(log: CookingLogCardUiModel, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    Card(onClick = onClick, modifier = modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
                 Text(log.title, modifier = Modifier.weight(1f), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
@@ -53,7 +53,7 @@ private fun SummaryChip(label: String) {
 private fun CookingLogSummaryCardPreview() {
     ChefesqueTheme {
         CookingLogSummaryCard(
-            CookingLogCardUiModel(
+            log = CookingLogCardUiModel(
                 id = "1",
                 title = "Weeknight Pasta",
                 cookedDateText = "Jul 11, 2026",
@@ -64,6 +64,7 @@ private fun CookingLogSummaryCardPreview() {
                 isFavorite = true,
                 createdFromCookAlong = true,
             ),
+            onClick = {},
         )
     }
 }

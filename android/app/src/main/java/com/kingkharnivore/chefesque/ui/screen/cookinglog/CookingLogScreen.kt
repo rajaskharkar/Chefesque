@@ -17,7 +17,12 @@ import com.kingkharnivore.chefesque.ui.component.CookingLogSummaryCard
 import com.kingkharnivore.chefesque.ui.theme.ChefesqueTheme
 
 @Composable
-fun CookingLogScreen(uiState: CookingLogUiState, onAddLogClick: () -> Unit, modifier: Modifier = Modifier) {
+fun CookingLogScreen(
+    uiState: CookingLogUiState,
+    onAddLogClick: () -> Unit,
+    onLogClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Box(modifier = modifier.fillMaxSize()) {
         when {
             uiState.isLoading -> CircularProgressIndicator(Modifier.align(Alignment.Center))
@@ -29,7 +34,9 @@ fun CookingLogScreen(uiState: CookingLogUiState, onAddLogClick: () -> Unit, modi
                 modifier = Modifier.align(Alignment.Center),
             )
             else -> LazyColumn(contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                items(uiState.logs, key = { it.id }) { CookingLogSummaryCard(it) }
+                items(uiState.logs, key = { it.id }) { log ->
+                    CookingLogSummaryCard(log = log, onClick = { onLogClick(log.id) })
+                }
             }
         }
     }
@@ -38,5 +45,5 @@ fun CookingLogScreen(uiState: CookingLogUiState, onAddLogClick: () -> Unit, modi
 @Preview(showBackground = true)
 @Composable
 private fun CookingLogScreenEmptyPreview() {
-    ChefesqueTheme { CookingLogScreen(CookingLogUiState(isLoading = false), {}) }
+    ChefesqueTheme { CookingLogScreen(CookingLogUiState(isLoading = false), {}, {}) }
 }

@@ -41,6 +41,7 @@ fun ChefesqueMainScreen(
     onAddRecipeClick: () -> Unit,
     onAddLogClick: () -> Unit,
     onRecipeClick: (String) -> Unit,
+    onLogClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
@@ -71,7 +72,7 @@ fun ChefesqueMainScreen(
         val contentModifier = Modifier.padding(innerPadding)
         when (selectedTab) {
             MainTab.Recipes -> MyRecipesScreen(recipesUiState, onAddRecipeClick, onRecipeClick, contentModifier)
-            MainTab.Logs -> CookingLogScreen(cookingLogUiState, onAddLogClick, contentModifier)
+            MainTab.Logs -> CookingLogScreen(cookingLogUiState, onAddLogClick, onLogClick, contentModifier)
         }
     }
 }
@@ -97,5 +98,5 @@ fun PlaceholderScreen(title: String, body: String, onBackClick: () -> Unit, modi
 @Preview(showBackground = true)
 @Composable
 private fun ChefesqueMainScreenPreview() {
-    ChefesqueTheme { ChefesqueMainScreen(RecipesUiState(isLoading = false), CookingLogUiState(isLoading = false), {}, {}, {}) }
+    ChefesqueTheme { ChefesqueMainScreen(RecipesUiState(isLoading = false), CookingLogUiState(isLoading = false), {}, {}, {}, {}) }
 }
