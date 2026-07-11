@@ -15,11 +15,13 @@ import com.kingkharnivore.chefesque.ui.screen.addrecipe.AddRecipeViewModel
 import com.kingkharnivore.chefesque.ui.screen.addrecipe.AddRecipeViewModelFactory
 import com.kingkharnivore.chefesque.ui.screen.cookinglog.CookingLogViewModel
 import com.kingkharnivore.chefesque.ui.screen.cookinglog.CookingLogViewModelFactory
+import com.kingkharnivore.chefesque.ui.screen.cookalong.CookAlongScreen
+import com.kingkharnivore.chefesque.ui.screen.cookalong.CookAlongViewModel
+import com.kingkharnivore.chefesque.ui.screen.cookalong.CookAlongViewModelFactory
 import com.kingkharnivore.chefesque.ui.screen.editrecipe.EditRecipeScreen
 import com.kingkharnivore.chefesque.ui.screen.editrecipe.EditRecipeViewModel
 import com.kingkharnivore.chefesque.ui.screen.editrecipe.EditRecipeViewModelFactory
 import com.kingkharnivore.chefesque.ui.screen.main.ChefesqueMainScreen
-import com.kingkharnivore.chefesque.ui.screen.main.PlaceholderScreen
 import com.kingkharnivore.chefesque.ui.screen.recipes.RecipesViewModel
 import com.kingkharnivore.chefesque.ui.screen.recipes.RecipesViewModelFactory
 import com.kingkharnivore.chefesque.ui.screen.recipedetail.RecipeDetailScreen
@@ -96,7 +98,7 @@ fun ChefesqueApp(appContainer: AppContainer) {
                 uiState = recipeDetailViewModel.uiState.collectAsStateWithLifecycle().value,
                 onBackClick = { navController.popBackStack(ChefesqueDestination.Main.route, inclusive = false) },
                 onEditClick = { navController.navigate(ChefesqueDestination.EditRecipe.createRoute(recipeId)) },
-                onCookAlongClick = { navController.navigate(ChefesqueDestination.CookAlong.route) },
+                onCookAlongClick = { navController.navigate(ChefesqueDestination.CookAlong.createRoute(recipeId)) },
             )
         }
         composable(
@@ -146,11 +148,23 @@ fun ChefesqueApp(appContainer: AppContainer) {
                 onToggleStepIngredientLink = editRecipeViewModel::toggleStepIngredientLink,
             )
         }
-        composable(ChefesqueDestination.CookAlong.route) {
-            PlaceholderScreen(
-                title = "Cook Along",
-                body = "Cook Along starts in a later pass.",
-                onBackClick = { navController.popBackStack() },
+        composable(
+            route = ChefesqueDestination.CookAlong.route,
+            arguments = listOf(navArgument("recipeId") { type = NavType.StringType }),
+        ) { backStackEntry ->
+            val recipeId = backStackEntry.arguments?.getString("recipeId").orEmpty()
+            val cookAlongViewModel: CookAlongViewModel = viewModel(
+                factory = CookAlongViewModelFactory(recipeId, appContainer.recipeRepository),
+            )
+            val returnToRecipeDetail = {
+                navController.popBackStack(ChefesqueDestination.RecipeDetail.createRoute(recipeId), inclusive = false)
+            }
+            CookAlongScreen(
+                uiState = cookAlongViewModel.uiState.collectAsStateWithLifecycle().value,
+                onBackClick = returnToRecipeDetail,
+                onPreviousClick = cookAlongViewModel::goToPreviousStep,
+                onNextClick = cookAlongViewModel::goToNextStep,
+                onFinishClick = returnToRecipeDetail,
             )
         }
     }
