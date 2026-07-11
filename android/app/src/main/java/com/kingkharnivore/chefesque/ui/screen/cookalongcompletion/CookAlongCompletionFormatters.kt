@@ -32,7 +32,7 @@ private val CompletionDateFormatter = DateTimeFormatter.ofPattern("MMM d, yyyy",
 fun formatCompletionDuration(seconds: Int?): String? {
     val safeSeconds = seconds ?: return null
     if (safeSeconds <= 0) return "0 min"
-    val totalMinutes = ((safeSeconds + 59) / 60).coerceAtLeast(1)
+    val totalMinutes = if (safeSeconds < 60) 1 else safeSeconds / 60
     val hours = totalMinutes / 60
     val minutes = totalMinutes % 60
     return when {

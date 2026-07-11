@@ -12,7 +12,7 @@ class CookAlongCompletionFormattersTest {
     }
 
     @Test
-    fun formatCompletionDuration_roundsUpToFriendlyMinutes() {
+    fun formatCompletionDuration_formatsFriendlyWholeMinutes() {
         assertEquals("1 min", formatCompletionDuration(59))
         assertEquals("1 min", formatCompletionDuration(60))
         assertEquals("59 min", formatCompletionDuration(3_599))
