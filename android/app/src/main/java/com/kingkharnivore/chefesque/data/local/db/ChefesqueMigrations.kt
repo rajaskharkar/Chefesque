@@ -1,0 +1,13 @@
+package com.kingkharnivore.chefesque.data.local.db
+
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
+
+val MIGRATION_1_2 = object : Migration(1, 2) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE cook_sessions ADD COLUMN timerOriginalSeconds INTEGER")
+        db.execSQL("ALTER TABLE cook_sessions ADD COLUMN timerRemainingSeconds INTEGER")
+        db.execSQL("ALTER TABLE cook_sessions ADD COLUMN timerStatus TEXT")
+        db.execSQL("ALTER TABLE cook_sessions ADD COLUMN updatedAt INTEGER NOT NULL DEFAULT 0")
+    }
+}
