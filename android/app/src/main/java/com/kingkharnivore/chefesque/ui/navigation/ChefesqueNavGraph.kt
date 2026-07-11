@@ -18,6 +18,9 @@ import com.kingkharnivore.chefesque.ui.screen.cookinglog.CookingLogViewModelFact
 import com.kingkharnivore.chefesque.ui.screen.cookalong.CookAlongScreen
 import com.kingkharnivore.chefesque.ui.screen.cookalong.CookAlongViewModel
 import com.kingkharnivore.chefesque.ui.screen.cookalong.CookAlongViewModelFactory
+import com.kingkharnivore.chefesque.ui.screen.cookalongcompletion.CookAlongCompletionScreen
+import com.kingkharnivore.chefesque.ui.screen.cookalongcompletion.CookAlongCompletionViewModel
+import com.kingkharnivore.chefesque.ui.screen.cookalongcompletion.CookAlongCompletionViewModelFactory
 import com.kingkharnivore.chefesque.ui.screen.editrecipe.EditRecipeScreen
 import com.kingkharnivore.chefesque.ui.screen.editrecipe.EditRecipeViewModel
 import com.kingkharnivore.chefesque.ui.screen.editrecipe.EditRecipeViewModelFactory
@@ -164,12 +167,51 @@ fun ChefesqueApp(appContainer: AppContainer) {
                 onBackClick = { cookAlongViewModel.leaveCookAlong(returnToRecipeDetail) },
                 onPreviousClick = cookAlongViewModel::goToPreviousStep,
                 onNextClick = cookAlongViewModel::goToNextStep,
-                onFinishClick = { cookAlongViewModel.finishCookAlong(returnToRecipeDetail) },
+                onFinishClick = {
+                    cookAlongViewModel.finishCookAlong(
+                        onCompleted = { sessionId -> navController.navigate(ChefesqueDestination.CookAlongCompletion.createRoute(sessionId)) },
+                        onFallback = returnToRecipeDetail,
+                    )
+                },
                 onStartTimerClick = cookAlongViewModel::startTimer,
                 onPauseTimerClick = cookAlongViewModel::pauseTimer,
                 onResumeTimerClick = cookAlongViewModel::resumeTimer,
                 onResetTimerClick = cookAlongViewModel::resetTimer,
                 onAddMinuteClick = cookAlongViewModel::addOneMinute,
+            )
+        }
+
+        composable(
+            route = ChefesqueDestination.CookAlongCompletion.route,
+            arguments = listOf(navArgument("sessionId") { type = NavType.StringType }),
+        ) { backStackEntry ->
+            val sessionId = backStackEntry.arguments?.getString("sessionId").orEmpty()
+            val completionViewModel: CookAlongCompletionViewModel = viewModel(
+                factory = CookAlongCompletionViewModelFactory(
+                    sessionId = sessionId,
+                    cookSessionRepository = appContainer.cookSessionRepository,
+                    cookingLogRepository = appContainer.cookingLogRepository,
+                    recipeRepository = appContainer.recipeRepository,
+                ),
+            )
+            val completionUiState = completionViewModel.uiState.collectAsStateWithLifecycle().value
+            val returnAfterCompletion: () -> Unit = {
+                val recipeId = completionUiState.session?.recipeId
+                if (recipeId != null) {
+                    val route = ChefesqueDestination.RecipeDetail.createRoute(recipeId)
+                    if (!navController.popBackStack(route, inclusive = false)) navController.navigate(route)
+                } else {
+                    navController.popBackStack(ChefesqueDestination.Main.route, inclusive = false)
+                }
+            }
+            CookAlongCompletionScreen(
+                uiState = completionUiState,
+                onBackClick = returnAfterCompletion,
+                onResultSelected = completionViewModel::updateResult,
+                onWouldMakeAgainSelected = completionViewModel::updateWouldMakeAgain,
+                onNotesChange = completionViewModel::updateNotesForNextTime,
+                onSaveClick = { completionViewModel.saveCookingLog(returnAfterCompletion) },
+                onSkipClick = returnAfterCompletion,
             )
         }
     }

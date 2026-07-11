@@ -22,6 +22,9 @@ interface CookingLogDao {
     @Query("SELECT * FROM cooking_logs WHERE id = :id")
     suspend fun getLog(id: String): CookingLogEntity?
 
+    @Query("SELECT * FROM cooking_logs WHERE cookSessionId = :cookSessionId LIMIT 1")
+    suspend fun getLogForCookSession(cookSessionId: String): CookingLogEntity?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertLog(log: CookingLogEntity)
 

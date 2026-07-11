@@ -227,23 +227,25 @@ class CookAlongViewModel(
         }
     }
 
-    fun finishCookAlong(onComplete: () -> Unit) {
+    fun finishCookAlong(onCompleted: (String) -> Unit, onFallback: () -> Unit) {
         timerJob?.cancel()
         viewModelScope.launch {
             val state = _uiState.value
             val sessionId = state.sessionId
-            if (sessionId != null) {
-                val completedAt = System.currentTimeMillis()
-                val startedAt = activeSessionStartedAt ?: completedAt
-                cookSessionRepository.completeSession(
-                    sessionId = sessionId,
-                    status = CookSessionStatus.COMPLETED,
-                    completedAt = completedAt,
-                    actualDurationSeconds = ((completedAt - startedAt) / 1_000).toInt().coerceAtLeast(0),
-                )
+            if (sessionId == null) {
+                onFallback()
+                return@launch
             }
+            val completedAt = System.currentTimeMillis()
+            val startedAt = activeSessionStartedAt ?: completedAt
+            cookSessionRepository.completeSession(
+                sessionId = sessionId,
+                status = CookSessionStatus.COMPLETED,
+                completedAt = completedAt,
+                actualDurationSeconds = ((completedAt - startedAt) / 1_000).toInt().coerceAtLeast(0),
+            )
             _uiState.update { it.copy(sessionId = null, resumedSession = false) }
-            onComplete()
+            onCompleted(sessionId)
         }
     }
 
