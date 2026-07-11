@@ -24,6 +24,50 @@ class CookAlongStepBuilderTest {
         assertEquals(listOf("Tomatoes"), result[1].ingredients.map { it.displayText })
     }
 
+
+    @Test
+    fun prepareTimerForStepCreatesIdleTimerForTimedStep() {
+        val snapshot = prepareTimerForStep(480)
+
+        assertEquals(480, snapshot.originalSeconds)
+        assertEquals(480, snapshot.remainingSeconds)
+        assertEquals(CookAlongTimerStatus.IDLE, snapshot.status)
+    }
+
+    @Test
+    fun prepareTimerForStepClearsTimerForUntimedStep() {
+        val snapshot = prepareTimerForStep(null)
+
+        assertEquals(null, snapshot.originalSeconds)
+        assertEquals(null, snapshot.remainingSeconds)
+        assertEquals(CookAlongTimerStatus.IDLE, snapshot.status)
+    }
+
+    @Test
+    fun addOneMinuteKeepsRunningTimersRunning() {
+        val snapshot = addOneMinuteToTimer(120, 480, CookAlongTimerStatus.RUNNING)
+
+        assertEquals(180, snapshot?.remainingSeconds)
+        assertEquals(480, snapshot?.originalSeconds)
+        assertEquals(CookAlongTimerStatus.RUNNING, snapshot?.status)
+    }
+
+    @Test
+    fun addOneMinuteKeepsPausedTimersPaused() {
+        val snapshot = addOneMinuteToTimer(120, 480, CookAlongTimerStatus.PAUSED)
+
+        assertEquals(180, snapshot?.remainingSeconds)
+        assertEquals(CookAlongTimerStatus.PAUSED, snapshot?.status)
+    }
+
+    @Test
+    fun addOneMinuteToFinishedTimerMakesItPausedWithOneMinute() {
+        val snapshot = addOneMinuteToTimer(0, 480, CookAlongTimerStatus.FINISHED)
+
+        assertEquals(60, snapshot?.remainingSeconds)
+        assertEquals(CookAlongTimerStatus.PAUSED, snapshot?.status)
+    }
+
     private fun step(id: String, instruction: String) = RecipeStepEntity(id, "recipe-id", instruction, null, null, null, null, null, null, null, 0)
 
     private fun ingredient(id: String, name: String) = RecipeIngredientEntity(id, "recipe-id", null, name, null, null, null, null, null, false, 0)

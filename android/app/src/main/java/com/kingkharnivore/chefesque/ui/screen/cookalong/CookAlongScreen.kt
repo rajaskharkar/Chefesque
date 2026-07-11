@@ -42,6 +42,11 @@ fun CookAlongScreen(
     onPreviousClick: () -> Unit,
     onNextClick: () -> Unit,
     onFinishClick: () -> Unit,
+    onStartTimerClick: () -> Unit,
+    onPauseTimerClick: () -> Unit,
+    onResumeTimerClick: () -> Unit,
+    onResetTimerClick: () -> Unit,
+    onAddMinuteClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -67,14 +72,29 @@ fun CookAlongScreen(
                 uiState.isLoading -> CookAlongLoadingState()
                 uiState.notFound -> CookAlongMessageState("Recipe not found", "This recipe may have been deleted or archived.", "Back", onBackClick)
                 !uiState.hasSteps -> CookAlongMessageState("No steps yet", "This recipe does not have step-by-step instructions yet.", "Back to recipe", onBackClick)
-                else -> CookAlongContent(uiState)
+                else -> CookAlongContent(
+                    uiState = uiState,
+                    onStartTimerClick = onStartTimerClick,
+                    onPauseTimerClick = onPauseTimerClick,
+                    onResumeTimerClick = onResumeTimerClick,
+                    onResetTimerClick = onResetTimerClick,
+                    onAddMinuteClick = onAddMinuteClick,
+                )
             }
         }
     }
 }
 
 @Composable
-private fun CookAlongContent(uiState: CookAlongUiState, modifier: Modifier = Modifier) {
+private fun CookAlongContent(
+    uiState: CookAlongUiState,
+    onStartTimerClick: () -> Unit,
+    onPauseTimerClick: () -> Unit,
+    onResumeTimerClick: () -> Unit,
+    onResetTimerClick: () -> Unit,
+    onAddMinuteClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     val step = uiState.currentStep ?: return
     Column(
         modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(24.dp),
@@ -84,7 +104,17 @@ private fun CookAlongContent(uiState: CookAlongUiState, modifier: Modifier = Mod
         AssistChip(onClick = {}, label = { Text("Step ${uiState.currentStepIndex + 1} of ${uiState.steps.size}") })
         Text(step.instruction, style = MaterialTheme.typography.headlineSmall)
         CookAlongIngredientList(step.ingredients)
-        formatCookAlongTimer(step.timerSeconds)?.let { CookAlongDetailSection("Suggested timer", it) }
+        if (uiState.timerOriginalSeconds != null && uiState.timerRemainingSeconds != null) {
+            CookAlongTimerCard(
+                remainingSeconds = uiState.timerRemainingSeconds,
+                status = uiState.timerStatus,
+                onStartClick = onStartTimerClick,
+                onPauseClick = onPauseTimerClick,
+                onResumeClick = onResumeTimerClick,
+                onResetClick = onResetTimerClick,
+                onAddMinuteClick = onAddMinuteClick,
+            )
+        }
         step.warning?.let { CookAlongDetailSection("Warning", it) }
         step.equipment?.let { CookAlongDetailSection("Equipment", it) }
         step.whileTimerRuns?.let { CookAlongDetailSection("While timer runs", it) }
@@ -107,6 +137,80 @@ private fun CookAlongIngredientList(ingredients: List<CookAlongIngredientUiModel
             }
         }
     }
+}
+
+@Composable
+private fun CookAlongTimerCard(
+    remainingSeconds: Int,
+    status: CookAlongTimerStatus,
+    onStartClick: () -> Unit,
+    onPauseClick: () -> Unit,
+    onResumeClick: () -> Unit,
+    onResetClick: () -> Unit,
+    onAddMinuteClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    CookAlongDetailSection(title = "Timer", modifier = modifier) {
+        Text(
+            text = formatCountdownTime(remainingSeconds),
+            style = MaterialTheme.typography.displaySmall,
+        )
+        Text(timerStatusLabel(status), style = MaterialTheme.typography.bodyMedium)
+        if (status == CookAlongTimerStatus.FINISHED) {
+            Text("Timer done.", style = MaterialTheme.typography.bodyMedium)
+        }
+        TimerControlButtons(
+            status = status,
+            onStartClick = onStartClick,
+            onPauseClick = onPauseClick,
+            onResumeClick = onResumeClick,
+            onResetClick = onResetClick,
+            onAddMinuteClick = onAddMinuteClick,
+        )
+    }
+}
+
+@Composable
+private fun TimerControlButtons(
+    status: CookAlongTimerStatus,
+    onStartClick: () -> Unit,
+    onPauseClick: () -> Unit,
+    onResumeClick: () -> Unit,
+    onResetClick: () -> Unit,
+    onAddMinuteClick: () -> Unit,
+) {
+    when (status) {
+        CookAlongTimerStatus.IDLE -> Button(onClick = onStartClick, modifier = Modifier.fillMaxWidth()) { Text("Start") }
+        CookAlongTimerStatus.RUNNING -> TimerSecondaryControls(primaryText = "Pause", onPrimaryClick = onPauseClick, onResetClick = onResetClick, onAddMinuteClick = onAddMinuteClick)
+        CookAlongTimerStatus.PAUSED -> TimerSecondaryControls(primaryText = "Resume", onPrimaryClick = onResumeClick, onResetClick = onResetClick, onAddMinuteClick = onAddMinuteClick)
+        CookAlongTimerStatus.FINISHED -> Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            OutlinedButton(onClick = onResetClick, modifier = Modifier.weight(1f)) { Text("Reset") }
+            Button(onClick = onAddMinuteClick, modifier = Modifier.weight(1f)) { Text("+1 min") }
+        }
+    }
+}
+
+@Composable
+private fun TimerSecondaryControls(
+    primaryText: String,
+    onPrimaryClick: () -> Unit,
+    onResetClick: () -> Unit,
+    onAddMinuteClick: () -> Unit,
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Button(onClick = onPrimaryClick, modifier = Modifier.fillMaxWidth()) { Text(primaryText) }
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            OutlinedButton(onClick = onResetClick, modifier = Modifier.weight(1f)) { Text("Reset") }
+            OutlinedButton(onClick = onAddMinuteClick, modifier = Modifier.weight(1f)) { Text("+1 min") }
+        }
+    }
+}
+
+private fun timerStatusLabel(status: CookAlongTimerStatus): String = when (status) {
+    CookAlongTimerStatus.IDLE -> "Ready"
+    CookAlongTimerStatus.RUNNING -> "Running"
+    CookAlongTimerStatus.PAUSED -> "Paused"
+    CookAlongTimerStatus.FINISHED -> "Done"
 }
 
 @Composable
@@ -163,6 +267,7 @@ private fun CookAlongScreenPreview() {
                 steps = listOf(CookAlongStepUiModel("s1", "Add onion and cook until softened.", 480, "Do not let garlic burn.", "Large skillet", "Start pasta water.", "Pause and check before moving on.", listOf(CookAlongIngredientUiModel("i1", "1 onion, diced", false)))),
             ),
             onBackClick = {}, onPreviousClick = {}, onNextClick = {}, onFinishClick = {},
+            onStartTimerClick = {}, onPauseTimerClick = {}, onResumeTimerClick = {}, onResetTimerClick = {}, onAddMinuteClick = {},
         )
     }
 }

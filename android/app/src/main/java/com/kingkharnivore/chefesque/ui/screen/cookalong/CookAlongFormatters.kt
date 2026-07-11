@@ -26,6 +26,13 @@ fun formatCookAlongTimer(seconds: Int?): String? {
     }
 }
 
+fun formatCountdownTime(seconds: Int): String {
+    val total = seconds.coerceAtLeast(0)
+    val minutes = total / 60
+    val remainingSeconds = total % 60
+    return "%02d:%02d".format(minutes, remainingSeconds)
+}
+
 fun checkpointDisplayText(checkpoint: String?): String? {
     val value = checkpoint?.trim()?.takeIf { it.isNotBlank() } ?: return null
     return if (value.equals("Checkpoint", ignoreCase = true)) "Pause and check before moving on." else value

@@ -21,6 +21,18 @@ class CookAlongFormattersTest {
         assertEquals("8 min", formatCookAlongTimer(480))
     }
 
+
+    @Test
+    fun countdownFormatterFormatsMinuteSecondClockValues() {
+        assertEquals("00:00", formatCountdownTime(0))
+        assertEquals("00:05", formatCountdownTime(5))
+        assertEquals("00:30", formatCountdownTime(30))
+        assertEquals("01:00", formatCountdownTime(60))
+        assertEquals("01:30", formatCountdownTime(90))
+        assertEquals("08:00", formatCountdownTime(480))
+        assertEquals("60:00", formatCountdownTime(3600))
+    }
+
     @Test
     fun ingredientFormatterUsesQuantityTextUnitNameAndPrep() {
         val ingredient = ingredient(quantityText = "2", unit = "cloves", nameSnapshot = "Garlic", prepNote = "minced")

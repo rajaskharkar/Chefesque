@@ -156,7 +156,7 @@ fun ChefesqueApp(appContainer: AppContainer) {
             val cookAlongViewModel: CookAlongViewModel = viewModel(
                 factory = CookAlongViewModelFactory(recipeId, appContainer.recipeRepository),
             )
-            val returnToRecipeDetail = {
+            val returnToRecipeDetail: () -> Unit = {
                 navController.popBackStack(ChefesqueDestination.RecipeDetail.createRoute(recipeId), inclusive = false)
             }
             CookAlongScreen(
@@ -165,6 +165,11 @@ fun ChefesqueApp(appContainer: AppContainer) {
                 onPreviousClick = cookAlongViewModel::goToPreviousStep,
                 onNextClick = cookAlongViewModel::goToNextStep,
                 onFinishClick = returnToRecipeDetail,
+                onStartTimerClick = cookAlongViewModel::startTimer,
+                onPauseTimerClick = cookAlongViewModel::pauseTimer,
+                onResumeTimerClick = cookAlongViewModel::resumeTimer,
+                onResetTimerClick = cookAlongViewModel::resetTimer,
+                onAddMinuteClick = cookAlongViewModel::addOneMinute,
             )
         }
     }
