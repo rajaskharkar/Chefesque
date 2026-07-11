@@ -154,17 +154,17 @@ fun ChefesqueApp(appContainer: AppContainer) {
         ) { backStackEntry ->
             val recipeId = backStackEntry.arguments?.getString("recipeId").orEmpty()
             val cookAlongViewModel: CookAlongViewModel = viewModel(
-                factory = CookAlongViewModelFactory(recipeId, appContainer.recipeRepository),
+                factory = CookAlongViewModelFactory(recipeId, appContainer.recipeRepository, appContainer.cookSessionRepository),
             )
             val returnToRecipeDetail: () -> Unit = {
                 navController.popBackStack(ChefesqueDestination.RecipeDetail.createRoute(recipeId), inclusive = false)
             }
             CookAlongScreen(
                 uiState = cookAlongViewModel.uiState.collectAsStateWithLifecycle().value,
-                onBackClick = returnToRecipeDetail,
+                onBackClick = { cookAlongViewModel.leaveCookAlong(returnToRecipeDetail) },
                 onPreviousClick = cookAlongViewModel::goToPreviousStep,
                 onNextClick = cookAlongViewModel::goToNextStep,
-                onFinishClick = returnToRecipeDetail,
+                onFinishClick = { cookAlongViewModel.finishCookAlong(returnToRecipeDetail) },
                 onStartTimerClick = cookAlongViewModel::startTimer,
                 onPauseTimerClick = cookAlongViewModel::pauseTimer,
                 onResumeTimerClick = cookAlongViewModel::resumeTimer,

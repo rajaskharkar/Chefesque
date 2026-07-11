@@ -20,4 +20,8 @@ data class CookSessionEntity(
     val currentStepIndex: Int,
     val actualDurationSeconds: Int?,
     val createdFromRecipe: Boolean,
+    val timerOriginalSeconds: Int?,
+    val timerRemainingSeconds: Int?,
+    val timerStatus: String?,
+    val updatedAt: Long,
 )

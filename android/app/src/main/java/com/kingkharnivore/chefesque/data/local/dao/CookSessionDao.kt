@@ -16,18 +16,39 @@ interface CookSessionDao {
     @Query("SELECT * FROM cook_sessions WHERE recipeId = :recipeId AND status = :status ORDER BY startedAt DESC LIMIT 1")
     fun observeLatestSessionForRecipeByStatus(recipeId: String, status: String): Flow<CookSessionEntity?>
 
+    @Query("SELECT * FROM cook_sessions WHERE recipeId = :recipeId AND status = :status ORDER BY startedAt DESC LIMIT 1")
+    suspend fun getLatestSessionForRecipeByStatus(recipeId: String, status: String): CookSessionEntity?
+
     @Query("SELECT * FROM cook_sessions WHERE id = :id")
     suspend fun getCookSession(id: String): CookSessionEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertCookSession(session: CookSessionEntity)
 
-    @Query("UPDATE cook_sessions SET currentStepIndex = :stepIndex WHERE id = :sessionId")
-    suspend fun updateCurrentStep(sessionId: String, stepIndex: Int)
+    @Query("UPDATE cook_sessions SET currentStepIndex = :stepIndex, updatedAt = :updatedAt WHERE id = :sessionId")
+    suspend fun updateCurrentStep(sessionId: String, stepIndex: Int, updatedAt: Long)
 
     @Query("""
         UPDATE cook_sessions
-        SET status = :status, completedAt = :completedAt, actualDurationSeconds = :actualDurationSeconds
+        SET currentStepIndex = :currentStepIndex,
+            timerOriginalSeconds = :timerOriginalSeconds,
+            timerRemainingSeconds = :timerRemainingSeconds,
+            timerStatus = :timerStatus,
+            updatedAt = :updatedAt
+        WHERE id = :sessionId
+    """)
+    suspend fun updateSessionProgress(
+        sessionId: String,
+        currentStepIndex: Int,
+        timerOriginalSeconds: Int?,
+        timerRemainingSeconds: Int?,
+        timerStatus: String?,
+        updatedAt: Long,
+    )
+
+    @Query("""
+        UPDATE cook_sessions
+        SET status = :status, completedAt = :completedAt, actualDurationSeconds = :actualDurationSeconds, updatedAt = :completedAt
         WHERE id = :sessionId
     """)
     suspend fun completeSession(sessionId: String, status: String, completedAt: Long, actualDurationSeconds: Int)

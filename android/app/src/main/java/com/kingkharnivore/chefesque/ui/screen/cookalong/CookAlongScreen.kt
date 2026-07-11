@@ -1,5 +1,6 @@
 package com.kingkharnivore.chefesque.ui.screen.cookalong
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -49,6 +50,7 @@ fun CookAlongScreen(
     onAddMinuteClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    BackHandler(onBack = onBackClick)
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -102,6 +104,9 @@ private fun CookAlongContent(
     ) {
         Text(uiState.recipe?.title?.trim()?.ifBlank { "Untitled recipe" } ?: "Untitled recipe", style = MaterialTheme.typography.titleLarge)
         AssistChip(onClick = {}, label = { Text("Step ${uiState.currentStepIndex + 1} of ${uiState.steps.size}") })
+        if (uiState.resumedSession) {
+            Text("Resumed from your last cook.", style = MaterialTheme.typography.bodyMedium)
+        }
         Text(step.instruction, style = MaterialTheme.typography.headlineSmall)
         CookAlongIngredientList(step.ingredients)
         if (uiState.timerOriginalSeconds != null && uiState.timerRemainingSeconds != null) {
