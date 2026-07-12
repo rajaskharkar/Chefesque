@@ -1,42 +1,80 @@
 package com.kingkharnivore.chefesque.ui.theme
 
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
+import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80,
+    primary = SoftSage,
+    onPrimary = ForestShadow,
+    primaryContainer = DeepMossGreen,
+    onPrimaryContainer = MistySage,
+    secondary = WarmClay,
+    onSecondary = RoastedClay,
+    secondaryContainer = EmberClay,
+    onSecondaryContainer = SoftClay,
+    background = NightMoss,
+    onBackground = OatLinen,
+    surface = MossCharcoal,
+    onSurface = WarmPorcelainDark,
+    surfaceVariant = DeepSageCharcoal,
+    onSurfaceVariant = WarmStone,
+    outline = SoftPewter,
+    outlineVariant = OutlineVariantDark,
+    error = SoftCoralRed,
+    onError = DeepWine,
+    errorContainer = DarkError,
+    onErrorContainer = PaleError,
+    inverseSurface = InverseSurfaceDark,
+    inverseOnSurface = InverseOnSurfaceDark,
+    inversePrimary = InversePrimaryDark,
+    scrim = Color(0xFF000000),
+    surfaceContainerLowest = SurfaceContainerLowestDark,
+    surfaceContainerLow = SurfaceContainerLowDark,
+    surfaceContainer = SurfaceContainerDark,
+    surfaceContainerHigh = SurfaceContainerHighDark,
+    surfaceContainerHighest = SurfaceContainerHighestDark,
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40,
+    primary = DeepForest,
+    onPrimary = WarmPorcelain,
+    primaryContainer = MistySage,
+    onPrimaryContainer = ForestShadow,
+    secondary = FiredTerracotta,
+    onSecondary = White,
+    secondaryContainer = SoftClay,
+    onSecondaryContainer = DarkClay,
+    background = OatCream,
+    onBackground = WarmCharcoal,
+    surface = Porcelain,
+    onSurface = WarmCharcoal,
+    surfaceVariant = StoneBeige,
+    onSurfaceVariant = MutedCharcoal,
+    outline = WarmGrey,
+    outlineVariant = OutlineVariantLight,
+    error = DeepRed,
+    onError = White,
+    inverseSurface = InverseSurfaceLight,
+    inverseOnSurface = InverseOnSurfaceLight,
+    inversePrimary = InversePrimaryLight,
+    scrim = Color(0xFF000000),
+    surfaceContainerLowest = SurfaceContainerLowestLight,
+    surfaceContainerLow = SurfaceContainerLowLight,
+    surfaceContainer = SurfaceContainerLight,
+    surfaceContainerHigh = SurfaceContainerHighLight,
+    surfaceContainerHighest = SurfaceContainerHighestLight,
 )
 
 @Composable
 fun ChefesqueTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
     content: @Composable () -> Unit,
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
+    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
 
     MaterialTheme(
         colorScheme = colorScheme,

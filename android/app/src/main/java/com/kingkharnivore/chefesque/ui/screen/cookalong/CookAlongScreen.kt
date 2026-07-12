@@ -159,6 +159,7 @@ private fun CookAlongTimerCard(
         Text(
             text = formatCountdownTime(remainingSeconds),
             style = MaterialTheme.typography.displaySmall,
+            color = MaterialTheme.colorScheme.secondary,
         )
         Text(timerStatusLabel(status), style = MaterialTheme.typography.bodyMedium)
         if (status == CookAlongTimerStatus.FINISHED) {
@@ -185,7 +186,7 @@ private fun TimerControlButtons(
     onAddMinuteClick: () -> Unit,
 ) {
     when (status) {
-        CookAlongTimerStatus.IDLE -> Button(onClick = onStartClick, modifier = Modifier.fillMaxWidth()) { Text("Start") }
+        CookAlongTimerStatus.IDLE -> Button(onClick = onStartClick, modifier = Modifier.fillMaxWidth(), colors = androidx.compose.material3.ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary, contentColor = MaterialTheme.colorScheme.onSecondary)) { Text("Start") }
         CookAlongTimerStatus.RUNNING -> TimerSecondaryControls(primaryText = "Pause", onPrimaryClick = onPauseClick, onResetClick = onResetClick, onAddMinuteClick = onAddMinuteClick)
         CookAlongTimerStatus.PAUSED -> TimerSecondaryControls(primaryText = "Resume", onPrimaryClick = onResumeClick, onResetClick = onResetClick, onAddMinuteClick = onAddMinuteClick)
         CookAlongTimerStatus.FINISHED -> Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -203,7 +204,7 @@ private fun TimerSecondaryControls(
     onAddMinuteClick: () -> Unit,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Button(onClick = onPrimaryClick, modifier = Modifier.fillMaxWidth()) { Text(primaryText) }
+        Button(onClick = onPrimaryClick, modifier = Modifier.fillMaxWidth(), colors = androidx.compose.material3.ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary, contentColor = MaterialTheme.colorScheme.onSecondary)) { Text(primaryText) }
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             OutlinedButton(onClick = onResetClick, modifier = Modifier.weight(1f)) { Text("Reset") }
             OutlinedButton(onClick = onAddMinuteClick, modifier = Modifier.weight(1f)) { Text("+1 min") }
@@ -227,7 +228,7 @@ private fun CookAlongDetailSection(title: String, body: String, modifier: Modifi
 
 @Composable
 private fun CookAlongDetailSection(title: String, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
-    Card(modifier = modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)) {
+    Card(modifier = modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer, contentColor = MaterialTheme.colorScheme.onPrimaryContainer)) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(title, style = MaterialTheme.typography.titleMedium)
             content()

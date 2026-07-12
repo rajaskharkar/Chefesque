@@ -66,6 +66,8 @@ fun ChefesqueMainScreen(
                 onClick = { if (selectedTab == MainTab.Recipes) onAddRecipeClick() else onAddLogClick() },
                 icon = { Text("+") },
                 text = { Text(if (selectedTab == MainTab.Recipes) "Add Recipe" else "Add Log") },
+                containerColor = if (selectedTab == MainTab.Recipes) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.primaryContainer,
+                contentColor = if (selectedTab == MainTab.Recipes) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onPrimaryContainer,
             )
         },
     ) { innerPadding ->

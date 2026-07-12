@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Chefesque saucepan foreground</title>
+  <desc id="desc">Transparent foreground-only Forest Shadow saucepan for adaptive launcher icons.</desc>
+  <g fill="#173229">
+    <rect x="160" y="222" width="196" height="34" rx="17"/>
+    <path d="M176 252h168c12 0 20 10 18 22l-12 70c-4 22-22 38-44 38H214c-22 0-40-16-44-38l-12-70c-2-12 6-22 18-22z"/>
+    <path d="M186 206c28-34 52-50 74-50s46 16 74 50c6 7 1 18-8 18H194c-9 0-14-11-8-18z"/>
+    <rect x="235" y="132" width="50" height="32" rx="16"/>
+    <rect x="344" y="266" width="78" height="52" rx="26"/>
+    <rect x="392" y="278" width="42" height="28" rx="14"/>
+  </g>
+</svg>
