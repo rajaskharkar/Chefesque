@@ -2,7 +2,7 @@
   <title id="title">Chefesque classic outline logo size preview</title>
   <desc id="desc">Vector-only preview of the simplified Deep Forest classic saucepan logo at 512, 192, 96, 48, and 24 pixel equivalents.</desc>
   <defs>
-    <g id="saucepan" fill="none" stroke="#244437" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M140 260H346V318C346 338 328 350 306 350H180C158 350 140 338 140 318V260"/><path d="M190 232C222 212 266 212 298 232"/><path d="M244 196H272"/><path d="M346 284H390C402 284 410 292 410 302C410 312 402 320 390 320H346"/></g>
+    <g id="saucepan" fill="none" stroke="#244437" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M148 260H364V318C364 338 346 350 324 350H188C166 350 148 338 148 318V260"/><path d="M204 232C226 212 286 212 308 232"/><path d="M242 196H270"/><path d="M364 284H396C408 284 416 292 416 302C416 312 408 320 396 320H364"/></g>
     <g id="logo"><rect width="512" height="512" fill="#F6F0E4"/><use href="#saucepan"/></g>
   </defs>
   <rect width="920" height="560" fill="#FFFDF8"/>
