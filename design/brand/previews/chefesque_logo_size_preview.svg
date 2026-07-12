@@ -1,19 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="920" height="560" viewBox="0 0 920 560" role="img" aria-labelledby="title desc">
-  <title id="title">Chefesque logo size preview</title>
-  <desc id="desc">Vector-only preview of the saucepan logo at 512, 192, 96, 48, and 24 pixel equivalents.</desc>
+  <title id="title">Chefesque outline logo size preview</title>
+  <desc id="desc">Vector-only preview of the lean outline saucepan logo at 512, 192, 96, 48, and 24 pixel equivalents.</desc>
   <defs>
-    <g id="saucepan" fill="#173229">
-      <rect x="160" y="222" width="196" height="34" rx="17"/>
-      <path d="M176 252h168c12 0 20 10 18 22l-12 70c-4 22-22 38-44 38H214c-22 0-40-16-44-38l-12-70c-2-12 6-22 18-22z"/>
-      <path d="M186 206c28-34 52-50 74-50s46 16 74 50c6 7 1 18-8 18H194c-9 0-14-11-8-18z"/>
-      <rect x="235" y="132" width="50" height="32" rx="16"/>
-      <rect x="344" y="266" width="78" height="52" rx="26"/>
-      <rect x="392" y="278" width="42" height="28" rx="14"/>
-    </g>
+    <g id="saucepan" fill="none" stroke="#173229" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"><path d="M158 252H358C368 252 376 262 372 274L356 324C350 344 330 354 304 354H212C186 354 166 344 160 324L144 274C140 262 148 252 158 252Z"/><path d="M188 226C212 198 236 186 260 186C284 186 308 198 332 226H188Z"/><path d="M240 154H280C289 154 296 161 296 170C296 179 289 186 280 186H240C231 186 224 179 224 170C224 161 231 154 240 154Z"/><path d="M372 282H426C443 282 456 295 456 312C456 329 443 342 426 342H362"/></g>
     <g id="logo"><rect width="512" height="512" fill="#F6F0E4"/><use href="#saucepan"/></g>
   </defs>
   <rect width="920" height="560" fill="#FFFDF8"/>
-  <text x="24" y="34" font-family="sans-serif" font-size="18" fill="#2E342F">Chefesque launcher mark — true relative SVG size checks</text>
+  <text x="24" y="34" font-family="sans-serif" font-size="18" fill="#2E342F">Chefesque outline launcher mark — true relative SVG size checks</text>
   <g transform="translate(24 48)"><use href="#logo"/><text x="0" y="500" font-family="sans-serif" font-size="18" fill="#2E342F">512 × 512</text></g>
   <g transform="translate(570 48) scale(.375)"><use href="#logo"/></g><text x="570" y="258" font-family="sans-serif" font-size="15" fill="#2E342F">192 × 192</text>
   <g transform="translate(570 298) scale(.1875)"><use href="#logo"/></g><text x="570" y="412" font-family="sans-serif" font-size="14" fill="#2E342F">96 × 96</text>

@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1040" height="330" viewBox="0 0 1040 330" role="img" aria-labelledby="title desc">
-  <title id="title">Chefesque logo launcher mask preview</title>
-  <desc id="desc">Vector-only preview of the saucepan logo clipped by circle, rounded-square, squircle, and teardrop launcher masks.</desc>
+  <title id="title">Chefesque outline logo launcher mask preview</title>
+  <desc id="desc">Vector-only preview of the lean outline saucepan logo clipped by circle, rounded-square, squircle, and teardrop launcher masks.</desc>
   <defs>
-    <g id="saucepan" fill="#173229"><rect x="160" y="222" width="196" height="34" rx="17"/><path d="M176 252h168c12 0 20 10 18 22l-12 70c-4 22-22 38-44 38H214c-22 0-40-16-44-38l-12-70c-2-12 6-22 18-22z"/><path d="M186 206c28-34 52-50 74-50s46 16 74 50c6 7 1 18-8 18H194c-9 0-14-11-8-18z"/><rect x="235" y="132" width="50" height="32" rx="16"/><rect x="344" y="266" width="78" height="52" rx="26"/><rect x="392" y="278" width="42" height="28" rx="14"/></g>
+    <g id="saucepan" fill="none" stroke="#173229" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"><path d="M158 252H358C368 252 376 262 372 274L356 324C350 344 330 354 304 354H212C186 354 166 344 160 324L144 274C140 262 148 252 158 252Z"/><path d="M188 226C212 198 236 186 260 186C284 186 308 198 332 226H188Z"/><path d="M240 154H280C289 154 296 161 296 170C296 179 289 186 280 186H240C231 186 224 179 224 170C224 161 231 154 240 154Z"/><path d="M372 282H426C443 282 456 295 456 312C456 329 443 342 426 342H362"/></g>
     <g id="logo"><rect width="512" height="512" fill="#F6F0E4"/><use href="#saucepan"/></g>
     <clipPath id="circle"><circle cx="256" cy="256" r="256"/></clipPath>
     <clipPath id="round"><rect width="512" height="512" rx="112"/></clipPath>
@@ -10,7 +10,7 @@
     <clipPath id="teardrop"><path d="M256 0c141 0 256 115 256 256 0 120-84 224-201 250-25 6-50-8-60-31C221 405 107 405 51 350 18 317 0 272 0 224 0 100 100 0 256 0z"/></clipPath>
   </defs>
   <rect width="1040" height="330" fill="#FFFDF8"/>
-  <text x="24" y="34" font-family="sans-serif" font-size="18" fill="#2E342F">Chefesque adaptive launcher mask checks</text>
+  <text x="24" y="34" font-family="sans-serif" font-size="18" fill="#2E342F">Chefesque outline adaptive launcher mask checks</text>
   <g transform="translate(24 60) scale(.43)" clip-path="url(#circle)"><use href="#logo"/></g><circle cx="134" cy="170" r="110" fill="none" stroke="#77736B" stroke-width="2"/><text x="88" y="305" font-family="sans-serif" font-size="15" fill="#2E342F">Circle</text>
   <g transform="translate(278 60) scale(.43)" clip-path="url(#round)"><use href="#logo"/></g><rect x="278" y="60" width="220" height="220" rx="48" fill="none" stroke="#77736B" stroke-width="2"/><text x="332" y="305" font-family="sans-serif" font-size="15" fill="#2E342F">Rounded square</text>
   <g transform="translate(532 60) scale(.43)" clip-path="url(#squircle)"><use href="#logo"/></g><path transform="translate(532 60) scale(.43)" d="M256 0C78 0 0 78 0 256s78 256 256 256 256-78 256-256S434 0 256 0z" fill="none" stroke="#77736B" stroke-width="5"/><text x="610" y="305" font-family="sans-serif" font-size="15" fill="#2E342F">Squircle</text>
