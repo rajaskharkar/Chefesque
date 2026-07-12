@@ -3,7 +3,7 @@
   <desc id="desc">A one-color classic saucepan outline with transparent interior for Android themed launcher icons.</desc>
   <g fill="none" stroke="#000000" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
     <path d="M140 260H346V318C346 338 328 350 306 350H180C158 350 140 338 140 318V260"/>
-    <path d="M188 230C220 210 266 210 298 230M174 242H312"/>
+    <path d="M190 232C222 212 266 212 298 232"/>
     <path d="M244 196H272"/>
     <path d="M346 284H390C402 284 410 292 410 302C410 312 402 320 390 320H346"/>
   </g>
