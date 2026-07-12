@@ -118,13 +118,18 @@ fun ChefesqueApp(appContainer: AppContainer) {
         ) { backStackEntry ->
             val recipeId = backStackEntry.arguments?.getString("recipeId").orEmpty()
             val recipeDetailViewModel: RecipeDetailViewModel = viewModel(
-                factory = RecipeDetailViewModelFactory(recipeId, appContainer.recipeRepository),
+                factory = RecipeDetailViewModelFactory(
+                    recipeId = recipeId,
+                    recipeRepository = appContainer.recipeRepository,
+                    cookingLogRepository = appContainer.cookingLogRepository,
+                ),
             )
             RecipeDetailScreen(
                 uiState = recipeDetailViewModel.uiState.collectAsStateWithLifecycle().value,
                 onBackClick = { navController.popBackStack(ChefesqueDestination.Main.route, inclusive = false) },
                 onEditClick = { navController.navigate(ChefesqueDestination.EditRecipe.createRoute(recipeId)) },
                 onCookAlongClick = { navController.navigate(ChefesqueDestination.CookAlong.createRoute(recipeId)) },
+                onCookingLogClick = { logId -> navController.navigate(ChefesqueDestination.CookingLogDetail.createRoute(logId)) },
             )
         }
         composable(

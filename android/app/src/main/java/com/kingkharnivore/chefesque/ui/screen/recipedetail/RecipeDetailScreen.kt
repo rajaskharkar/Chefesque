@@ -44,6 +44,7 @@ fun RecipeDetailScreen(
     onBackClick: () -> Unit,
     onEditClick: () -> Unit,
     onCookAlongClick: () -> Unit,
+    onCookingLogClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -60,14 +61,15 @@ fun RecipeDetailScreen(
             when {
                 uiState.isLoading -> CircularProgressIndicator(Modifier.align(Alignment.Center))
                 uiState.notFound || uiState.recipe == null -> RecipeNotFound(onBackClick, Modifier.align(Alignment.Center).padding(24.dp))
-                else -> RecipeDetailContent(uiState.recipe, uiState.ingredients, uiState.steps, onCookAlongClick)
+                else -> RecipeDetailContent(uiState, onCookAlongClick, onCookingLogClick)
             }
         }
     }
 }
 
 @Composable
-private fun RecipeDetailContent(recipe: RecipeEntity, ingredients: List<RecipeIngredientEntity>, steps: List<RecipeStepEntity>, onCookAlongClick: () -> Unit) {
+private fun RecipeDetailContent(uiState: RecipeDetailUiState, onCookAlongClick: () -> Unit, onCookingLogClick: (String) -> Unit) {
+    val recipe = uiState.recipe ?: return
     Column(
         modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -81,9 +83,62 @@ private fun RecipeDetailContent(recipe: RecipeEntity, ingredients: List<RecipeIn
             recipeTypeDisplayName(recipe.recipeType)?.let { AssistChip(onClick = {}, label = { Text(it) }) }
         }
         Button(onClick = onCookAlongClick, modifier = Modifier.fillMaxWidth()) { Text("Start Cook Along") }
-        DetailSectionCard("Ingredients") { IngredientsContent(ingredients) }
-        DetailSectionCard("Steps") { StepsContent(steps) }
+        DetailSectionCard("Cooking history") {
+            CookingHistoryContent(
+                recentLogs = uiState.recentLogs,
+                totalLogCount = uiState.totalLogCount,
+                lastCookedText = uiState.lastCookedText,
+                onCookingLogClick = onCookingLogClick,
+            )
+        }
+        DetailSectionCard("Ingredients") { IngredientsContent(uiState.ingredients) }
+        DetailSectionCard("Steps") { StepsContent(uiState.steps) }
         recipe.notes?.trim()?.takeIf { it.isNotBlank() }?.let { notes -> DetailSectionCard("Private notes") { Text(notes, style = MaterialTheme.typography.bodyMedium) } }
+    }
+}
+
+@Composable
+private fun CookingHistoryContent(
+    recentLogs: List<RecipeCookingLogUiModel>,
+    totalLogCount: Int,
+    lastCookedText: String?,
+    onCookingLogClick: (String) -> Unit,
+) {
+    if (recentLogs.isEmpty()) {
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Text("No cooks logged yet.", style = MaterialTheme.typography.bodyMedium)
+            Text("Finish a Cook Along to start tracking this recipe.", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        return
+    }
+
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            lastCookedText?.let { Text("Last cooked $it", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold) }
+            Text("$totalLogCount ${if (totalLogCount == 1) "cook" else "cooks"} logged", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            if (totalLogCount > recentLogs.size) {
+                Text("Showing latest ${recentLogs.size} of $totalLogCount cooks.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        }
+        recentLogs.forEach { log ->
+            RecipeCookingLogRow(log = log, onClick = { onCookingLogClick(log.id) })
+        }
+    }
+}
+
+@Composable
+private fun RecipeCookingLogRow(log: RecipeCookingLogUiModel, onClick: () -> Unit) {
+    Card(onClick = onClick, modifier = Modifier.fillMaxWidth()) {
+        Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                Text(listOfNotNull(log.cookedDateText, log.durationText).joinToString(" • "), modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
+                if (log.isFavorite) Text("★", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+            }
+            val resultLine = listOfNotNull(log.resultText, log.wouldMakeAgainText).joinToString(" • ")
+            if (resultLine.isNotBlank()) Text(resultLine, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            log.notesPreview?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+            if (log.createdFromCookAlong) AssistChip(onClick = {}, label = { Text("Cook Along") }, enabled = false)
+        }
     }
 }
 
@@ -185,7 +240,7 @@ private fun RecipeDetailScreenPreview() {
     ChefesqueTheme {
         RecipeDetailScreen(
             uiState = RecipeDetailUiState(isLoading = false, recipe = RecipeEntity("1", "Sunday Sauce", "A cozy all-day sauce.", 6, 20, 180, null, null, null, "FULL_DISH", "Use the big pot.", 0, 0, null), ingredients = listOf(RecipeIngredientEntity("i1", "1", null, "Garlic", null, "2", "cloves", "minced", "Sauce", false, 0)), steps = listOf(RecipeStepEntity("s1", "1", "Chop onion and garlic.", 300, null, null, null, "Do not let garlic burn.", "Large skillet", "Start pasta water.", 0))),
-            onBackClick = {}, onEditClick = {}, onCookAlongClick = {},
+            onBackClick = {}, onEditClick = {}, onCookAlongClick = {}, onCookingLogClick = {},
         )
     }
 }
