@@ -15,6 +15,9 @@ import com.kingkharnivore.chefesque.ui.screen.addrecipe.AddRecipeViewModel
 import com.kingkharnivore.chefesque.ui.screen.addrecipe.AddRecipeViewModelFactory
 import com.kingkharnivore.chefesque.ui.screen.cookinglog.CookingLogViewModel
 import com.kingkharnivore.chefesque.ui.screen.cookinglog.CookingLogViewModelFactory
+import com.kingkharnivore.chefesque.ui.screen.cookinglogdetail.CookingLogDetailScreen
+import com.kingkharnivore.chefesque.ui.screen.cookinglogdetail.CookingLogDetailViewModel
+import com.kingkharnivore.chefesque.ui.screen.cookinglogdetail.CookingLogDetailViewModelFactory
 import com.kingkharnivore.chefesque.ui.screen.cookalong.CookAlongScreen
 import com.kingkharnivore.chefesque.ui.screen.cookalong.CookAlongViewModel
 import com.kingkharnivore.chefesque.ui.screen.cookalong.CookAlongViewModelFactory
@@ -44,6 +47,7 @@ fun ChefesqueApp(appContainer: AppContainer) {
                 onAddRecipeClick = { navController.navigate(ChefesqueDestination.AddRecipe.route) },
                 onAddLogClick = { navController.navigate(ChefesqueDestination.AddLog.route) },
                 onRecipeClick = { recipeId -> navController.navigate(ChefesqueDestination.RecipeDetail.createRoute(recipeId)) },
+                onLogClick = { logId -> navController.navigate(ChefesqueDestination.CookingLogDetail.createRoute(logId)) },
             )
         }
         composable(ChefesqueDestination.AddRecipe.route) {
@@ -89,19 +93,43 @@ fun ChefesqueApp(appContainer: AppContainer) {
             )
         }
         composable(ChefesqueDestination.AddLog.route) { AddLogPlaceholderScreen(onBackClick = { navController.popBackStack() }) }
+
+        composable(
+            route = ChefesqueDestination.CookingLogDetail.route,
+            arguments = listOf(navArgument("logId") { type = NavType.StringType }),
+        ) { backStackEntry ->
+            val logId = backStackEntry.arguments?.getString("logId").orEmpty()
+            val cookingLogDetailViewModel: CookingLogDetailViewModel = viewModel(
+                factory = CookingLogDetailViewModelFactory(
+                    logId = logId,
+                    cookingLogRepository = appContainer.cookingLogRepository,
+                    recipeRepository = appContainer.recipeRepository,
+                ),
+            )
+            CookingLogDetailScreen(
+                uiState = cookingLogDetailViewModel.uiState.collectAsStateWithLifecycle().value,
+                onBackClick = { navController.popBackStack() },
+                onViewRecipeClick = { recipeId -> navController.navigate(ChefesqueDestination.RecipeDetail.createRoute(recipeId)) },
+            )
+        }
         composable(
             route = ChefesqueDestination.RecipeDetail.route,
             arguments = listOf(navArgument("recipeId") { type = NavType.StringType }),
         ) { backStackEntry ->
             val recipeId = backStackEntry.arguments?.getString("recipeId").orEmpty()
             val recipeDetailViewModel: RecipeDetailViewModel = viewModel(
-                factory = RecipeDetailViewModelFactory(recipeId, appContainer.recipeRepository),
+                factory = RecipeDetailViewModelFactory(
+                    recipeId = recipeId,
+                    recipeRepository = appContainer.recipeRepository,
+                    cookingLogRepository = appContainer.cookingLogRepository,
+                ),
             )
             RecipeDetailScreen(
                 uiState = recipeDetailViewModel.uiState.collectAsStateWithLifecycle().value,
                 onBackClick = { navController.popBackStack(ChefesqueDestination.Main.route, inclusive = false) },
                 onEditClick = { navController.navigate(ChefesqueDestination.EditRecipe.createRoute(recipeId)) },
                 onCookAlongClick = { navController.navigate(ChefesqueDestination.CookAlong.createRoute(recipeId)) },
+                onCookingLogClick = { logId -> navController.navigate(ChefesqueDestination.CookingLogDetail.createRoute(logId)) },
             )
         }
         composable(

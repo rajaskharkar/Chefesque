@@ -19,8 +19,8 @@ import com.kingkharnivore.chefesque.ui.theme.ChefesqueTheme
 fun ChefesqueEmptyState(
     title: String,
     body: String,
-    actionLabel: String,
-    onActionClick: () -> Unit,
+    actionLabel: String? = null,
+    onActionClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -32,7 +32,7 @@ fun ChefesqueEmptyState(
     ) {
         Text(text = title, style = MaterialTheme.typography.headlineSmall, textAlign = TextAlign.Center)
         Text(text = body, style = MaterialTheme.typography.bodyLarge, textAlign = TextAlign.Center)
-        Button(onClick = onActionClick) { Text(actionLabel) }
+        actionLabel?.let { Button(onClick = onActionClick) { Text(it) } }
     }
 }
 

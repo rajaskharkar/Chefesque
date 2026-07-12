@@ -13,6 +13,10 @@ sealed class ChefesqueDestination(val route: String) {
     data object CookingLog : ChefesqueDestination("cooking_log")
     data object AddRecipe : ChefesqueDestination("add_recipe")
     data object AddLog : ChefesqueDestination("add_log")
+
+    data object CookingLogDetail : ChefesqueDestination("cooking_log/{logId}") {
+        fun createRoute(logId: String): String = "cooking_log/$logId"
+    }
     data object CookAlong : ChefesqueDestination("cook_along/{recipeId}") {
         fun createRoute(recipeId: String): String = "cook_along/$recipeId"
     }
