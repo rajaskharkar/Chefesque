@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="920" height="560" viewBox="0 0 920 560" role="img" aria-labelledby="title desc">
-  <title id="title">Chefesque outline logo size preview</title>
-  <desc id="desc">Vector-only preview of the lean outline saucepan logo at 512, 192, 96, 48, and 24 pixel equivalents.</desc>
+  <title id="title">Chefesque simplified outline logo size preview</title>
+  <desc id="desc">Vector-only preview of the simplified Deep Forest outline saucepan logo at 512, 192, 96, 48, and 24 pixel equivalents.</desc>
   <defs>
-    <g id="saucepan" fill="none" stroke="#173229" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"><path d="M158 252H358C368 252 376 262 372 274L356 324C350 344 330 354 304 354H212C186 354 166 344 160 324L144 274C140 262 148 252 158 252Z"/><path d="M188 226C212 198 236 186 260 186C284 186 308 198 332 226H188Z"/><path d="M240 154H280C289 154 296 161 296 170C296 179 289 186 280 186H240C231 186 224 179 224 170C224 161 231 154 240 154Z"/><path d="M372 282H426C443 282 456 295 456 312C456 329 443 342 426 342H362"/></g>
+    <g id="saucepan" fill="none" stroke="#244437" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"><path d="M150 262H356L340 330C337 341 329 346 316 346H206C193 346 185 341 182 330L166 262"/><path d="M198 226C219 202 239 190 260 190C281 190 301 202 322 226M224 238H342M244 178H276"/><path d="M356 288H420C433 288 440 295 440 308C440 321 433 328 420 328H348"/></g>
     <g id="logo"><rect width="512" height="512" fill="#F6F0E4"/><use href="#saucepan"/></g>
   </defs>
   <rect width="920" height="560" fill="#FFFDF8"/>
-  <text x="24" y="34" font-family="sans-serif" font-size="18" fill="#2E342F">Chefesque outline launcher mark — true relative SVG size checks</text>
+  <text x="24" y="34" font-family="sans-serif" font-size="18" fill="#2E342F">Chefesque simplified outline launcher mark — true relative SVG size checks</text>
   <g transform="translate(24 48)"><use href="#logo"/><text x="0" y="500" font-family="sans-serif" font-size="18" fill="#2E342F">512 × 512</text></g>
   <g transform="translate(570 48) scale(.375)"><use href="#logo"/></g><text x="570" y="258" font-family="sans-serif" font-size="15" fill="#2E342F">192 × 192</text>
   <g transform="translate(570 298) scale(.1875)"><use href="#logo"/></g><text x="570" y="412" font-family="sans-serif" font-size="14" fill="#2E342F">96 × 96</text>

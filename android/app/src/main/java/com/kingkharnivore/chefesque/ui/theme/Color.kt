@@ -18,6 +18,8 @@ val StoneBeige = Color(0xFFE8E0D3)
 val MutedCharcoal = Color(0xFF5F665F)
 val WarmGrey = Color(0xFF77736B)
 val DeepRed = Color(0xFFB3261E)
+val LightErrorContainer = Color(0xFFF9DEDC)
+val OnLightErrorContainer = Color(0xFF410E0B)
 
 val SurfaceContainerLowestLight = Color(0xFFFFFDF8)
 val SurfaceContainerLowLight = Color(0xFFFBF5EB)
