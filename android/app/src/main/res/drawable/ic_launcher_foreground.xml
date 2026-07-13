@@ -6,28 +6,28 @@
     android:viewportHeight="512">
     <path
         android:fillColor="#00000000"
-        android:pathData="M111,260H325.5V318C325.5,338 307.7,350 285.8,350H150.7C128.9,350 111,338 111,318V260"
+        android:pathData="M111,246H325.5V304C325.5,324 307.7,336 285.8,336H150.7C128.9,336 111,324 111,304V246"
         android:strokeWidth="22"
         android:strokeColor="@color/chefesque_deep_forest"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
         android:fillColor="#00000000"
-        android:pathData="M166.6,232C188.5,212 248,212 269.9,232"
+        android:pathData="M166.6,218C188.5,198 248,198 269.9,218"
         android:strokeWidth="22"
         android:strokeColor="@color/chefesque_deep_forest"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
         android:fillColor="#00000000"
-        android:pathData="M204.4,196H232.2"
+        android:pathData="M204.4,182H232.2"
         android:strokeWidth="22"
         android:strokeColor="@color/chefesque_deep_forest"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
         android:fillColor="#00000000"
-        android:pathData="M325.5,284H379.1C391.1,284 399,292 399,302C399,312 391.1,320 379.1,320H325.5"
+        android:pathData="M325.5,270H379.1C391.1,270 399,278 399,288C399,298 391.1,306 379.1,306H325.5"
         android:strokeWidth="22"
         android:strokeColor="@color/chefesque_deep_forest"
         android:strokeLineCap="round"
