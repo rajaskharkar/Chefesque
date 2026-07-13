@@ -32,12 +32,15 @@ import com.kingkharnivore.chefesque.data.local.entity.IngredientEntity
 import com.kingkharnivore.chefesque.domain.model.RecipeType
 import com.kingkharnivore.chefesque.ui.screen.addrecipe.AddRecipeScreen
 import com.kingkharnivore.chefesque.ui.screen.addrecipe.AddRecipeUiState
+import com.kingkharnivore.chefesque.ui.screen.addrecipe.RecipeEditorTab
 
 @Composable
 fun EditRecipeScreen(
     uiState: EditRecipeUiState,
     onBackClick: () -> Unit,
     onSaveClick: () -> Unit,
+    onRequestPublish: () -> Unit,
+    onConfirmPublish: () -> Unit,
     onSaveComplete: () -> Unit,
     onTitleChange: (String) -> Unit,
     onDescriptionChange: (String) -> Unit,
@@ -64,15 +67,17 @@ fun EditRecipeScreen(
     onStepTimerSecondsChange: (String, String) -> Unit,
     onStepWarningChange: (String, String) -> Unit,
     onStepEquipmentChange: (String, String) -> Unit,
-    onStepWhileTimerRunsChange: (String, String) -> Unit,
-    onStepCheckpointChange: (String, Boolean) -> Unit,
+    onStepTitleChange: (String, String) -> Unit,
+    onStepMeanwhileChange: (String, String) -> Unit,
+    onStepCheckpointChange: (String, String) -> Unit,
     onToggleStepIngredientLink: (String, String) -> Unit,
+    onTabSelected: (RecipeEditorTab) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     var showDiscardDialog by remember { mutableStateOf(false) }
     fun requestBack() { if (uiState.hasUnsavedChanges && !uiState.isSaving) showDiscardDialog = true else onBackClick() }
 
-    LaunchedEffect(uiState.saved) { if (uiState.saved) onSaveComplete() }
+    LaunchedEffect(uiState.saved, uiState.publishedRecipeEventId, uiState.updatedRecipeEventId, uiState.discardedRecipeEventId) { if (uiState.saved || uiState.publishedRecipeEventId != null || uiState.updatedRecipeEventId != null || uiState.discardedRecipeEventId != null) onSaveComplete() }
     BackHandler(enabled = uiState.hasUnsavedChanges && !uiState.isSaving) { showDiscardDialog = true }
 
     when {
@@ -81,7 +86,7 @@ fun EditRecipeScreen(
         else -> AddRecipeScreen(
             uiState = uiState.toAddRecipeUiState(),
             onBackClick = ::requestBack,
-            onSaveClick = onSaveClick,
+            onSaveDraft = onSaveClick,
             onSaveComplete = {},
             onTitleChange = onTitleChange,
             onDescriptionChange = onDescriptionChange,
@@ -103,14 +108,19 @@ fun EditRecipeScreen(
             onRemoveStep = onRemoveStep,
             onMoveStepUp = onMoveStepUp,
             onMoveStepDown = onMoveStepDown,
+            onStepTitleChange = onStepTitleChange,
             onStepInstructionChange = onStepInstructionChange,
             onStepTimerMinutesChange = onStepTimerMinutesChange,
             onStepTimerSecondsChange = onStepTimerSecondsChange,
             onStepWarningChange = onStepWarningChange,
             onStepEquipmentChange = onStepEquipmentChange,
-            onStepWhileTimerRunsChange = onStepWhileTimerRunsChange,
+            onStepMeanwhileChange = onStepMeanwhileChange,
             onStepCheckpointChange = onStepCheckpointChange,
             onToggleStepIngredientLink = onToggleStepIngredientLink,
+            onTabSelected = onTabSelected,
+            onRequestPublish = onRequestPublish,
+            onConfirmPublish = onConfirmPublish,
+            onDismissPublishReview = {},
             modifier = modifier,
             screenTitle = "Edit Recipe",
             saveActionLabel = "Save",
@@ -152,5 +162,5 @@ private fun EditNotFoundScreen(onBackClick: () -> Unit, modifier: Modifier = Mod
 
 private fun EditRecipeUiState.toAddRecipeUiState() = AddRecipeUiState(
     title = title, description = description, servings = servings, prepTimeMinutes = prepTimeMinutes, cookTimeMinutes = cookTimeMinutes, recipeType = recipeType, notes = notes,
-    ingredients = ingredients, steps = steps, isSaving = isSaving, titleError = titleError, servingsError = servingsError, prepTimeError = prepTimeError, cookTimeError = cookTimeError, ingredientError = ingredientError, stepError = stepError, saveError = saveError,
+    ingredients = ingredients, steps = steps, isSaving = isSaving, activeTab = activeTab, autosaveStatus = autosaveStatus, publishReviewVisible = publishReviewVisible, isPublishedRevision = isPublishedRevision, titleError = titleError, servingsError = servingsError, prepTimeError = prepTimeError, cookTimeError = cookTimeError, ingredientError = ingredientError, stepError = stepError, saveError = saveError, savedRecipeId = publishedRecipeEventId, updatedRecipeId = updatedRecipeEventId, discardedRecipeId = discardedRecipeEventId,
 )

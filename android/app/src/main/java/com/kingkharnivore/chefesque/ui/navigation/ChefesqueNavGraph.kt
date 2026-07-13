@@ -47,6 +47,7 @@ fun ChefesqueApp(appContainer: AppContainer) {
                 onAddRecipeClick = { navController.navigate(ChefesqueDestination.AddRecipe.route) },
                 onAddLogClick = { navController.navigate(ChefesqueDestination.AddLog.route) },
                 onRecipeClick = { recipeId -> navController.navigate(ChefesqueDestination.RecipeDetail.createRoute(recipeId)) },
+                onDraftClick = { recipeId -> navController.navigate(ChefesqueDestination.EditRecipe.createRoute(recipeId)) },
                 onLogClick = { logId -> navController.navigate(ChefesqueDestination.CookingLogDetail.createRoute(logId)) },
             )
         }
@@ -60,7 +61,7 @@ fun ChefesqueApp(appContainer: AppContainer) {
             AddRecipeScreen(
                 uiState = addRecipeViewModel.uiState.collectAsStateWithLifecycle().value,
                 onBackClick = { navController.popBackStack() },
-                onSaveClick = addRecipeViewModel::saveRecipe,
+                onSaveDraft = { addRecipeViewModel.saveRecipe() },
                 onSaveComplete = { navController.popBackStack(ChefesqueDestination.Main.route, inclusive = false) },
                 onTitleChange = addRecipeViewModel::updateTitle,
                 onDescriptionChange = addRecipeViewModel::updateDescription,
@@ -82,14 +83,19 @@ fun ChefesqueApp(appContainer: AppContainer) {
                 onRemoveStep = addRecipeViewModel::removeStep,
                 onMoveStepUp = addRecipeViewModel::moveStepUp,
                 onMoveStepDown = addRecipeViewModel::moveStepDown,
+                onStepTitleChange = addRecipeViewModel::updateStepTitle,
                 onStepInstructionChange = addRecipeViewModel::updateStepInstruction,
                 onStepTimerMinutesChange = addRecipeViewModel::updateStepTimerMinutes,
                 onStepTimerSecondsChange = addRecipeViewModel::updateStepTimerSeconds,
                 onStepWarningChange = addRecipeViewModel::updateStepWarning,
                 onStepEquipmentChange = addRecipeViewModel::updateStepEquipment,
-                onStepWhileTimerRunsChange = addRecipeViewModel::updateStepWhileTimerRuns,
+                onStepMeanwhileChange = addRecipeViewModel::updateStepMeanwhile,
                 onStepCheckpointChange = addRecipeViewModel::updateStepCheckpoint,
                 onToggleStepIngredientLink = addRecipeViewModel::toggleStepIngredientLink,
+                onTabSelected = addRecipeViewModel::selectTab,
+                onRequestPublish = addRecipeViewModel::requestPublish,
+                onConfirmPublish = addRecipeViewModel::publishRecipe,
+                onDismissPublishReview = addRecipeViewModel::hidePublishReview,
             )
         }
         composable(ChefesqueDestination.AddLog.route) { AddLogPlaceholderScreen(onBackClick = { navController.popBackStack() }) }
@@ -147,8 +153,10 @@ fun ChefesqueApp(appContainer: AppContainer) {
             EditRecipeScreen(
                 uiState = editRecipeViewModel.uiState.collectAsStateWithLifecycle().value,
                 onBackClick = { navController.popBackStack() },
-                onSaveClick = editRecipeViewModel::saveRecipe,
-                onSaveComplete = { navController.popBackStack(ChefesqueDestination.RecipeDetail.createRoute(recipeId), inclusive = false) },
+                onSaveClick = editRecipeViewModel::saveDraft,
+                onRequestPublish = editRecipeViewModel::requestPublishOrUpdate,
+                onConfirmPublish = editRecipeViewModel::confirmPublishOrUpdate,
+                onSaveComplete = { navController.navigate(ChefesqueDestination.RecipeDetail.createRoute(recipeId)) { popUpTo(ChefesqueDestination.Main.route) } },
                 onTitleChange = editRecipeViewModel::updateTitle,
                 onDescriptionChange = editRecipeViewModel::updateDescription,
                 onServingsChange = editRecipeViewModel::updateServings,
@@ -169,14 +177,16 @@ fun ChefesqueApp(appContainer: AppContainer) {
                 onRemoveStep = editRecipeViewModel::removeStep,
                 onMoveStepUp = editRecipeViewModel::moveStepUp,
                 onMoveStepDown = editRecipeViewModel::moveStepDown,
+                onStepTitleChange = editRecipeViewModel::updateStepTitle,
                 onStepInstructionChange = editRecipeViewModel::updateStepInstruction,
                 onStepTimerMinutesChange = editRecipeViewModel::updateStepTimerMinutes,
                 onStepTimerSecondsChange = editRecipeViewModel::updateStepTimerSeconds,
                 onStepWarningChange = editRecipeViewModel::updateStepWarning,
                 onStepEquipmentChange = editRecipeViewModel::updateStepEquipment,
-                onStepWhileTimerRunsChange = editRecipeViewModel::updateStepWhileTimerRuns,
+                onStepMeanwhileChange = editRecipeViewModel::updateStepMeanwhile,
                 onStepCheckpointChange = editRecipeViewModel::updateStepCheckpoint,
                 onToggleStepIngredientLink = editRecipeViewModel::toggleStepIngredientLink,
+                onTabSelected = editRecipeViewModel::selectTab,
             )
         }
         composable(

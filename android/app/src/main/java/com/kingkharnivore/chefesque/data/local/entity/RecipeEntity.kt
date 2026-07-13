@@ -11,6 +11,9 @@ import androidx.room.PrimaryKey
         Index("createdAt"),
         Index("updatedAt"),
         Index("archivedAt"),
+        Index("lifecycleStatus"),
+        Index("lastEditedAt"),
+        Index(value = ["sourceRecipeId"], unique = true),
     ],
 )
 data class RecipeEntity(
@@ -28,4 +31,10 @@ data class RecipeEntity(
     val createdAt: Long,
     val updatedAt: Long,
     val archivedAt: Long?,
+    val lifecycleStatus: String = "PUBLISHED",
+    val lastEditedAt: Long = updatedAt,
+    val publishedAt: Long? = updatedAt,
+    val lastEditedTab: String = "BASIC_INFO",
+    val sourceRecipeId: String? = null,
+    val hasUnpublishedChanges: Boolean = false,
 )

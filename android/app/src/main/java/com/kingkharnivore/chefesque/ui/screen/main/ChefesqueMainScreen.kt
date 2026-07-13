@@ -42,6 +42,7 @@ fun ChefesqueMainScreen(
     onAddLogClick: () -> Unit,
     onRecipeClick: (String) -> Unit,
     onLogClick: (String) -> Unit,
+    onDraftClick: (String) -> Unit = onRecipeClick,
     modifier: Modifier = Modifier,
 ) {
     var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
@@ -73,7 +74,7 @@ fun ChefesqueMainScreen(
     ) { innerPadding ->
         val contentModifier = Modifier.padding(innerPadding)
         when (selectedTab) {
-            MainTab.Recipes -> MyRecipesScreen(recipesUiState, onAddRecipeClick, onRecipeClick, contentModifier)
+            MainTab.Recipes -> MyRecipesScreen(recipesUiState, onAddRecipeClick, onRecipeClick, onDraftClick, contentModifier)
             MainTab.Logs -> CookingLogScreen(cookingLogUiState, onAddLogClick, onLogClick, contentModifier)
         }
     }

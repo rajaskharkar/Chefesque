@@ -25,6 +25,18 @@ class CookAlongStepBuilderTest {
         assertEquals(listOf("Tomatoes"), result[1].ingredients.map { it.displayText })
     }
 
+    @Test
+    fun builderPreservesTitleOnlyStepsForCookAlong() {
+        val result = buildCookAlongSteps(
+            steps = listOf(RecipeStepEntity("step-title", "recipe-id", "", null, null, null, null, null, null, null, 0, title = "Preheat the oven")),
+            ingredients = emptyList(),
+            links = emptyList(),
+        )
+
+        assertEquals("Preheat the oven", result.single().title)
+        assertEquals("", result.single().instruction)
+    }
+
 
     @Test
     fun prepareTimerForStepCreatesIdleTimerForTimedStep() {

@@ -7,18 +7,24 @@ import com.kingkharnivore.chefesque.data.local.entity.RecipeEntity
 import com.kingkharnivore.chefesque.data.repository.RecipeRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
 data class RecipesUiState(
-    val recipes: List<RecipeEntity> = emptyList(),
+    val publishedRecipes: List<RecipeEntity> = emptyList(),
+    val draftRecipes: List<RecipeEntity> = emptyList(),
     val isLoading: Boolean = true,
-)
+) {
+    val recipes: List<RecipeEntity> get() = publishedRecipes
+}
 
 class RecipesViewModel(recipeRepository: RecipeRepository) : ViewModel() {
-    val uiState: StateFlow<RecipesUiState> = recipeRepository.observeActiveRecipes()
-        .map { RecipesUiState(recipes = it, isLoading = false) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RecipesUiState())
+    val uiState: StateFlow<RecipesUiState> = combine(
+        recipeRepository.observeActiveRecipes(),
+        recipeRepository.observeDraftRecipes(),
+    ) { published, drafts ->
+        RecipesUiState(publishedRecipes = published, draftRecipes = drafts, isLoading = false)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RecipesUiState())
 }
 
 class RecipesViewModelFactory(private val recipeRepository: RecipeRepository) : ViewModelProvider.Factory {

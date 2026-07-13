@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.kingkharnivore.chefesque.data.local.entity.CookSessionEntity
 import com.kingkharnivore.chefesque.data.local.entity.RecipeEntity
+import com.kingkharnivore.chefesque.data.local.entity.RecipeLifecycle
 import com.kingkharnivore.chefesque.data.local.entity.RecipeIngredientEntity
 import com.kingkharnivore.chefesque.data.local.entity.RecipeStepEntity
 import com.kingkharnivore.chefesque.data.local.entity.StepIngredientLinkEntity
@@ -50,6 +51,7 @@ data class CookAlongStepUiModel(
     val whileTimerRuns: String?,
     val checkpoint: String?,
     val ingredients: List<CookAlongIngredientUiModel>,
+    val title: String? = null,
 )
 
 data class CookAlongIngredientUiModel(
@@ -155,7 +157,7 @@ class CookAlongViewModel(
             ) { recipe, ingredients, steps -> RecipeCookGraph(recipe, ingredients, steps) }
                 .collectLatest { graph ->
                     val recipe = graph.recipe
-                    if (recipe == null || recipe.archivedAt != null) {
+                    if (recipe == null || recipe.archivedAt != null || recipe.lifecycleStatus != RecipeLifecycle.PUBLISHED.name || recipe.sourceRecipeId != null) {
                         timerJob?.cancel()
                         _uiState.update {
                             it.copy(isLoading = false, notFound = true, recipe = null, steps = emptyList(), currentStepIndex = 0)
@@ -350,15 +352,18 @@ fun buildCookAlongSteps(
                 CookAlongIngredientUiModel(ingredient.id, formatCookAlongIngredient(ingredient), ingredient.optional)
             }
         }
+        val title = step.title?.trim()?.takeIf { it.isNotBlank() }
+        val instruction = step.instruction.trim()
         CookAlongStepUiModel(
             id = step.id,
-            instruction = step.instruction.trim().ifBlank { "Step instruction missing." },
+            instruction = instruction,
             timerSeconds = step.timerSeconds?.takeIf { it > 0 },
             warning = step.warning?.trim()?.takeIf { it.isNotBlank() },
             equipment = step.equipment?.trim()?.takeIf { it.isNotBlank() },
-            whileTimerRuns = step.whileTimerRuns?.trim()?.takeIf { it.isNotBlank() },
+            whileTimerRuns = (step.meanwhile ?: step.whileTimerRuns)?.trim()?.takeIf { it.isNotBlank() },
             checkpoint = checkpointDisplayText(step.checkpoint),
             ingredients = stepIngredients,
+            title = title,
         )
     }
 }
