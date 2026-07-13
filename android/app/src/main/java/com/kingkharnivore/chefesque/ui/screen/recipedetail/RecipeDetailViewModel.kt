@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.kingkharnivore.chefesque.data.local.entity.CookingLogEntity
 import com.kingkharnivore.chefesque.data.local.entity.RecipeEntity
+import com.kingkharnivore.chefesque.data.local.entity.RecipeLifecycle
 import com.kingkharnivore.chefesque.data.local.entity.RecipeIngredientEntity
 import com.kingkharnivore.chefesque.data.local.entity.RecipeStepEntity
 import com.kingkharnivore.chefesque.data.repository.CookingLogRepository
@@ -61,10 +62,10 @@ class RecipeDetailViewModel(
         val cookingHistory = buildRecipeCookingHistoryUi(logsForRecipe)
         RecipeDetailUiState(
             isLoading = false,
-            recipe = recipe?.takeIf { it.archivedAt == null },
+            recipe = recipe?.takeIf { it.archivedAt == null && it.lifecycleStatus == RecipeLifecycle.PUBLISHED.name && it.sourceRecipeId == null },
             ingredients = ingredients,
             steps = steps,
-            notFound = recipe == null || recipe.archivedAt != null,
+            notFound = recipe == null || recipe.archivedAt != null || recipe.lifecycleStatus != RecipeLifecycle.PUBLISHED.name || recipe.sourceRecipeId != null,
             recentLogs = cookingHistory.recentLogs,
             totalLogCount = cookingHistory.totalLogCount,
             lastCookedText = cookingHistory.lastCookedText,

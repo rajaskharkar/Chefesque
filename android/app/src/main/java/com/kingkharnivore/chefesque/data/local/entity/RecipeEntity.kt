@@ -13,6 +13,7 @@ import androidx.room.PrimaryKey
         Index("archivedAt"),
         Index("lifecycleStatus"),
         Index("lastEditedAt"),
+        Index(value = ["sourceRecipeId"], unique = true),
     ],
 )
 data class RecipeEntity(

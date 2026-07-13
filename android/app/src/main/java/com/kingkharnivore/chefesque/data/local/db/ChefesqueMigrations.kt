@@ -25,6 +25,7 @@ val MIGRATION_2_3 = object : Migration(2, 3) {
         db.execSQL("UPDATE recipes SET lastEditedAt = updatedAt, publishedAt = updatedAt WHERE lastEditedAt = 0")
         db.execSQL("CREATE INDEX IF NOT EXISTS index_recipes_lifecycleStatus ON recipes(lifecycleStatus)")
         db.execSQL("CREATE INDEX IF NOT EXISTS index_recipes_lastEditedAt ON recipes(lastEditedAt)")
+        db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS index_recipes_sourceRecipeId ON recipes(sourceRecipeId)")
         db.execSQL("ALTER TABLE recipe_steps ADD COLUMN title TEXT")
         db.execSQL("ALTER TABLE recipe_steps ADD COLUMN meanwhile TEXT")
         db.execSQL("UPDATE recipe_steps SET meanwhile = whileTimerRuns WHERE whileTimerRuns IS NOT NULL")

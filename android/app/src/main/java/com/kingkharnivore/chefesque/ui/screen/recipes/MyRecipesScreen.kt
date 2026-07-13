@@ -32,7 +32,7 @@ import com.kingkharnivore.chefesque.ui.component.RecipeSummaryCard
 import com.kingkharnivore.chefesque.ui.theme.ChefesqueTheme
 
 @Composable
-fun MyRecipesScreen(uiState: RecipesUiState, onAddRecipeClick: () -> Unit, onRecipeClick: (String) -> Unit, modifier: Modifier = Modifier) {
+fun MyRecipesScreen(uiState: RecipesUiState, onAddRecipeClick: () -> Unit, onRecipeClick: (String) -> Unit, onDraftClick: (String) -> Unit = onRecipeClick, modifier: Modifier = Modifier) {
     var selectedTab by remember { mutableIntStateOf(0) }
     Column(modifier = modifier.fillMaxSize()) {
         TabRow(selectedTabIndex = selectedTab) {
@@ -43,7 +43,7 @@ fun MyRecipesScreen(uiState: RecipesUiState, onAddRecipeClick: () -> Unit, onRec
             when {
                 uiState.isLoading -> CircularProgressIndicator(Modifier.align(Alignment.Center))
                 selectedTab == 0 -> PublishedRecipesTab(uiState, onAddRecipeClick, onRecipeClick, onViewDrafts = { selectedTab = 1 })
-                else -> DraftRecipesTab(uiState, onAddRecipeClick, onRecipeClick)
+                else -> DraftRecipesTab(uiState, onAddRecipeClick, onDraftClick)
             }
         }
     }

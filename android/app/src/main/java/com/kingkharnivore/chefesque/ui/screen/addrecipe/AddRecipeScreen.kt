@@ -59,7 +59,7 @@ import com.kingkharnivore.chefesque.domain.model.RecipeType
 fun AddRecipeScreen(
     uiState: AddRecipeUiState,
     onBackClick: () -> Unit,
-    onSaveClick: () -> Unit,
+    onSaveDraft: () -> Unit,
     onSaveComplete: () -> Unit,
     onTitleChange: (String) -> Unit,
     onDescriptionChange: (String) -> Unit,
@@ -90,7 +90,8 @@ fun AddRecipeScreen(
     onStepCheckpointChange: (String, Boolean) -> Unit,
     onToggleStepIngredientLink: (String, String) -> Unit,
     onTabSelected: (RecipeEditorTab) -> Unit = {},
-    onPublishClick: () -> Unit = onSaveClick,
+    onRequestPublish: () -> Unit = {},
+    onConfirmPublish: () -> Unit = {},
     onDismissPublishReview: () -> Unit = {},
     modifier: Modifier = Modifier,
     screenTitle: String = "Add Recipe",
@@ -110,7 +111,7 @@ fun AddRecipeScreen(
                 navigationIcon = { IconButton(onClick = onBackClick) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back") } },
                 actions = {
                     Text(uiState.autosaveStatus, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    TextButton(onClick = onSaveClick, enabled = !uiState.isSaving) { Text(if (uiState.isSaving) "Saving" else saveActionLabel) }
+                    TextButton(onClick = onSaveDraft, enabled = !uiState.isSaving) { Text(if (uiState.isSaving) "Saving" else saveActionLabel) }
                 },
             )
         },
@@ -137,8 +138,8 @@ fun AddRecipeScreen(
                 uiState.saveError?.let { ErrorText(it) }
             }
             Row(Modifier.fillMaxWidth().padding(16.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                OutlinedButton(onClick = onSaveClick, enabled = !uiState.isSaving, modifier = Modifier.weight(1f)) { Text("Save as Draft") }
-                Button(onClick = onPublishClick, enabled = !uiState.isSaving, modifier = Modifier.weight(1f)) { Text("Publish Recipe") }
+                OutlinedButton(onClick = onSaveDraft, enabled = !uiState.isSaving, modifier = Modifier.weight(1f)) { Text("Save as Draft") }
+                Button(onClick = onRequestPublish, enabled = !uiState.isSaving, modifier = Modifier.weight(1f)) { Text("Publish Recipe") }
             }
         }
         if (uiState.publishReviewVisible) {
@@ -149,7 +150,7 @@ fun AddRecipeScreen(
                     Text("${uiState.ingredients.count { it.query.isNotBlank() }} ingredients")
                     Text("${uiState.steps.count { !it.isBlankStepForUi() }} steps")
                     Text("Suggestions are optional and will not block publishing.")
-                    Button(onClick = onPublishClick, modifier = Modifier.fillMaxWidth()) { Text("Publish Recipe") }
+                    Button(onClick = onConfirmPublish, modifier = Modifier.fillMaxWidth()) { Text("Publish Recipe") }
                     TextButton(onClick = onDismissPublishReview, modifier = Modifier.fillMaxWidth()) { Text("Keep Editing") }
                 }
             }
@@ -441,7 +442,7 @@ private fun IngredientRowSuggestionsPreview() = MaterialTheme {
 @Composable
 private fun AddRecipeScreenPreview(state: AddRecipeUiState) = AddRecipeScreen(
     uiState = state,
-    onBackClick = {}, onSaveClick = {}, onSaveComplete = {}, onTitleChange = {}, onDescriptionChange = {}, onServingsChange = {}, onPrepTimeChange = {}, onCookTimeChange = {}, onRecipeTypeChange = {}, onNotesChange = {}, onAddIngredient = {}, onRemoveIngredient = {}, onIngredientQueryChange = { _, _ -> }, onIngredientSelected = { _, _ -> }, onQuantityChange = { _, _ -> }, onUnitChange = { _, _ -> }, onPrepNoteChange = { _, _ -> }, onSectionChange = { _, _ -> }, onOptionalChange = { _, _ -> }, onAddStep = {}, onRemoveStep = {}, onMoveStepUp = {}, onMoveStepDown = {}, onStepInstructionChange = { _, _ -> }, onStepTimerMinutesChange = { _, _ -> }, onStepTimerSecondsChange = { _, _ -> }, onStepWarningChange = { _, _ -> }, onStepEquipmentChange = { _, _ -> }, onStepWhileTimerRunsChange = { _, _ -> }, onStepCheckpointChange = { _, _ -> }, onToggleStepIngredientLink = { _, _ -> },
+    onBackClick = {}, onSaveDraft = {}, onSaveComplete = {}, onTitleChange = {}, onDescriptionChange = {}, onServingsChange = {}, onPrepTimeChange = {}, onCookTimeChange = {}, onRecipeTypeChange = {}, onNotesChange = {}, onAddIngredient = {}, onRemoveIngredient = {}, onIngredientQueryChange = { _, _ -> }, onIngredientSelected = { _, _ -> }, onQuantityChange = { _, _ -> }, onUnitChange = { _, _ -> }, onPrepNoteChange = { _, _ -> }, onSectionChange = { _, _ -> }, onOptionalChange = { _, _ -> }, onAddStep = {}, onRemoveStep = {}, onMoveStepUp = {}, onMoveStepDown = {}, onStepInstructionChange = { _, _ -> }, onStepTimerMinutesChange = { _, _ -> }, onStepTimerSecondsChange = { _, _ -> }, onStepWarningChange = { _, _ -> }, onStepEquipmentChange = { _, _ -> }, onStepWhileTimerRunsChange = { _, _ -> }, onStepCheckpointChange = { _, _ -> }, onToggleStepIngredientLink = { _, _ -> },
 )
 
 private fun previewIngredient(id: String, name: String) = IngredientEntity(id = id, displayName = name, canonicalName = name.lowercase(), category = "vegetable", defaultUnit = null, commonUnitsJson = null, source = IngredientSource.CURATED.name, sourceId = id, isUserCreated = false, createdAt = 0L, updatedAt = 0L)

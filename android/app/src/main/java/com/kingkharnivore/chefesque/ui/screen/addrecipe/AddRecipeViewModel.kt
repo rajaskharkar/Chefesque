@@ -13,11 +13,16 @@ import com.kingkharnivore.chefesque.data.repository.RecipeRepository
 import com.kingkharnivore.chefesque.domain.model.RecipeType
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.UUID
+import com.kingkharnivore.chefesque.data.local.entity.RecipeLifecycle
 
 private const val IngredientSuggestionLimit = 8
 
@@ -39,7 +44,7 @@ data class AddRecipeUiState(
     val ingredientError: String? = null,
     val stepError: String? = null,
     val activeTab: RecipeEditorTab = RecipeEditorTab.BASIC_INFO,
-    val autosaveStatus: String = "Draft saved",
+    val autosaveStatus: String = "Not saved yet",
     val publishReviewVisible: Boolean = false,
     val saveError: String? = null,
     val savedRecipeId: String? = null,
@@ -81,6 +86,17 @@ class AddRecipeViewModel(
     private val _uiState = MutableStateFlow(AddRecipeUiState())
     val uiState: StateFlow<AddRecipeUiState> = _uiState.asStateFlow()
     private val searchJobs = mutableMapOf<String, Job>()
+    private var currentRecipeId: String? = null
+
+    init {
+        viewModelScope.launch {
+            uiState.map { it.copy(isSaving = false, savedRecipeId = null, autosaveStatus = "") }
+                .distinctUntilChanged()
+                .drop(1)
+                .debounce(750)
+                .collect { state -> if (state.hasMeaningfulContent()) saveRecipe(exitAfterSave = false) }
+        }
+    }
 
     fun updateTitle(value: String) = _uiState.update { it.copy(title = value, titleError = null, saveError = null) }
     fun updateDescription(value: String) = _uiState.update { it.copy(description = value) }
@@ -183,12 +199,38 @@ class AddRecipeViewModel(
         step.copy(linkedIngredientLocalIds = if (ingredientLocalId in links) links - ingredientLocalId else links + ingredientLocalId)
     }
 
-    fun publishRecipe() { saveRecipe(publish = true) }
+    private fun validateForPublish(): Boolean {
+        val state = uiState.value
+        val missingTitle = state.title.trim().isBlank()
+        val missingIngredients = state.ingredients.none { it.query.isNotBlank() }
+        val missingSteps = state.steps.filterNot { it.isBlankStep() }.none { it.instruction.isNotBlank() }
+        _uiState.update {
+            it.copy(
+                activeTab = when {
+                    missingTitle -> RecipeEditorTab.BASIC_INFO
+                    missingIngredients -> RecipeEditorTab.INGREDIENTS
+                    missingSteps -> RecipeEditorTab.STEPS
+                    else -> it.activeTab
+                },
+                titleError = if (missingTitle) "Add a recipe name before publishing." else null,
+                ingredientError = if (missingIngredients) "Add at least one ingredient before publishing." else null,
+                stepError = if (missingSteps) "Add at least one step before publishing." else null,
+            )
+        }
+        return !missingTitle && !missingIngredients && !missingSteps
+    }
 
-    fun saveRecipe(publish: Boolean = false) {
+    fun requestPublish() {
+        if (validateForPublish()) _uiState.update { it.copy(publishReviewVisible = true) }
+    }
+
+    fun publishRecipe() { hidePublishReview(); saveRecipe(publish = true, exitAfterSave = true) }
+
+    fun saveRecipe(publish: Boolean = false, exitAfterSave: Boolean = true) {
         if (uiState.value.isSaving) return
 
         val state = uiState.value
+        if (!publish && !state.hasMeaningfulContent()) return
         val trimmedTitle = state.title.trim()
         val servings = state.servings.parsePositiveIntOrNull()
         val prep = state.prepTimeMinutes.parsePositiveIntOrNull()
@@ -209,12 +251,12 @@ class AddRecipeViewModel(
                 cookTimeError = if (state.cookTimeMinutes.isNotBlank() && cook == null) "Cook time must be minutes." else null,
                 ingredientError = when {
                     publish && state.ingredients.none { it.query.isNotBlank() } -> "Add at least one ingredient before publishing."
-                    ingredientValidationError -> "Each ingredient needs a name."
+                    publish && ingredientValidationError -> "Each ingredient needs a name."
                     else -> null
                 },
                 stepError = when {
                     publish && nonBlankSteps.isEmpty() -> "Add at least one step before publishing."
-                    stepInstructionError -> "Each step needs an instruction."
+                    publish && stepInstructionError -> "Each step needs an instruction."
                     timerMinutesError -> "Timer minutes must be a number."
                     timerSecondsError -> "Timer seconds must be 0–59."
                     else -> null
@@ -222,16 +264,16 @@ class AddRecipeViewModel(
                 saveError = null,
             )
         }
-        if ((publish && trimmedTitle.isBlank()) || (state.servings.isNotBlank() && servings == null) || (state.prepTimeMinutes.isNotBlank() && prep == null) || (state.cookTimeMinutes.isNotBlank() && cook == null) || (publish && state.ingredients.none { it.query.isNotBlank() }) || (publish && nonBlankSteps.isEmpty()) || ingredientValidationError || stepInstructionError || timerMinutesError || timerSecondsError) return
+        if ((publish && trimmedTitle.isBlank()) || (state.servings.isNotBlank() && servings == null) || (state.prepTimeMinutes.isNotBlank() && prep == null) || (state.cookTimeMinutes.isNotBlank() && cook == null) || (publish && state.ingredients.none { it.query.isNotBlank() }) || (publish && nonBlankSteps.isEmpty()) || (publish && ingredientValidationError) || (publish && stepInstructionError) || timerMinutesError || timerSecondsError) return
 
-        _uiState.update { it.copy(isSaving = true, saveError = null) }
+        _uiState.update { it.copy(isSaving = true, autosaveStatus = "Saving…", saveError = null) }
         viewModelScope.launch {
             runCatching {
                 val now = System.currentTimeMillis()
-                val recipeId = UUID.randomUUID().toString()
+                val recipeId = currentRecipeId ?: UUID.randomUUID().toString().also { currentRecipeId = it }
                 val recipe = RecipeEntity(
                     id = recipeId,
-                    title = trimmedTitle.ifBlank { "Untitled Recipe" },
+                    title = trimmedTitle,
                     description = state.description.trimmedOrNull(),
                     servings = servings,
                     prepTimeMinutes = prep,
@@ -244,7 +286,7 @@ class AddRecipeViewModel(
                     createdAt = now,
                     updatedAt = now,
                     archivedAt = null,
-                    lifecycleStatus = if (publish) "PUBLISHED" else "DRAFT",
+                    lifecycleStatus = if (publish) RecipeLifecycle.PUBLISHED.name else RecipeLifecycle.DRAFT.name,
                     lastEditedAt = now,
                     publishedAt = if (publish) now else null,
                     lastEditedTab = state.activeTab.name,
@@ -294,9 +336,9 @@ class AddRecipeViewModel(
                 recipeRepository.saveRecipeGraph(recipe, ingredients, emptyList(), steps, links)
                 recipeId
             }.onSuccess { savedId ->
-                _uiState.update { it.copy(isSaving = false, savedRecipeId = savedId) }
+                _uiState.update { it.copy(isSaving = false, autosaveStatus = if (publish) "Changes saved" else "Draft saved", savedRecipeId = savedId.takeIf { exitAfterSave }) }
             }.onFailure { throwable ->
-                _uiState.update { it.copy(isSaving = false, saveError = throwable.message ?: "Recipe could not be saved.") }
+                _uiState.update { it.copy(isSaving = false, autosaveStatus = "Couldn’t save changes", saveError = throwable.message ?: "Recipe could not be saved.") }
             }
         }
     }
@@ -351,3 +393,5 @@ private fun StepInputState.parsedTimerSeconds(): Int? {
     val totalSeconds = minutes * 60 + seconds
     return totalSeconds.takeIf { it > 0 }
 }
+
+private fun AddRecipeUiState.hasMeaningfulContent(): Boolean = title.isNotBlank() || description.isNotBlank() || servings.isNotBlank() || prepTimeMinutes.isNotBlank() || cookTimeMinutes.isNotBlank() || notes.isNotBlank() || ingredients.any { it.query.isNotBlank() || it.hasAnyIngredientDetail() } || steps.any { !it.isBlankStep() }

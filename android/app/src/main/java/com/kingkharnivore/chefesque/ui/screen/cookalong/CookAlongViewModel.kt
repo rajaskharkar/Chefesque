@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.kingkharnivore.chefesque.data.local.entity.CookSessionEntity
 import com.kingkharnivore.chefesque.data.local.entity.RecipeEntity
+import com.kingkharnivore.chefesque.data.local.entity.RecipeLifecycle
 import com.kingkharnivore.chefesque.data.local.entity.RecipeIngredientEntity
 import com.kingkharnivore.chefesque.data.local.entity.RecipeStepEntity
 import com.kingkharnivore.chefesque.data.local.entity.StepIngredientLinkEntity
@@ -155,7 +156,7 @@ class CookAlongViewModel(
             ) { recipe, ingredients, steps -> RecipeCookGraph(recipe, ingredients, steps) }
                 .collectLatest { graph ->
                     val recipe = graph.recipe
-                    if (recipe == null || recipe.archivedAt != null) {
+                    if (recipe == null || recipe.archivedAt != null || recipe.lifecycleStatus != RecipeLifecycle.PUBLISHED.name || recipe.sourceRecipeId != null) {
                         timerJob?.cancel()
                         _uiState.update {
                             it.copy(isLoading = false, notFound = true, recipe = null, steps = emptyList(), currentStepIndex = 0)

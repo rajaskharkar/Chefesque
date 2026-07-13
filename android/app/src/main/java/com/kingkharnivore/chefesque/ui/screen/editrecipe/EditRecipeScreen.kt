@@ -32,6 +32,7 @@ import com.kingkharnivore.chefesque.data.local.entity.IngredientEntity
 import com.kingkharnivore.chefesque.domain.model.RecipeType
 import com.kingkharnivore.chefesque.ui.screen.addrecipe.AddRecipeScreen
 import com.kingkharnivore.chefesque.ui.screen.addrecipe.AddRecipeUiState
+import com.kingkharnivore.chefesque.ui.screen.addrecipe.RecipeEditorTab
 
 @Composable
 fun EditRecipeScreen(
@@ -67,6 +68,7 @@ fun EditRecipeScreen(
     onStepWhileTimerRunsChange: (String, String) -> Unit,
     onStepCheckpointChange: (String, Boolean) -> Unit,
     onToggleStepIngredientLink: (String, String) -> Unit,
+    onTabSelected: (RecipeEditorTab) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     var showDiscardDialog by remember { mutableStateOf(false) }
@@ -81,7 +83,7 @@ fun EditRecipeScreen(
         else -> AddRecipeScreen(
             uiState = uiState.toAddRecipeUiState(),
             onBackClick = ::requestBack,
-            onSaveClick = onSaveClick,
+            onSaveDraft = onSaveClick,
             onSaveComplete = {},
             onTitleChange = onTitleChange,
             onDescriptionChange = onDescriptionChange,
@@ -111,6 +113,7 @@ fun EditRecipeScreen(
             onStepWhileTimerRunsChange = onStepWhileTimerRunsChange,
             onStepCheckpointChange = onStepCheckpointChange,
             onToggleStepIngredientLink = onToggleStepIngredientLink,
+            onTabSelected = onTabSelected,
             modifier = modifier,
             screenTitle = "Edit Recipe",
             saveActionLabel = "Save",
@@ -152,5 +155,5 @@ private fun EditNotFoundScreen(onBackClick: () -> Unit, modifier: Modifier = Mod
 
 private fun EditRecipeUiState.toAddRecipeUiState() = AddRecipeUiState(
     title = title, description = description, servings = servings, prepTimeMinutes = prepTimeMinutes, cookTimeMinutes = cookTimeMinutes, recipeType = recipeType, notes = notes,
-    ingredients = ingredients, steps = steps, isSaving = isSaving, titleError = titleError, servingsError = servingsError, prepTimeError = prepTimeError, cookTimeError = cookTimeError, ingredientError = ingredientError, stepError = stepError, saveError = saveError,
+    ingredients = ingredients, steps = steps, isSaving = isSaving, activeTab = activeTab, titleError = titleError, servingsError = servingsError, prepTimeError = prepTimeError, cookTimeError = cookTimeError, ingredientError = ingredientError, stepError = stepError, saveError = saveError,
 )

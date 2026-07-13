@@ -47,6 +47,7 @@ fun ChefesqueApp(appContainer: AppContainer) {
                 onAddRecipeClick = { navController.navigate(ChefesqueDestination.AddRecipe.route) },
                 onAddLogClick = { navController.navigate(ChefesqueDestination.AddLog.route) },
                 onRecipeClick = { recipeId -> navController.navigate(ChefesqueDestination.RecipeDetail.createRoute(recipeId)) },
+                onDraftClick = { recipeId -> navController.navigate(ChefesqueDestination.EditRecipe.createRoute(recipeId)) },
                 onLogClick = { logId -> navController.navigate(ChefesqueDestination.CookingLogDetail.createRoute(logId)) },
             )
         }
@@ -60,7 +61,7 @@ fun ChefesqueApp(appContainer: AppContainer) {
             AddRecipeScreen(
                 uiState = addRecipeViewModel.uiState.collectAsStateWithLifecycle().value,
                 onBackClick = { navController.popBackStack() },
-                onSaveClick = addRecipeViewModel::saveRecipe,
+                onSaveDraft = { addRecipeViewModel.saveRecipe() },
                 onSaveComplete = { navController.popBackStack(ChefesqueDestination.Main.route, inclusive = false) },
                 onTitleChange = addRecipeViewModel::updateTitle,
                 onDescriptionChange = addRecipeViewModel::updateDescription,
@@ -91,7 +92,8 @@ fun ChefesqueApp(appContainer: AppContainer) {
                 onStepCheckpointChange = addRecipeViewModel::updateStepCheckpoint,
                 onToggleStepIngredientLink = addRecipeViewModel::toggleStepIngredientLink,
                 onTabSelected = addRecipeViewModel::selectTab,
-                onPublishClick = addRecipeViewModel::publishRecipe,
+                onRequestPublish = addRecipeViewModel::requestPublish,
+                onConfirmPublish = addRecipeViewModel::publishRecipe,
                 onDismissPublishReview = addRecipeViewModel::hidePublishReview,
             )
         }
@@ -180,6 +182,7 @@ fun ChefesqueApp(appContainer: AppContainer) {
                 onStepWhileTimerRunsChange = editRecipeViewModel::updateStepWhileTimerRuns,
                 onStepCheckpointChange = editRecipeViewModel::updateStepCheckpoint,
                 onToggleStepIngredientLink = editRecipeViewModel::toggleStepIngredientLink,
+                onTabSelected = editRecipeViewModel::selectTab,
             )
         }
         composable(
