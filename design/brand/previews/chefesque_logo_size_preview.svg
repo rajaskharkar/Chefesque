@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="560" viewBox="0 0 920 560" role="img" aria-labelledby="title desc">
+  <title id="title">Chefesque classic outline logo size preview</title>
+  <desc id="desc">Vector-only preview of the simplified Deep Forest classic saucepan logo at 512, 192, 96, 48, and 24 pixel equivalents.</desc>
+  <defs>
+    <g id="saucepan" fill="none" stroke="#244437" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M111 246H325.5V304C325.5 324 307.7 336 285.8 336H150.7C128.9 336 111 324 111 304V246"/><path d="M166.6 218C188.5 198 248 198 269.9 218"/><path d="M204.4 182H232.2"/><path d="M325.5 270H379.1C391.1 270 399 278 399 288C399 298 391.1 306 379.1 306H325.5"/></g>
+    <g id="logo"><rect width="512" height="512" fill="#F6F0E4"/><use href="#saucepan"/></g>
+  </defs>
+  <rect width="920" height="560" fill="#FFFDF8"/>
+  <text x="24" y="34" font-family="sans-serif" font-size="18" fill="#2E342F">Chefesque classic outline launcher mark — true relative SVG size checks</text>
+  <g transform="translate(24 48)"><use href="#logo"/><text x="0" y="500" font-family="sans-serif" font-size="18" fill="#2E342F">512 × 512</text></g>
+  <g transform="translate(570 48) scale(.375)"><use href="#logo"/></g><text x="570" y="258" font-family="sans-serif" font-size="15" fill="#2E342F">192 × 192</text>
+  <g transform="translate(570 298) scale(.1875)"><use href="#logo"/></g><text x="570" y="412" font-family="sans-serif" font-size="14" fill="#2E342F">96 × 96</text>
+  <g transform="translate(710 298) scale(.09375)"><use href="#logo"/></g><text x="710" y="368" font-family="sans-serif" font-size="13" fill="#2E342F">48 × 48</text>
+  <g transform="translate(800 298) scale(.046875)"><use href="#logo"/></g><text x="800" y="344" font-family="sans-serif" font-size="12" fill="#2E342F">24 × 24</text>
+</svg>

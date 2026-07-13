@@ -16,6 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -30,6 +31,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kingkharnivore.chefesque.data.local.entity.RecipeEntity
@@ -120,7 +122,14 @@ private fun CookAlongContent(
                 onAddMinuteClick = onAddMinuteClick,
             )
         }
-        step.warning?.let { CookAlongDetailSection("Warning", it) }
+        step.warning?.let {
+            CookAlongDetailSection(
+                title = "Warning",
+                body = it,
+                containerColor = MaterialTheme.colorScheme.errorContainer,
+                contentColor = MaterialTheme.colorScheme.onErrorContainer,
+            )
+        }
         step.equipment?.let { CookAlongDetailSection("Equipment", it) }
         step.whileTimerRuns?.let { CookAlongDetailSection("While timer runs", it) }
         step.checkpoint?.let { CookAlongDetailSection("Checkpoint", it) }
@@ -159,6 +168,7 @@ private fun CookAlongTimerCard(
         Text(
             text = formatCountdownTime(remainingSeconds),
             style = MaterialTheme.typography.displaySmall,
+            color = MaterialTheme.colorScheme.secondary,
         )
         Text(timerStatusLabel(status), style = MaterialTheme.typography.bodyMedium)
         if (status == CookAlongTimerStatus.FINISHED) {
@@ -185,7 +195,16 @@ private fun TimerControlButtons(
     onAddMinuteClick: () -> Unit,
 ) {
     when (status) {
-        CookAlongTimerStatus.IDLE -> Button(onClick = onStartClick, modifier = Modifier.fillMaxWidth()) { Text("Start") }
+        CookAlongTimerStatus.IDLE -> Button(
+            onClick = onStartClick,
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.secondary,
+                contentColor = MaterialTheme.colorScheme.onSecondary,
+            ),
+        ) {
+            Text("Start")
+        }
         CookAlongTimerStatus.RUNNING -> TimerSecondaryControls(primaryText = "Pause", onPrimaryClick = onPauseClick, onResetClick = onResetClick, onAddMinuteClick = onAddMinuteClick)
         CookAlongTimerStatus.PAUSED -> TimerSecondaryControls(primaryText = "Resume", onPrimaryClick = onResumeClick, onResetClick = onResetClick, onAddMinuteClick = onAddMinuteClick)
         CookAlongTimerStatus.FINISHED -> Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -203,7 +222,16 @@ private fun TimerSecondaryControls(
     onAddMinuteClick: () -> Unit,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Button(onClick = onPrimaryClick, modifier = Modifier.fillMaxWidth()) { Text(primaryText) }
+        Button(
+            onClick = onPrimaryClick,
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.secondary,
+                contentColor = MaterialTheme.colorScheme.onSecondary,
+            ),
+        ) {
+            Text(primaryText)
+        }
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             OutlinedButton(onClick = onResetClick, modifier = Modifier.weight(1f)) { Text("Reset") }
             OutlinedButton(onClick = onAddMinuteClick, modifier = Modifier.weight(1f)) { Text("+1 min") }
@@ -219,15 +247,38 @@ private fun timerStatusLabel(status: CookAlongTimerStatus): String = when (statu
 }
 
 @Composable
-private fun CookAlongDetailSection(title: String, body: String, modifier: Modifier = Modifier) {
-    CookAlongDetailSection(title = title, modifier = modifier) {
+private fun CookAlongDetailSection(
+    title: String,
+    body: String,
+    modifier: Modifier = Modifier,
+    containerColor: Color = MaterialTheme.colorScheme.surfaceContainer,
+    contentColor: Color = MaterialTheme.colorScheme.onSurface,
+) {
+    CookAlongDetailSection(
+        title = title,
+        modifier = modifier,
+        containerColor = containerColor,
+        contentColor = contentColor,
+    ) {
         Text(body, style = MaterialTheme.typography.bodyLarge)
     }
 }
 
 @Composable
-private fun CookAlongDetailSection(title: String, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
-    Card(modifier = modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)) {
+private fun CookAlongDetailSection(
+    title: String,
+    modifier: Modifier = Modifier,
+    containerColor: Color = MaterialTheme.colorScheme.surfaceContainer,
+    contentColor: Color = MaterialTheme.colorScheme.onSurface,
+    content: @Composable () -> Unit,
+) {
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = containerColor,
+            contentColor = contentColor,
+        ),
+    ) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(title, style = MaterialTheme.typography.titleMedium)
             content()

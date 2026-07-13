@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Chefesque monochrome classic outline saucepan</title>
+  <desc id="desc">A one-color classic saucepan outline with transparent interior for Android themed launcher icons.</desc>
+  <g fill="none" stroke="#000000" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M111 246H325.5V304C325.5 324 307.7 336 285.8 336H150.7C128.9 336 111 324 111 304V246"/>
+    <path d="M166.6 218C188.5 198 248 198 269.9 218"/>
+    <path d="M204.4 182H232.2"/>
+    <path d="M325.5 270H379.1C391.1 270 399 278 399 288C399 298 391.1 306 379.1 306H325.5"/>
+  </g>
+</svg>

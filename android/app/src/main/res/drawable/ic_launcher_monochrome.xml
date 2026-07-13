@@ -8,28 +8,28 @@
         android:fillColor="#00000000"
         android:pathData="M111,246H325.5V304C325.5,324 307.7,336 285.8,336H150.7C128.9,336 111,324 111,304V246"
         android:strokeWidth="22"
-        android:strokeColor="@color/chefesque_deep_forest"
+        android:strokeColor="#FFFFFFFF"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
         android:fillColor="#00000000"
         android:pathData="M166.6,218C188.5,198 248,198 269.9,218"
         android:strokeWidth="22"
-        android:strokeColor="@color/chefesque_deep_forest"
+        android:strokeColor="#FFFFFFFF"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
         android:fillColor="#00000000"
         android:pathData="M204.4,182H232.2"
         android:strokeWidth="22"
-        android:strokeColor="@color/chefesque_deep_forest"
+        android:strokeColor="#FFFFFFFF"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
         android:fillColor="#00000000"
         android:pathData="M325.5,270H379.1C391.1,270 399,278 399,288C399,298 391.1,306 379.1,306H325.5"
         android:strokeWidth="22"
-        android:strokeColor="@color/chefesque_deep_forest"
+        android:strokeColor="#FFFFFFFF"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
 </vector>
