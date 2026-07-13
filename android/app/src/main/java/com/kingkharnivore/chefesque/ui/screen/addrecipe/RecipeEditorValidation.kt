@@ -4,7 +4,6 @@ data class RecipePublishValidation(
     val missingTitle: Boolean,
     val missingIngredients: Boolean,
     val missingSteps: Boolean,
-    val hasStepContent: Boolean,
 ) {
     val isValid: Boolean get() = !missingTitle && !missingIngredients && !missingSteps
     val firstMissingTab: RecipeEditorTab? get() = when {
@@ -14,11 +13,7 @@ data class RecipePublishValidation(
         else -> null
     }
 
-    val stepErrorMessage: String? get() = when {
-        !missingSteps -> null
-        hasStepContent -> "Add an instruction to at least one step before publishing."
-        else -> "Add at least one step before publishing."
-    }
+    val stepErrorMessage: String? get() = if (missingSteps) "Add at least one step before publishing." else null
 }
 
 fun validateRecipeForPublish(
@@ -28,17 +23,15 @@ fun validateRecipeForPublish(
 ): RecipePublishValidation {
     val missingTitle = !title.hasVisibleContent()
     val missingIngredients = ingredients.none { it.query.hasVisibleContent() }
-    val hasStepContent = steps.any { it.hasAnyContent() }
-    val missingSteps = steps.none { it.hasInstruction() }
+    val missingSteps = steps.none { it.isPublishableStep() }
     return RecipePublishValidation(
         missingTitle = missingTitle,
         missingIngredients = missingIngredients,
         missingSteps = missingSteps,
-        hasStepContent = hasStepContent,
     )
 }
 
-fun StepInputState.hasInstruction(): Boolean = instruction.hasVisibleContent()
+fun StepInputState.isPublishableStep(): Boolean = title.hasVisibleContent() || instruction.hasVisibleContent()
 
 fun StepInputState.hasAnyContent(): Boolean = title.hasVisibleContent() ||
     instruction.hasVisibleContent() ||

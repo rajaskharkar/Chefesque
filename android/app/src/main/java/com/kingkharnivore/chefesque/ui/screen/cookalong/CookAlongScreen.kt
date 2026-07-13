@@ -109,7 +109,17 @@ private fun CookAlongContent(
         if (uiState.resumedSession) {
             Text("Resumed from your last cook.", style = MaterialTheme.typography.bodyMedium)
         }
-        Text(step.instruction, style = MaterialTheme.typography.headlineSmall)
+        val stepTitle = step.title?.trim()?.takeIf { it.isNotBlank() }
+        val stepInstruction = step.instruction.trim().takeIf { it.isNotBlank() }
+        when {
+            stepTitle != null && stepInstruction != null -> {
+                Text(stepTitle, style = MaterialTheme.typography.headlineSmall)
+                Text(stepInstruction, style = MaterialTheme.typography.bodyLarge)
+            }
+            stepTitle != null -> Text(stepTitle, style = MaterialTheme.typography.headlineSmall)
+            stepInstruction != null -> Text(stepInstruction, style = MaterialTheme.typography.headlineSmall)
+            else -> Text("Step instruction missing.", style = MaterialTheme.typography.headlineSmall)
+        }
         CookAlongIngredientList(step.ingredients)
         if (uiState.timerOriginalSeconds != null && uiState.timerRemainingSeconds != null) {
             CookAlongTimerCard(

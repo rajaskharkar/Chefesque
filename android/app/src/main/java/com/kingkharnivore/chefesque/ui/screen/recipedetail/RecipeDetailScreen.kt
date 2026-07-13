@@ -202,8 +202,17 @@ private fun StepsContent(steps: List<RecipeStepEntity>) {
 
 @Composable
 private fun StepDisplayRow(number: Int, step: RecipeStepEntity) {
+    val title = step.title?.trim()?.takeIf { it.isNotBlank() }
+    val instruction = step.instruction.trim().takeIf { it.isNotBlank() }
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        Text("$number. ${step.instruction}", style = MaterialTheme.typography.bodyLarge)
+        when {
+            title != null && instruction != null -> {
+                Text("$number. $title", style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.SemiBold)
+                Text(instruction, style = MaterialTheme.typography.bodyMedium)
+            }
+            title != null -> Text("$number. $title", style = MaterialTheme.typography.bodyLarge)
+            instruction != null -> Text("$number. $instruction", style = MaterialTheme.typography.bodyLarge)
+        }
         formatStepTimer(step.timerSeconds)?.let { DetailLabel("Timer", it) }
         step.warning?.trim()?.takeIf { it.isNotBlank() }?.let { DetailLabel("Warning", it) }
         step.equipment?.trim()?.takeIf { it.isNotBlank() }?.let { DetailLabel("Equipment", it) }

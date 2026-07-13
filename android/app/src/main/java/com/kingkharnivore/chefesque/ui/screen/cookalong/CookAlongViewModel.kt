@@ -51,6 +51,7 @@ data class CookAlongStepUiModel(
     val whileTimerRuns: String?,
     val checkpoint: String?,
     val ingredients: List<CookAlongIngredientUiModel>,
+    val title: String? = null,
 )
 
 data class CookAlongIngredientUiModel(
@@ -351,15 +352,18 @@ fun buildCookAlongSteps(
                 CookAlongIngredientUiModel(ingredient.id, formatCookAlongIngredient(ingredient), ingredient.optional)
             }
         }
+        val title = step.title?.trim()?.takeIf { it.isNotBlank() }
+        val instruction = step.instruction.trim()
         CookAlongStepUiModel(
             id = step.id,
-            instruction = step.instruction.trim().ifBlank { "Step instruction missing." },
+            instruction = instruction,
             timerSeconds = step.timerSeconds?.takeIf { it > 0 },
             warning = step.warning?.trim()?.takeIf { it.isNotBlank() },
             equipment = step.equipment?.trim()?.takeIf { it.isNotBlank() },
             whileTimerRuns = (step.meanwhile ?: step.whileTimerRuns)?.trim()?.takeIf { it.isNotBlank() },
             checkpoint = checkpointDisplayText(step.checkpoint),
             ingredients = stepIngredients,
+            title = title,
         )
     }
 }

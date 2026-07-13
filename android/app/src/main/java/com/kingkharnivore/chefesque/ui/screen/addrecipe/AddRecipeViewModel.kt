@@ -252,7 +252,7 @@ class AddRecipeViewModel(
                     else -> null
                 },
                 stepError = when {
-                    publish && state.steps.none { it.hasInstruction() } -> validateRecipeForPublish(state.title, state.ingredients, state.steps).stepErrorMessage
+                    publish && state.steps.none { it.isPublishableStep() } -> validateRecipeForPublish(state.title, state.ingredients, state.steps).stepErrorMessage
                     timerMinutesError -> "Timer minutes must be a number."
                     timerSecondsError -> "Timer seconds must be 0–59."
                     else -> null
@@ -260,7 +260,7 @@ class AddRecipeViewModel(
                 saveError = null,
             )
         }
-        if ((publish && trimmedTitle.isBlank()) || (state.servings.isNotBlank() && servings == null) || (state.prepTimeMinutes.isNotBlank() && prep == null) || (state.cookTimeMinutes.isNotBlank() && cook == null) || (publish && state.ingredients.none { it.query.isNotBlank() }) || (publish && state.steps.none { it.hasInstruction() }) || (publish && ingredientValidationError) || timerMinutesError || timerSecondsError) return
+        if ((publish && trimmedTitle.isBlank()) || (state.servings.isNotBlank() && servings == null) || (state.prepTimeMinutes.isNotBlank() && prep == null) || (state.cookTimeMinutes.isNotBlank() && cook == null) || (publish && state.ingredients.none { it.query.isNotBlank() }) || (publish && state.steps.none { it.isPublishableStep() }) || (publish && ingredientValidationError) || timerMinutesError || timerSecondsError) return
 
         _uiState.update { it.copy(isSaving = true, autosaveStatus = "Saving…", saveError = null) }
         viewModelScope.launch {

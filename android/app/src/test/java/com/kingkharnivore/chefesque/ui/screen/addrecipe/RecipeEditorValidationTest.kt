@@ -7,7 +7,20 @@ import org.junit.Test
 
 class RecipeEditorValidationTest {
     @Test
-    fun `one instructed step satisfies publish requirement`() {
+    fun `title only step satisfies publish requirement`() {
+        val result = validateRecipeForPublish(
+            title = "Roast chicken",
+            ingredients = listOf(validIngredient()),
+            steps = listOf(StepInputState(title = "Preheat the oven")),
+        )
+
+        assertFalse(result.missingSteps)
+        assertTrue(result.isValid)
+        assertTrue(StepInputState(title = "Preheat the oven").isPublishableStep())
+    }
+
+    @Test
+    fun `instruction only step satisfies publish requirement`() {
         val result = validateRecipeForPublish(
             title = "Onion Curry",
             ingredients = listOf(validIngredient()),
@@ -19,17 +32,43 @@ class RecipeEditorValidationTest {
     }
 
     @Test
-    fun `multiple instructed steps satisfy publish requirement`() {
-        val steps = listOf(
-            StepInputState(instruction = "Heat the oil."),
-            StepInputState(instruction = "Add the onions."),
-            StepInputState(instruction = "Simmer for ten minutes."),
+    fun `step with title and instruction satisfies publish requirement`() {
+        val result = validateRecipeForPublish(
+            title = "Sauce",
+            ingredients = listOf(validIngredient()),
+            steps = listOf(StepInputState(title = "Make the sauce", instruction = "Cook until deeply golden.")),
         )
 
+        assertFalse(result.missingSteps)
+        assertTrue(result.isValid)
+    }
+
+    @Test
+    fun `multiple title only steps satisfy publish requirement`() {
         val result = validateRecipeForPublish(
-            title = "Onion Curry",
+            title = "Simple prep",
             ingredients = listOf(validIngredient()),
-            steps = steps,
+            steps = listOf(
+                StepInputState(title = "Preheat the oven"),
+                StepInputState(title = "Chop the onions"),
+                StepInputState(title = "Serve immediately"),
+            ),
+        )
+
+        assertFalse(result.missingSteps)
+        assertTrue(result.isValid)
+    }
+
+    @Test
+    fun `one title only step plus blank placeholders remains publishable`() {
+        val result = validateRecipeForPublish(
+            title = "Simple prep",
+            ingredients = listOf(validIngredient()),
+            steps = listOf(
+                StepInputState(),
+                StepInputState(title = "Preheat the oven"),
+                StepInputState(),
+            ),
         )
 
         assertFalse(result.missingSteps)
@@ -49,16 +88,15 @@ class RecipeEditorValidationTest {
     }
 
     @Test
-    fun `title only step does not satisfy publish requirement`() {
+    fun `title with surrounding whitespace satisfies publish requirement`() {
         val result = validateRecipeForPublish(
             title = "Soup",
             ingredients = listOf(validIngredient()),
-            steps = listOf(StepInputState(title = "Start the soup")),
+            steps = listOf(StepInputState(title = "  Serve warm  ")),
         )
 
-        assertTrue(result.missingSteps)
-        assertFalse(result.isValid)
-        assertTrue(result.hasStepContent)
+        assertFalse(result.missingSteps)
+        assertTrue(result.isValid)
     }
 
     @Test
@@ -71,7 +109,8 @@ class RecipeEditorValidationTest {
 
         assertTrue(result.missingSteps)
         assertFalse(result.isValid)
-        assertTrue(result.hasStepContent)
+        assertTrue(StepInputState(timerMinutes = "10").hasAnyContent())
+        assertFalse(StepInputState(timerMinutes = "10").isPublishableStep())
     }
 
     @Test
@@ -84,7 +123,6 @@ class RecipeEditorValidationTest {
 
         assertTrue(result.missingSteps)
         assertFalse(result.isValid)
-        assertTrue(result.hasStepContent)
     }
 
     @Test
@@ -97,7 +135,30 @@ class RecipeEditorValidationTest {
 
         assertTrue(result.missingSteps)
         assertFalse(result.isValid)
-        assertTrue(result.hasStepContent)
+    }
+
+    @Test
+    fun `warning only step does not satisfy publish requirement`() {
+        val result = validateRecipeForPublish(
+            title = "Soup",
+            ingredients = listOf(validIngredient()),
+            steps = listOf(StepInputState(warning = "Do not burn the garlic.")),
+        )
+
+        assertTrue(result.missingSteps)
+        assertFalse(result.isValid)
+    }
+
+    @Test
+    fun `equipment only step does not satisfy publish requirement`() {
+        val result = validateRecipeForPublish(
+            title = "Soup",
+            ingredients = listOf(validIngredient()),
+            steps = listOf(StepInputState(equipment = "Dutch oven")),
+        )
+
+        assertTrue(result.missingSteps)
+        assertFalse(result.isValid)
     }
 
     @Test
@@ -110,30 +171,25 @@ class RecipeEditorValidationTest {
 
         assertTrue(result.missingSteps)
         assertFalse(result.isValid)
-        assertFalse(result.hasStepContent)
     }
 
     @Test
-    fun `one valid step plus incomplete step cards remains valid`() {
+    fun `whitespace only title and instruction are not publishable`() {
         val result = validateRecipeForPublish(
             title = "Soup",
             ingredients = listOf(validIngredient()),
-            steps = listOf(
-                StepInputState(title = "Optional prep note"),
-                StepInputState(instruction = "Bring the soup to a simmer."),
-                StepInputState(timerMinutes = "5"),
-            ),
+            steps = listOf(StepInputState(title = " \u00A0 ", instruction = "\u00A0\u00A0")),
         )
 
-        assertFalse(result.missingSteps)
-        assertTrue(result.isValid)
+        assertTrue(result.missingSteps)
+        assertFalse(result.isValid)
     }
 
     @Test
-    fun `loaded persisted steps satisfy validation`() {
+    fun `loaded persisted title only steps satisfy validation`() {
         val loadedSteps = listOf(
-            StepInputState(localId = "persisted-1", title = "Cook", instruction = "Cook until tender."),
-            StepInputState(localId = "persisted-2", instruction = "Serve warm."),
+            StepInputState(localId = "persisted-1", title = "Cook until tender"),
+            StepInputState(localId = "persisted-2", title = "Serve warm"),
         )
 
         val result = validateRecipeForPublish("Stew", listOf(validIngredient()), loadedSteps)
@@ -143,11 +199,11 @@ class RecipeEditorValidationTest {
     }
 
     @Test
-    fun `reordered steps still satisfy validation`() {
+    fun `reordered title only steps still satisfy validation`() {
         val reorderedSteps = listOf(
-            StepInputState(localId = "step-3", instruction = "Serve."),
-            StepInputState(localId = "step-1", instruction = "Prep."),
-            StepInputState(localId = "step-2", instruction = "Cook."),
+            StepInputState(localId = "step-3", title = "Serve"),
+            StepInputState(localId = "step-1"),
+            StepInputState(localId = "step-2"),
         )
 
         val result = validateRecipeForPublish("Stew", listOf(validIngredient()), reorderedSteps)
@@ -157,16 +213,16 @@ class RecipeEditorValidationTest {
     }
 
     @Test
-    fun `adding an instruction clears missing step validation`() {
+    fun `adding a title clears missing step validation`() {
         val invalid = validateRecipeForPublish(
             title = "Soup",
             ingredients = listOf(validIngredient()),
-            steps = listOf(StepInputState(title = "Cook")),
+            steps = listOf(StepInputState(timerMinutes = "5")),
         )
         val valid = validateRecipeForPublish(
             title = "Soup",
             ingredients = listOf(validIngredient()),
-            steps = listOf(StepInputState(title = "Cook", instruction = "Cook until tender.")),
+            steps = listOf(StepInputState(timerMinutes = "5", title = "Simmer gently")),
         )
 
         assertTrue(invalid.missingSteps)
@@ -175,27 +231,26 @@ class RecipeEditorValidationTest {
     }
 
     @Test
-    fun `removing the only valid instruction restores missing step validation`() {
+    fun `removing the only title or instruction restores missing step validation`() {
         val valid = validateRecipeForPublish(
             title = "Soup",
             ingredients = listOf(validIngredient()),
-            steps = listOf(StepInputState(instruction = "Cook until tender.")),
+            steps = listOf(StepInputState(title = "Cook until tender")),
         )
         val invalid = validateRecipeForPublish(
             title = "Soup",
             ingredients = listOf(validIngredient()),
-            steps = listOf(StepInputState(title = "Cook")),
+            steps = listOf(StepInputState(checkpoint = "Tender")),
         )
 
         assertFalse(valid.missingSteps)
         assertTrue(invalid.missingSteps)
-        assertTrue(invalid.hasStepContent)
     }
 
     @Test
     fun `add recipe and edit recipe use identical validation function`() {
         val ingredients = listOf(validIngredient())
-        val steps = listOf(StepInputState(instruction = "Roast until golden."))
+        val steps = listOf(StepInputState(title = "Roast until golden"))
 
         val addResult = validateRecipeForPublish("Potatoes", ingredients, steps)
         val editResult = validateRecipeForPublish("Potatoes", ingredients, steps)
@@ -207,9 +262,9 @@ class RecipeEditorValidationTest {
     }
 
     @Test
-    fun `published revision update recognizes valid steps`() {
+    fun `published revision update recognizes title only steps`() {
         val revisionSteps = listOf(
-            StepInputState(localId = "revision-step-1", title = "Bloom spices", instruction = "Bloom the spices for thirty seconds."),
+            StepInputState(localId = "revision-step-1", title = "Bloom the spices"),
             StepInputState(localId = "revision-step-2", meanwhile = "Warm plates."),
         )
 
@@ -217,18 +272,6 @@ class RecipeEditorValidationTest {
 
         assertFalse(result.missingSteps)
         assertTrue(result.isValid)
-    }
-
-    @Test
-    fun `non breaking spaces alone do not count as visible instruction`() {
-        val result = validateRecipeForPublish(
-            title = "Soup",
-            ingredients = listOf(validIngredient()),
-            steps = listOf(StepInputState(instruction = "\u00A0\u00A0")),
-        )
-
-        assertTrue(result.missingSteps)
-        assertFalse(result.isValid)
     }
 
     private fun validIngredient(name: String = "Onions") = IngredientInputState(query = name)

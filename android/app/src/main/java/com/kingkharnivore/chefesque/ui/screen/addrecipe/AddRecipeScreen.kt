@@ -162,7 +162,7 @@ fun AddRecipeScreen(
                     Text("Ready to publish?", style = MaterialTheme.typography.headlineSmall)
                     Text("Included", style = MaterialTheme.typography.titleMedium)
                     Text("${uiState.ingredients.count { it.query.isNotBlank() }} ingredients")
-                    Text("${uiState.steps.count { it.hasInstruction() }} steps")
+                    Text("${uiState.steps.count { it.isPublishableStep() }} steps")
                     Text("Suggestions are optional and will not block publishing.")
                     Button(onClick = onConfirmPublish, modifier = Modifier.fillMaxWidth()) { Text("Publish Recipe") }
                     TextButton(onClick = onDismissPublishReview, modifier = Modifier.fillMaxWidth()) { Text("Keep Editing") }
@@ -359,7 +359,7 @@ private fun RecipeStepRow(
                 TextButton(onClick = { onMoveStepDown(step.localId) }, enabled = !isLast) { Text("Move down") }
                 IconButton(onClick = { onRemoveStep(step.localId) }, modifier = Modifier.semantics { contentDescription = "Remove step" }) { Icon(Icons.Default.Delete, contentDescription = null) }
             }
-            OutlinedTextField(value = step.title, onValueChange = { onStepTitleChange(step.localId, it) }, label = { Text("Step title") }, keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words), modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(value = step.title, onValueChange = { onStepTitleChange(step.localId, it) }, label = { Text("Step title") }, keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences), modifier = Modifier.fillMaxWidth())
             OutlinedTextField(value = step.instruction, onValueChange = { onStepInstructionChange(step.localId, it) }, label = { Text("Instruction") }, keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences), minLines = 2, modifier = Modifier.fillMaxWidth())
             Text("Optional timer for this step.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
