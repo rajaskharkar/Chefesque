@@ -2,7 +2,7 @@
   <title id="title">Chefesque classic outline logo launcher mask preview</title>
   <desc id="desc">Vector-only preview of the simplified Deep Forest classic saucepan logo clipped by circle, rounded-square, squircle, and teardrop launcher masks.</desc>
   <defs>
-    <g id="saucepan" fill="none" stroke="#244437" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M148 260H364V318C364 338 346 350 324 350H188C166 350 148 338 148 318V260"/><path d="M204 232C226 212 286 212 308 232"/><path d="M242 196H270"/><path d="M364 284H406C418 284 426 292 426 302C426 312 418 320 406 320H364"/></g>
+    <g id="saucepan" fill="none" stroke="#244437" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M148 260H364V318C364 338 346 350 324 350H188C166 350 148 338 148 318V260"/><path d="M204 232C226 212 286 212 308 232"/><path d="M242 196H270"/><path d="M364 284H418C430 284 438 292 438 302C438 312 430 320 418 320H364"/></g>
     <g id="logo"><rect width="512" height="512" fill="#F6F0E4"/><use href="#saucepan"/></g>
     <clipPath id="circle"><circle cx="256" cy="256" r="256"/></clipPath>
     <clipPath id="round"><rect width="512" height="512" rx="112"/></clipPath>
