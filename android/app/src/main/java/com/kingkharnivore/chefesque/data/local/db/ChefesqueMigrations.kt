@@ -31,3 +31,17 @@ val MIGRATION_2_3 = object : Migration(2, 3) {
         db.execSQL("UPDATE recipe_steps SET meanwhile = whileTimerRuns WHERE whileTimerRuns IS NOT NULL")
     }
 }
+
+
+val MIGRATION_3_4 = object : Migration(3, 4) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        // PR #12 shipped development builds with a version-3 identity hash before the
+        // final lifecycle/revision index shape settled. Bump to v4 and make the
+        // final expected schema explicit without rewriting user data.
+        db.execSQL("CREATE INDEX IF NOT EXISTS index_recipes_lifecycleStatus ON recipes(lifecycleStatus)")
+        db.execSQL("CREATE INDEX IF NOT EXISTS index_recipes_lastEditedAt ON recipes(lastEditedAt)")
+        db.execSQL("DELETE FROM recipes WHERE sourceRecipeId IS NOT NULL AND id NOT IN (SELECT MIN(id) FROM recipes WHERE sourceRecipeId IS NOT NULL GROUP BY sourceRecipeId)")
+        db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS index_recipes_sourceRecipeId ON recipes(sourceRecipeId)")
+        db.execSQL("UPDATE recipe_steps SET meanwhile = whileTimerRuns WHERE (meanwhile IS NULL OR meanwhile = '') AND whileTimerRuns IS NOT NULL")
+    }
+}

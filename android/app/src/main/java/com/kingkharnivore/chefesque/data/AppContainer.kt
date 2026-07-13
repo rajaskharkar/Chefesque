@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.kingkharnivore.chefesque.data.local.db.ChefesqueDatabase
 import com.kingkharnivore.chefesque.data.local.db.MIGRATION_1_2
 import com.kingkharnivore.chefesque.data.local.db.MIGRATION_2_3
+import com.kingkharnivore.chefesque.data.local.db.MIGRATION_3_4
 import com.kingkharnivore.chefesque.data.local.seed.IngredientSeedDataSource
 import com.kingkharnivore.chefesque.data.local.seed.IngredientSeeder
 import com.kingkharnivore.chefesque.data.repository.CookSessionRepository
@@ -17,7 +18,7 @@ class AppContainer(context: Context) {
         context.applicationContext,
         ChefesqueDatabase::class.java,
         "chefesque.db",
-    ).addMigrations(MIGRATION_1_2, MIGRATION_2_3).build()
+    ).addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4).build()
 
     val recipeRepository = RecipeRepository(database)
     val cookingLogRepository = CookingLogRepository(database)
