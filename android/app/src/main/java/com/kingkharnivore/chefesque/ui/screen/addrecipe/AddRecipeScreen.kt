@@ -162,7 +162,7 @@ fun AddRecipeScreen(
                     Text("Ready to publish?", style = MaterialTheme.typography.headlineSmall)
                     Text("Included", style = MaterialTheme.typography.titleMedium)
                     Text("${uiState.ingredients.count { it.query.isNotBlank() }} ingredients")
-                    Text("${uiState.steps.count { !it.isBlankStepForUi() }} steps")
+                    Text("${uiState.steps.count { it.hasInstruction() }} steps")
                     Text("Suggestions are optional and will not block publishing.")
                     Button(onClick = onConfirmPublish, modifier = Modifier.fillMaxWidth()) { Text("Publish Recipe") }
                     TextButton(onClick = onDismissPublishReview, modifier = Modifier.fillMaxWidth()) { Text("Keep Editing") }
@@ -467,5 +467,3 @@ private fun RecipeEditorTab.label(): String = when (this) {
     RecipeEditorTab.STEPS -> "Steps"
     RecipeEditorTab.NOTES -> "Notes"
 }
-
-private fun StepInputState.isBlankStepForUi(): Boolean = instruction.isBlank() && timerMinutes.isBlank() && timerSeconds.isBlank() && warning.isBlank() && equipment.isBlank() && meanwhile.isBlank() && checkpoint.isBlank() && linkedIngredientLocalIds.isEmpty()

@@ -16,6 +16,8 @@ import com.kingkharnivore.chefesque.domain.model.RecipeType
 import com.kingkharnivore.chefesque.ui.screen.addrecipe.IngredientInputState
 import com.kingkharnivore.chefesque.ui.screen.addrecipe.RecipeEditorTab
 import com.kingkharnivore.chefesque.ui.screen.addrecipe.StepInputState
+import com.kingkharnivore.chefesque.ui.screen.addrecipe.hasAnyContent
+import com.kingkharnivore.chefesque.ui.screen.addrecipe.validateRecipeForPublish
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -265,11 +267,16 @@ class EditRecipeViewModel(
 
     private fun validateForPublish(): Boolean {
         val state = uiState.value
-        val missingTitle = state.title.trim().isBlank()
-        val missingIngredients = state.ingredients.none { it.query.isNotBlank() }
-        val missingSteps = state.steps.filterNot { it.isBlankStep() }.none { it.instruction.isNotBlank() }
-        _uiState.update { it.copy(activeTab = when { missingTitle -> RecipeEditorTab.BASIC_INFO; missingIngredients -> RecipeEditorTab.INGREDIENTS; missingSteps -> RecipeEditorTab.STEPS; else -> it.activeTab }, titleError = if (missingTitle) "Add a recipe name before publishing." else null, ingredientError = if (missingIngredients) "Add at least one ingredient before publishing." else null, stepError = if (missingSteps) "Add at least one step before publishing." else null) }
-        return !missingTitle && !missingIngredients && !missingSteps
+        val validation = validateRecipeForPublish(state.title, state.ingredients, state.steps)
+        _uiState.update {
+            it.copy(
+                activeTab = validation.firstMissingTab ?: it.activeTab,
+                titleError = if (validation.missingTitle) "Add a recipe name before publishing." else null,
+                ingredientError = if (validation.missingIngredients) "Add at least one ingredient before publishing." else null,
+                stepError = validation.stepErrorMessage,
+            )
+        }
+        return validation.isValid
     }
 
     private fun markChanged(transform: (EditRecipeUiState) -> EditRecipeUiState) = _uiState.update { transform(it).copy(hasUnsavedChanges = true, saved = false, publishedRecipeEventId = null, updatedRecipeEventId = null, discardedRecipeEventId = null) }
@@ -289,11 +296,10 @@ private fun String.trimmedOrNull(): String? = trim().takeIf { it.isNotBlank() }
 private fun String.parsePositiveIntOrNull(): Int? = trim().takeIf { it.isNotBlank() }?.toIntOrNull()?.takeIf { it > 0 }
 private fun IngredientInputState.hasAnyIngredientDetail(): Boolean = quantityText.isNotBlank() || unit.isNotBlank() || prepNote.isNotBlank() || section.isNotBlank() || optional
 private fun List<StepInputState>.moveItem(localId: String, direction: Int): List<StepInputState> { val currentIndex = indexOfFirst { it.localId == localId }; if (currentIndex == -1) return this; val targetIndex = (currentIndex + direction).coerceIn(indices); if (targetIndex == currentIndex) return this; return toMutableList().also { val item = it.removeAt(currentIndex); it.add(targetIndex, item) } }
-private fun StepInputState.isBlankStep(): Boolean = title.isBlank() && instruction.isBlank() && timerMinutes.isBlank() && timerSeconds.isBlank() && warning.isBlank() && equipment.isBlank() && meanwhile.isBlank() && checkpoint.isBlank() && linkedIngredientLocalIds.isEmpty()
 private fun StepInputState.parsedTimerSeconds(): Int? { val minutes = timerMinutes.trim().takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0; val seconds = timerSeconds.trim().takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0; return (minutes * 60 + seconds).takeIf { it > 0 } }
 private fun Int?.toTimerInputs(): Pair<String, String> = when { this == null || this <= 0 -> "" to ""; this < 60 -> "" to toString(); this % 60 == 0 -> (this / 60).toString() to ""; else -> (this / 60).toString() to (this % 60).toString() }
 private fun EditRecipeUiState.persistenceKey(): String = listOf(recipeId, title, description, servings, prepTimeMinutes, cookTimeMinutes, recipeType.name, notes, activeTab.name, ingredients.map { listOf(it.localId, it.query, it.quantityText, it.unit, it.prepNote, it.section, it.optional) }, components, steps.map { listOf(it.localId, it.title, it.instruction, it.timerMinutes, it.timerSeconds, it.warning, it.equipment, it.meanwhile, it.checkpoint, it.linkedIngredientLocalIds.sorted()) }).joinToString("|")
-private fun EditRecipeUiState.hasMeaningfulContent(): Boolean = title.isNotBlank() || description.isNotBlank() || servings.isNotBlank() || prepTimeMinutes.isNotBlank() || cookTimeMinutes.isNotBlank() || notes.isNotBlank() || ingredients.any { it.query.isNotBlank() || it.hasAnyIngredientDetail() } || steps.any { !it.isBlankStep() }
+private fun EditRecipeUiState.hasMeaningfulContent(): Boolean = title.isNotBlank() || description.isNotBlank() || servings.isNotBlank() || prepTimeMinutes.isNotBlank() || cookTimeMinutes.isNotBlank() || notes.isNotBlank() || ingredients.any { it.query.isNotBlank() || it.hasAnyIngredientDetail() } || steps.any { it.hasAnyContent() }
 private fun EditRecipeUiState.toIngredients(recipeId: String): List<RecipeIngredientEntity> = ingredients.filter { it.query.isNotBlank() }.mapIndexed { index, row -> val name = row.selectedIngredientDisplayName.takeIf { row.query.trim() == it } ?: row.query.trim(); val quantityText = row.quantityText.trimmedOrNull(); RecipeIngredientEntity(row.localId, recipeId, row.selectedIngredientId.takeIf { row.query.trim() == row.selectedIngredientDisplayName }, name, quantityText?.toDoubleOrNull(), quantityText, row.unit.trimmedOrNull(), row.prepNote.trimmedOrNull(), row.section.trimmedOrNull(), row.optional, index) }
-private fun EditRecipeUiState.toSteps(recipeId: String): List<RecipeStepEntity> = steps.filterNot { it.isBlankStep() }.mapIndexed { index, row -> RecipeStepEntity(row.localId, recipeId, row.instruction.trim(), row.parsedTimerSeconds(), null, null, row.checkpoint.trimmedOrNull(), row.warning.trimmedOrNull(), row.equipment.trimmedOrNull(), null, index, row.title.trimmedOrNull(), row.meanwhile.trimmedOrNull()) }
-private fun EditRecipeUiState.toLinks(): List<StepIngredientLinkEntity> { val ingredientIds = ingredients.filter { it.query.isNotBlank() }.map { it.localId }.toSet(); return steps.filterNot { it.isBlankStep() }.flatMap { step -> step.linkedIngredientLocalIds.filter { it in ingredientIds }.map { StepIngredientLinkEntity(step.localId, it) } } }
+private fun EditRecipeUiState.toSteps(recipeId: String): List<RecipeStepEntity> = steps.filter { it.hasAnyContent() }.mapIndexed { index, row -> RecipeStepEntity(row.localId, recipeId, row.instruction.trim(), row.parsedTimerSeconds(), null, null, row.checkpoint.trimmedOrNull(), row.warning.trimmedOrNull(), row.equipment.trimmedOrNull(), null, index, row.title.trimmedOrNull(), row.meanwhile.trimmedOrNull()) }
+private fun EditRecipeUiState.toLinks(): List<StepIngredientLinkEntity> { val ingredientIds = ingredients.filter { it.query.isNotBlank() }.map { it.localId }.toSet(); return steps.filter { it.hasAnyContent() }.flatMap { step -> step.linkedIngredientLocalIds.filter { it in ingredientIds }.map { StepIngredientLinkEntity(step.localId, it) } } }

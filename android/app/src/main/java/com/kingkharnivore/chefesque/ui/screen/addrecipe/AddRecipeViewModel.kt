@@ -206,23 +206,16 @@ class AddRecipeViewModel(
 
     private fun validateForPublish(): Boolean {
         val state = uiState.value
-        val missingTitle = state.title.trim().isBlank()
-        val missingIngredients = state.ingredients.none { it.query.isNotBlank() }
-        val missingSteps = state.steps.filterNot { it.isBlankStep() }.none { it.instruction.isNotBlank() }
+        val validation = validateRecipeForPublish(state.title, state.ingredients, state.steps)
         _uiState.update {
             it.copy(
-                activeTab = when {
-                    missingTitle -> RecipeEditorTab.BASIC_INFO
-                    missingIngredients -> RecipeEditorTab.INGREDIENTS
-                    missingSteps -> RecipeEditorTab.STEPS
-                    else -> it.activeTab
-                },
-                titleError = if (missingTitle) "Add a recipe name before publishing." else null,
-                ingredientError = if (missingIngredients) "Add at least one ingredient before publishing." else null,
-                stepError = if (missingSteps) "Add at least one step before publishing." else null,
+                activeTab = validation.firstMissingTab ?: it.activeTab,
+                titleError = if (validation.missingTitle) "Add a recipe name before publishing." else null,
+                ingredientError = if (validation.missingIngredients) "Add at least one ingredient before publishing." else null,
+                stepError = validation.stepErrorMessage,
             )
         }
-        return !missingTitle && !missingIngredients && !missingSteps
+        return validation.isValid
     }
 
     fun requestPublish() {
@@ -241,8 +234,7 @@ class AddRecipeViewModel(
         val prep = state.prepTimeMinutes.parsePositiveIntOrNull()
         val cook = state.cookTimeMinutes.parsePositiveIntOrNull()
         val ingredientValidationError = state.ingredients.firstOrNull { it.query.isBlank() && it.hasAnyIngredientDetail() } != null
-        val nonBlankSteps = state.steps.filterNot { it.isBlankStep() }
-        val stepInstructionError = nonBlankSteps.any { it.instruction.isBlank() }
+        val nonBlankSteps = state.steps.filter { it.hasAnyContent() }
         val timerMinutesError = nonBlankSteps.any { it.timerMinutes.trim().takeIf(String::isNotBlank)?.toIntOrNull()?.let { minutes -> minutes < 0 } ?: (it.timerMinutes.isNotBlank()) }
         val timerSecondsError = nonBlankSteps.any { step ->
             step.timerSeconds.trim().takeIf(String::isNotBlank)?.toIntOrNull()?.let { it !in 0..59 } ?: step.timerSeconds.isNotBlank()
@@ -260,8 +252,7 @@ class AddRecipeViewModel(
                     else -> null
                 },
                 stepError = when {
-                    publish && nonBlankSteps.isEmpty() -> "Add at least one step before publishing."
-                    publish && stepInstructionError -> "Each step needs an instruction."
+                    publish && state.steps.none { it.hasInstruction() } -> validateRecipeForPublish(state.title, state.ingredients, state.steps).stepErrorMessage
                     timerMinutesError -> "Timer minutes must be a number."
                     timerSecondsError -> "Timer seconds must be 0–59."
                     else -> null
@@ -269,7 +260,7 @@ class AddRecipeViewModel(
                 saveError = null,
             )
         }
-        if ((publish && trimmedTitle.isBlank()) || (state.servings.isNotBlank() && servings == null) || (state.prepTimeMinutes.isNotBlank() && prep == null) || (state.cookTimeMinutes.isNotBlank() && cook == null) || (publish && state.ingredients.none { it.query.isNotBlank() }) || (publish && nonBlankSteps.isEmpty()) || (publish && ingredientValidationError) || (publish && stepInstructionError) || timerMinutesError || timerSecondsError) return
+        if ((publish && trimmedTitle.isBlank()) || (state.servings.isNotBlank() && servings == null) || (state.prepTimeMinutes.isNotBlank() && prep == null) || (state.cookTimeMinutes.isNotBlank() && cook == null) || (publish && state.ingredients.none { it.query.isNotBlank() }) || (publish && state.steps.none { it.hasInstruction() }) || (publish && ingredientValidationError) || timerMinutesError || timerSecondsError) return
 
         _uiState.update { it.copy(isSaving = true, autosaveStatus = "Saving…", saveError = null) }
         viewModelScope.launch {
@@ -384,15 +375,6 @@ private fun List<StepInputState>.moveItem(localId: String, direction: Int): List
     }
 }
 
-private fun StepInputState.isBlankStep(): Boolean = instruction.isBlank() &&
-    timerMinutes.isBlank() &&
-    timerSeconds.isBlank() &&
-    warning.isBlank() &&
-    equipment.isBlank() &&
-    meanwhile.isBlank() &&
-    checkpoint.isBlank() &&
-    linkedIngredientLocalIds.isEmpty()
-
 private fun StepInputState.parsedTimerSeconds(): Int? {
     val minutes = timerMinutes.trim().takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
     val seconds = timerSeconds.trim().takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
@@ -400,4 +382,4 @@ private fun StepInputState.parsedTimerSeconds(): Int? {
     return totalSeconds.takeIf { it > 0 }
 }
 
-private fun AddRecipeUiState.hasMeaningfulContent(): Boolean = title.isNotBlank() || description.isNotBlank() || servings.isNotBlank() || prepTimeMinutes.isNotBlank() || cookTimeMinutes.isNotBlank() || notes.isNotBlank() || ingredients.any { it.query.isNotBlank() || it.hasAnyIngredientDetail() } || steps.any { !it.isBlankStep() }
+private fun AddRecipeUiState.hasMeaningfulContent(): Boolean = title.isNotBlank() || description.isNotBlank() || servings.isNotBlank() || prepTimeMinutes.isNotBlank() || cookTimeMinutes.isNotBlank() || notes.isNotBlank() || ingredients.any { it.query.isNotBlank() || it.hasAnyIngredientDetail() } || steps.any { it.hasAnyContent() }
