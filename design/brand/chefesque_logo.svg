@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
   <title id="title">Chefesque classic outline saucepan logo</title>
-  <desc id="desc">A very simple Deep Forest classic saucepan outline with a minimal lid arc and short handle on an Oat Cream background.</desc>
+  <desc id="desc">A very simple Deep Forest classic saucepan outline with a symmetric minimal lid and fully visible extended handle on an Oat Cream background.</desc>
   <rect width="512" height="512" fill="#F6F0E4"/>
   <g fill="none" stroke="#244437" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M148 260H364V318C364 338 346 350 324 350H188C166 350 148 338 148 318V260"/>
-    <path d="M204 232C226 212 286 212 308 232"/>
-    <path d="M242 196H270"/>
-    <path d="M364 284H418C430 284 438 292 438 302C438 312 430 320 418 320H364"/>
+    <path d="M111 260H325.5V318C325.5 338 307.7 350 285.8 350H150.7C128.9 350 111 338 111 318V260"/>
+    <path d="M166.6 232C188.5 212 248 212 269.9 232"/>
+    <path d="M204.4 196H232.2"/>
+    <path d="M325.5 284H379.1C391.1 284 399 292 399 302C399 312 391.1 320 379.1 320H325.5"/>
   </g>
 </svg>

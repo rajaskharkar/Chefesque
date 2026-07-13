@@ -2,8 +2,9 @@
   <title id="title">Chefesque classic outline logo launcher mask preview</title>
   <desc id="desc">Vector-only preview of the simplified Deep Forest classic saucepan logo clipped by circle, rounded-square, squircle, and teardrop launcher masks.</desc>
   <defs>
-    <g id="saucepan" fill="none" stroke="#244437" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M148 260H364V318C364 338 346 350 324 350H188C166 350 148 338 148 318V260"/><path d="M204 232C226 212 286 212 308 232"/><path d="M242 196H270"/><path d="M364 284H418C430 284 438 292 438 302C438 312 430 320 418 320H364"/></g>
+    <g id="saucepan" fill="none" stroke="#244437" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M111 260H325.5V318C325.5 338 307.7 350 285.8 350H150.7C128.9 350 111 338 111 318V260"/><path d="M166.6 232C188.5 212 248 212 269.9 232"/><path d="M204.4 196H232.2"/><path d="M325.5 284H379.1C391.1 284 399 292 399 302C399 312 391.1 320 379.1 320H325.5"/></g>
     <g id="logo"><rect width="512" height="512" fill="#F6F0E4"/><use href="#saucepan"/></g>
+    <g id="safe-zone"><rect x="100" y="100" width="312" height="312" fill="none" stroke="#A94F36" stroke-width="4" stroke-dasharray="14 10"/></g>
     <clipPath id="circle"><circle cx="256" cy="256" r="256"/></clipPath>
     <clipPath id="round"><rect width="512" height="512" rx="112"/></clipPath>
     <clipPath id="squircle"><path d="M256 0C78 0 0 78 0 256s78 256 256 256 256-78 256-256S434 0 256 0z"/></clipPath>
@@ -11,8 +12,9 @@
   </defs>
   <rect width="1040" height="330" fill="#FFFDF8"/>
   <text x="24" y="34" font-family="sans-serif" font-size="18" fill="#2E342F">Chefesque classic outline adaptive launcher mask checks</text>
-  <g transform="translate(24 60) scale(.43)" clip-path="url(#circle)"><use href="#logo"/></g><circle cx="134" cy="170" r="110" fill="none" stroke="#77736B" stroke-width="2"/><text x="88" y="305" font-family="sans-serif" font-size="15" fill="#2E342F">Circle</text>
-  <g transform="translate(278 60) scale(.43)" clip-path="url(#round)"><use href="#logo"/></g><rect x="278" y="60" width="220" height="220" rx="48" fill="none" stroke="#77736B" stroke-width="2"/><text x="332" y="305" font-family="sans-serif" font-size="15" fill="#2E342F">Rounded square</text>
-  <g transform="translate(532 60) scale(.43)" clip-path="url(#squircle)"><use href="#logo"/></g><path transform="translate(532 60) scale(.43)" d="M256 0C78 0 0 78 0 256s78 256 256 256 256-78 256-256S434 0 256 0z" fill="none" stroke="#77736B" stroke-width="5"/><text x="610" y="305" font-family="sans-serif" font-size="15" fill="#2E342F">Squircle</text>
-  <g transform="translate(786 60) scale(.43)" clip-path="url(#teardrop)"><use href="#logo"/></g><path transform="translate(786 60) scale(.43)" d="M256 0c141 0 256 115 256 256 0 120-84 224-201 250-25 6-50-8-60-31C221 405 107 405 51 350 18 317 0 272 0 224 0 100 100 0 256 0z" fill="none" stroke="#77736B" stroke-width="5"/><text x="858" y="305" font-family="sans-serif" font-size="15" fill="#2E342F">Teardrop</text>
+  <g transform="translate(24 60) scale(.43)" clip-path="url(#circle)"><use href="#logo"/></g><g transform="translate(24 60) scale(.43)"><use href="#safe-zone"/></g><circle cx="134" cy="170" r="110" fill="none" stroke="#77736B" stroke-width="2"/><text x="72" y="305" font-family="sans-serif" font-size="15" fill="#2E342F">Circle</text>
+  <g transform="translate(278 60) scale(.43)" clip-path="url(#round)"><use href="#logo"/></g><g transform="translate(278 60) scale(.43)"><use href="#safe-zone"/></g><rect x="278" y="60" width="220" height="220" rx="48" fill="none" stroke="#77736B" stroke-width="2"/><text x="332" y="305" font-family="sans-serif" font-size="15" fill="#2E342F">Rounded square</text>
+  <g transform="translate(532 60) scale(.43)" clip-path="url(#squircle)"><use href="#logo"/></g><g transform="translate(532 60) scale(.43)"><use href="#safe-zone"/></g><path transform="translate(532 60) scale(.43)" d="M256 0C78 0 0 78 0 256s78 256 256 256 256-78 256-256S434 0 256 0z" fill="none" stroke="#77736B" stroke-width="5"/><text x="610" y="305" font-family="sans-serif" font-size="15" fill="#2E342F">Squircle</text>
+  <g transform="translate(786 60) scale(.43)" clip-path="url(#teardrop)"><use href="#logo"/></g><g transform="translate(786 60) scale(.43)"><use href="#safe-zone"/></g><path transform="translate(786 60) scale(.43)" d="M256 0c141 0 256 115 256 256 0 120-84 224-201 250-25 6-50-8-60-31C221 405 107 405 51 350 18 317 0 272 0 224 0 100 100 0 256 0z" fill="none" stroke="#77736B" stroke-width="5"/><text x="858" y="305" font-family="sans-serif" font-size="15" fill="#2E342F">Teardrop</text>
+  <text x="24" y="324" font-family="sans-serif" font-size="14" fill="#A94F36">Dashed guide: 66 × 66 guaranteed safe zone (x=100, y=100, w=312, h=312 in source coordinates)</text>
 </svg>
