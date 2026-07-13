@@ -207,7 +207,7 @@ private fun StepDisplayRow(number: Int, step: RecipeStepEntity) {
         formatStepTimer(step.timerSeconds)?.let { DetailLabel("Timer", it) }
         step.warning?.trim()?.takeIf { it.isNotBlank() }?.let { DetailLabel("Warning", it) }
         step.equipment?.trim()?.takeIf { it.isNotBlank() }?.let { DetailLabel("Equipment", it) }
-        step.whileTimerRuns?.trim()?.takeIf { it.isNotBlank() }?.let { DetailLabel("Meanwhile", it) }
+        (step.meanwhile ?: step.whileTimerRuns)?.trim()?.takeIf { it.isNotBlank() }?.let { DetailLabel("Meanwhile", it) }
         step.checkpoint?.trim()?.takeIf { it.isNotBlank() }?.let { Text("Checkpoint", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold) }
     }
 }

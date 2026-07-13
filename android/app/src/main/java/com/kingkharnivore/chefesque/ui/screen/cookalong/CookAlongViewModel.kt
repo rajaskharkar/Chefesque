@@ -357,7 +357,7 @@ fun buildCookAlongSteps(
             timerSeconds = step.timerSeconds?.takeIf { it > 0 },
             warning = step.warning?.trim()?.takeIf { it.isNotBlank() },
             equipment = step.equipment?.trim()?.takeIf { it.isNotBlank() },
-            whileTimerRuns = step.whileTimerRuns?.trim()?.takeIf { it.isNotBlank() },
+            whileTimerRuns = (step.meanwhile ?: step.whileTimerRuns)?.trim()?.takeIf { it.isNotBlank() },
             checkpoint = checkpointDisplayText(step.checkpoint),
             ingredients = stepIngredients,
         )

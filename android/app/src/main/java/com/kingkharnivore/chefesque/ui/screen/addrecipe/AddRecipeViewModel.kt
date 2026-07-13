@@ -46,8 +46,11 @@ data class AddRecipeUiState(
     val activeTab: RecipeEditorTab = RecipeEditorTab.BASIC_INFO,
     val autosaveStatus: String = "Not saved yet",
     val publishReviewVisible: Boolean = false,
+    val isPublishedRevision: Boolean = false,
     val saveError: String? = null,
     val savedRecipeId: String? = null,
+    val updatedRecipeId: String? = null,
+    val discardedRecipeId: String? = null,
 )
 
 enum class RecipeEditorTab { BASIC_INFO, INGREDIENTS, STEPS, NOTES }
@@ -69,13 +72,14 @@ data class IngredientInputState(
 
 data class StepInputState(
     val localId: String = UUID.randomUUID().toString(),
+    val title: String = "",
     val instruction: String = "",
     val timerMinutes: String = "",
     val timerSeconds: String = "",
     val warning: String = "",
     val equipment: String = "",
-    val whileTimerRuns: String = "",
-    val checkpoint: Boolean = false,
+    val meanwhile: String = "",
+    val checkpoint: String = "",
     val linkedIngredientLocalIds: Set<String> = emptySet(),
 )
 
@@ -191,8 +195,9 @@ class AddRecipeViewModel(
     fun updateStepTimerSeconds(localId: String, value: String) = _uiState.updateStep(localId) { it.copy(timerSeconds = value) }
     fun updateStepWarning(localId: String, value: String) = _uiState.updateStep(localId) { it.copy(warning = value) }
     fun updateStepEquipment(localId: String, value: String) = _uiState.updateStep(localId) { it.copy(equipment = value) }
-    fun updateStepWhileTimerRuns(localId: String, value: String) = _uiState.updateStep(localId) { it.copy(whileTimerRuns = value) }
-    fun updateStepCheckpoint(localId: String, value: Boolean) = _uiState.updateStep(localId) { it.copy(checkpoint = value) }
+    fun updateStepTitle(localId: String, value: String) = _uiState.updateStep(localId) { it.copy(title = value) }
+    fun updateStepMeanwhile(localId: String, value: String) = _uiState.updateStep(localId) { it.copy(meanwhile = value) }
+    fun updateStepCheckpoint(localId: String, value: String) = _uiState.updateStep(localId) { it.copy(checkpoint = value) }
 
     fun toggleStepIngredientLink(stepLocalId: String, ingredientLocalId: String) = _uiState.updateStep(stepLocalId) { step ->
         val links = step.linkedIngredientLocalIds
@@ -319,11 +324,12 @@ class AddRecipeViewModel(
                         timerSeconds = row.parsedTimerSeconds(),
                         temperatureValue = null,
                         temperatureUnit = null,
-                        checkpoint = if (row.checkpoint) "Checkpoint" else null,
+                        checkpoint = row.checkpoint.trimmedOrNull(),
                         warning = row.warning.trimmedOrNull(),
                         equipment = row.equipment.trimmedOrNull(),
-                        meanwhile = row.whileTimerRuns.trimmedOrNull(),
-                        whileTimerRuns = row.whileTimerRuns.trimmedOrNull(),
+                        meanwhile = row.meanwhile.trimmedOrNull(),
+                        whileTimerRuns = null,
+                        title = row.title.trimmedOrNull(),
                         sortOrder = index,
                     )
                 }
@@ -383,8 +389,8 @@ private fun StepInputState.isBlankStep(): Boolean = instruction.isBlank() &&
     timerSeconds.isBlank() &&
     warning.isBlank() &&
     equipment.isBlank() &&
-    whileTimerRuns.isBlank() &&
-    !checkpoint &&
+    meanwhile.isBlank() &&
+    checkpoint.isBlank() &&
     linkedIngredientLocalIds.isEmpty()
 
 private fun StepInputState.parsedTimerSeconds(): Int? {
