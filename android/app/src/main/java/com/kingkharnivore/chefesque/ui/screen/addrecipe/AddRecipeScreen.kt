@@ -34,6 +34,9 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TabRow
+import androidx.compose.material3.Tab
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -86,6 +89,9 @@ fun AddRecipeScreen(
     onStepWhileTimerRunsChange: (String, String) -> Unit,
     onStepCheckpointChange: (String, Boolean) -> Unit,
     onToggleStepIngredientLink: (String, String) -> Unit,
+    onTabSelected: (RecipeEditorTab) -> Unit = {},
+    onPublishClick: () -> Unit = onSaveClick,
+    onDismissPublishReview: () -> Unit = {},
     modifier: Modifier = Modifier,
     screenTitle: String = "Add Recipe",
     saveActionLabel: String = "Save",
@@ -102,28 +108,50 @@ fun AddRecipeScreen(
             TopAppBar(
                 title = { Text(screenTitle) },
                 navigationIcon = { IconButton(onClick = onBackClick) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back") } },
-                actions = { TextButton(onClick = onSaveClick, enabled = !uiState.isSaving) { Text(if (uiState.isSaving) "Saving" else saveActionLabel) } },
+                actions = {
+                    Text(uiState.autosaveStatus, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    TextButton(onClick = onSaveClick, enabled = !uiState.isSaving) { Text(if (uiState.isSaving) "Saving" else saveActionLabel) }
+                },
             )
         },
     ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .padding(paddingValues)
-                .verticalScroll(rememberScrollState())
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp),
-        ) {
-            RecipeBasicInfoSection(uiState, onTitleChange, onDescriptionChange, onServingsChange, onPrepTimeChange, onCookTimeChange, onRecipeTypeChange)
-            RecipeIngredientEditorSection(uiState, onAddIngredient, onRemoveIngredient, onIngredientQueryChange, onIngredientSelected, onQuantityChange, onUnitChange, onPrepNoteChange, onSectionChange, onOptionalChange)
-            RecipeStepEditorSection(uiState, onAddStep, onRemoveStep, onMoveStepUp, onMoveStepDown, onStepInstructionChange, onStepTimerMinutesChange, onStepTimerSecondsChange, onStepWarningChange, onStepEquipmentChange, onStepWhileTimerRunsChange, onStepCheckpointChange, onToggleStepIngredientLink)
-            RecipeNotesSection(notes = uiState.notes, onNotesChange = onNotesChange)
-            uiState.saveError?.let { ErrorText(it) }
-            Button(onClick = onSaveClick, enabled = !uiState.isSaving, modifier = Modifier.fillMaxWidth()) {
-                if (uiState.isSaving) {
-                    CircularProgressIndicator(modifier = Modifier.height(18.dp).width(18.dp), strokeWidth = 2.dp)
-                    Spacer(Modifier.width(8.dp))
+        Column(modifier = Modifier.padding(paddingValues)) {
+            TabRow(selectedTabIndex = uiState.activeTab.ordinal) {
+                RecipeEditorTab.entries.forEach { tab ->
+                    Tab(selected = uiState.activeTab == tab, onClick = { onTabSelected(tab) }, text = { Text(tab.label()) })
                 }
-                Text(if (uiState.isSaving) savingButtonLabel else saveButtonLabel)
+            }
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .verticalScroll(rememberScrollState())
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(20.dp),
+            ) {
+                when (uiState.activeTab) {
+                    RecipeEditorTab.BASIC_INFO -> RecipeBasicInfoSection(uiState, onTitleChange, onDescriptionChange, onServingsChange, onPrepTimeChange, onCookTimeChange, onRecipeTypeChange)
+                    RecipeEditorTab.INGREDIENTS -> RecipeIngredientEditorSection(uiState, onAddIngredient, onRemoveIngredient, onIngredientQueryChange, onIngredientSelected, onQuantityChange, onUnitChange, onPrepNoteChange, onSectionChange, onOptionalChange)
+                    RecipeEditorTab.STEPS -> RecipeStepEditorSection(uiState, onAddStep, onRemoveStep, onMoveStepUp, onMoveStepDown, onStepInstructionChange, onStepTimerMinutesChange, onStepTimerSecondsChange, onStepWarningChange, onStepEquipmentChange, onStepWhileTimerRunsChange, onStepCheckpointChange, onToggleStepIngredientLink)
+                    RecipeEditorTab.NOTES -> RecipeNotesSection(notes = uiState.notes, onNotesChange = onNotesChange)
+                }
+                uiState.saveError?.let { ErrorText(it) }
+            }
+            Row(Modifier.fillMaxWidth().padding(16.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                OutlinedButton(onClick = onSaveClick, enabled = !uiState.isSaving, modifier = Modifier.weight(1f)) { Text("Save as Draft") }
+                Button(onClick = onPublishClick, enabled = !uiState.isSaving, modifier = Modifier.weight(1f)) { Text("Publish Recipe") }
+            }
+        }
+        if (uiState.publishReviewVisible) {
+            ModalBottomSheet(onDismissRequest = onDismissPublishReview) {
+                Column(Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Text("Ready to publish?", style = MaterialTheme.typography.headlineSmall)
+                    Text("Included", style = MaterialTheme.typography.titleMedium)
+                    Text("${uiState.ingredients.count { it.query.isNotBlank() }} ingredients")
+                    Text("${uiState.steps.count { !it.isBlankStepForUi() }} steps")
+                    Text("Suggestions are optional and will not block publishing.")
+                    Button(onClick = onPublishClick, modifier = Modifier.fillMaxWidth()) { Text("Publish Recipe") }
+                    TextButton(onClick = onDismissPublishReview, modifier = Modifier.fillMaxWidth()) { Text("Keep Editing") }
+                }
             }
         }
     }
@@ -321,7 +349,7 @@ private fun RecipeStepRow(
             }
             OutlinedTextField(value = step.warning, onValueChange = { onStepWarningChange(step.localId, it) }, label = { Text("Warning") }, supportingText = { Text("Anything the cook should be careful about.") }, minLines = 2, modifier = Modifier.fillMaxWidth())
             OutlinedTextField(value = step.equipment, onValueChange = { onStepEquipmentChange(step.localId, it) }, label = { Text("Equipment") }, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(value = step.whileTimerRuns, onValueChange = { onStepWhileTimerRunsChange(step.localId, it) }, label = { Text("While timer runs") }, supportingText = { Text("What can the cook do while this timer is running?") }, minLines = 2, modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(value = step.whileTimerRuns, onValueChange = { onStepWhileTimerRunsChange(step.localId, it) }, label = { Text("Meanwhile") }, supportingText = { Text("What can the cook do while this timer is running?") }, minLines = 2, modifier = Modifier.fillMaxWidth())
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Checkbox(checked = step.checkpoint, onCheckedChange = { onStepCheckpointChange(step.localId, it) })
                 Column {
@@ -417,3 +445,13 @@ private fun AddRecipeScreenPreview(state: AddRecipeUiState) = AddRecipeScreen(
 )
 
 private fun previewIngredient(id: String, name: String) = IngredientEntity(id = id, displayName = name, canonicalName = name.lowercase(), category = "vegetable", defaultUnit = null, commonUnitsJson = null, source = IngredientSource.CURATED.name, sourceId = id, isUserCreated = false, createdAt = 0L, updatedAt = 0L)
+
+
+private fun RecipeEditorTab.label(): String = when (this) {
+    RecipeEditorTab.BASIC_INFO -> "Basic Info"
+    RecipeEditorTab.INGREDIENTS -> "Ingredients"
+    RecipeEditorTab.STEPS -> "Steps"
+    RecipeEditorTab.NOTES -> "Notes"
+}
+
+private fun StepInputState.isBlankStepForUi(): Boolean = instruction.isBlank() && timerMinutes.isBlank() && timerSeconds.isBlank() && warning.isBlank() && equipment.isBlank() && whileTimerRuns.isBlank() && !checkpoint && linkedIngredientLocalIds.isEmpty()

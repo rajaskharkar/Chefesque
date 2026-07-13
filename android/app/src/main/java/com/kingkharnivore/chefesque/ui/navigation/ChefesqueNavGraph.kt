@@ -90,6 +90,9 @@ fun ChefesqueApp(appContainer: AppContainer) {
                 onStepWhileTimerRunsChange = addRecipeViewModel::updateStepWhileTimerRuns,
                 onStepCheckpointChange = addRecipeViewModel::updateStepCheckpoint,
                 onToggleStepIngredientLink = addRecipeViewModel::toggleStepIngredientLink,
+                onTabSelected = addRecipeViewModel::selectTab,
+                onPublishClick = addRecipeViewModel::publishRecipe,
+                onDismissPublishReview = addRecipeViewModel::hidePublishReview,
             )
         }
         composable(ChefesqueDestination.AddLog.route) { AddLogPlaceholderScreen(onBackClick = { navController.popBackStack() }) }

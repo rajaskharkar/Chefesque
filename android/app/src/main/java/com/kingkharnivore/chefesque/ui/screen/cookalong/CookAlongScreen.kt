@@ -131,7 +131,7 @@ private fun CookAlongContent(
             )
         }
         step.equipment?.let { CookAlongDetailSection("Equipment", it) }
-        step.whileTimerRuns?.let { CookAlongDetailSection("While timer runs", it) }
+        step.whileTimerRuns?.let { CookAlongDetailSection("Meanwhile", it) }
         step.checkpoint?.let { CookAlongDetailSection("Checkpoint", it) }
         Spacer(Modifier.height(16.dp))
     }

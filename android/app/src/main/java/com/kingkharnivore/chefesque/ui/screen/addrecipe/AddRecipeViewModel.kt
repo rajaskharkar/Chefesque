@@ -38,9 +38,14 @@ data class AddRecipeUiState(
     val cookTimeError: String? = null,
     val ingredientError: String? = null,
     val stepError: String? = null,
+    val activeTab: RecipeEditorTab = RecipeEditorTab.BASIC_INFO,
+    val autosaveStatus: String = "Draft saved",
+    val publishReviewVisible: Boolean = false,
     val saveError: String? = null,
     val savedRecipeId: String? = null,
 )
+
+enum class RecipeEditorTab { BASIC_INFO, INGREDIENTS, STEPS, NOTES }
 
 data class IngredientInputState(
     val localId: String = UUID.randomUUID().toString(),
@@ -84,6 +89,9 @@ class AddRecipeViewModel(
     fun updateCookTimeMinutes(value: String) = _uiState.update { it.copy(cookTimeMinutes = value, cookTimeError = null) }
     fun updateRecipeType(value: RecipeType) = _uiState.update { it.copy(recipeType = value) }
     fun updateNotes(value: String) = _uiState.update { it.copy(notes = value) }
+    fun selectTab(tab: RecipeEditorTab) = _uiState.update { it.copy(activeTab = tab) }
+    fun showPublishReview() = _uiState.update { it.copy(publishReviewVisible = true) }
+    fun hidePublishReview() = _uiState.update { it.copy(publishReviewVisible = false) }
 
     fun addIngredientRow() = _uiState.update {
         it.copy(ingredients = it.ingredients + IngredientInputState(), ingredientError = null)
@@ -175,7 +183,9 @@ class AddRecipeViewModel(
         step.copy(linkedIngredientLocalIds = if (ingredientLocalId in links) links - ingredientLocalId else links + ingredientLocalId)
     }
 
-    fun saveRecipe() {
+    fun publishRecipe() { saveRecipe(publish = true) }
+
+    fun saveRecipe(publish: Boolean = false) {
         if (uiState.value.isSaving) return
 
         val state = uiState.value
@@ -193,12 +203,17 @@ class AddRecipeViewModel(
 
         _uiState.update {
             it.copy(
-                titleError = if (trimmedTitle.isBlank()) "Recipe name is required." else null,
+                titleError = if (publish && trimmedTitle.isBlank()) "Add a recipe name before publishing." else null,
                 servingsError = if (state.servings.isNotBlank() && servings == null) "Servings must be a number." else null,
                 prepTimeError = if (state.prepTimeMinutes.isNotBlank() && prep == null) "Prep time must be minutes." else null,
                 cookTimeError = if (state.cookTimeMinutes.isNotBlank() && cook == null) "Cook time must be minutes." else null,
-                ingredientError = if (ingredientValidationError) "Each ingredient needs a name." else null,
+                ingredientError = when {
+                    publish && state.ingredients.none { it.query.isNotBlank() } -> "Add at least one ingredient before publishing."
+                    ingredientValidationError -> "Each ingredient needs a name."
+                    else -> null
+                },
                 stepError = when {
+                    publish && nonBlankSteps.isEmpty() -> "Add at least one step before publishing."
                     stepInstructionError -> "Each step needs an instruction."
                     timerMinutesError -> "Timer minutes must be a number."
                     timerSecondsError -> "Timer seconds must be 0–59."
@@ -207,7 +222,7 @@ class AddRecipeViewModel(
                 saveError = null,
             )
         }
-        if (trimmedTitle.isBlank() || (state.servings.isNotBlank() && servings == null) || (state.prepTimeMinutes.isNotBlank() && prep == null) || (state.cookTimeMinutes.isNotBlank() && cook == null) || ingredientValidationError || stepInstructionError || timerMinutesError || timerSecondsError) return
+        if ((publish && trimmedTitle.isBlank()) || (state.servings.isNotBlank() && servings == null) || (state.prepTimeMinutes.isNotBlank() && prep == null) || (state.cookTimeMinutes.isNotBlank() && cook == null) || (publish && state.ingredients.none { it.query.isNotBlank() }) || (publish && nonBlankSteps.isEmpty()) || ingredientValidationError || stepInstructionError || timerMinutesError || timerSecondsError) return
 
         _uiState.update { it.copy(isSaving = true, saveError = null) }
         viewModelScope.launch {
@@ -216,7 +231,7 @@ class AddRecipeViewModel(
                 val recipeId = UUID.randomUUID().toString()
                 val recipe = RecipeEntity(
                     id = recipeId,
-                    title = trimmedTitle,
+                    title = trimmedTitle.ifBlank { "Untitled Recipe" },
                     description = state.description.trimmedOrNull(),
                     servings = servings,
                     prepTimeMinutes = prep,
@@ -229,6 +244,10 @@ class AddRecipeViewModel(
                     createdAt = now,
                     updatedAt = now,
                     archivedAt = null,
+                    lifecycleStatus = if (publish) "PUBLISHED" else "DRAFT",
+                    lastEditedAt = now,
+                    publishedAt = if (publish) now else null,
+                    lastEditedTab = state.activeTab.name,
                 )
                 val ingredients = state.ingredients
                     .filter { it.query.isNotBlank() }
@@ -261,6 +280,7 @@ class AddRecipeViewModel(
                         checkpoint = if (row.checkpoint) "Checkpoint" else null,
                         warning = row.warning.trimmedOrNull(),
                         equipment = row.equipment.trimmedOrNull(),
+                        meanwhile = row.whileTimerRuns.trimmedOrNull(),
                         whileTimerRuns = row.whileTimerRuns.trimmedOrNull(),
                         sortOrder = index,
                     )

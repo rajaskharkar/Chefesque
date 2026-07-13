@@ -36,7 +36,7 @@ import com.kingkharnivore.chefesque.data.local.entity.StepIngredientLinkEntity
         CookingLogEntity::class,
         CookingLogPhotoEntity::class,
     ],
-    version = 2,
+    version = 3,
     exportSchema = true,
 )
 abstract class ChefesqueDatabase : RoomDatabase() {

@@ -16,11 +16,24 @@ class RecipeRepository(private val database: ChefesqueDatabase) {
     private val stepDao = database.recipeStepDao()
 
     fun observeActiveRecipes(): Flow<List<RecipeEntity>> = recipeDao.observeActiveRecipes()
+    fun observeDraftRecipes(): Flow<List<RecipeEntity>> = recipeDao.observeDraftRecipes()
     fun observeRecipe(id: String): Flow<RecipeEntity?> = recipeDao.observeRecipe(id)
     suspend fun getRecipe(id: String): RecipeEntity? = recipeDao.getRecipe(id)
     suspend fun searchActiveRecipesByTitle(query: String): List<RecipeEntity> = recipeDao.searchActiveRecipesByTitle(query)
     suspend fun upsertRecipe(recipe: RecipeEntity) = recipeDao.upsertRecipe(recipe)
     suspend fun upsertRecipes(recipes: List<RecipeEntity>) = recipeDao.upsertRecipes(recipes)
+    suspend fun publishRecipe(id: String) {
+        val now = System.currentTimeMillis()
+        recipeDao.updateLifecycle(id, "PUBLISHED", now, now, now)
+    }
+
+    suspend fun unpublishRecipe(id: String) {
+        val now = System.currentTimeMillis()
+        recipeDao.updateLifecycle(id, "DRAFT", now, null, now)
+    }
+
+    suspend fun updateLastEditedTab(id: String, tab: String) = recipeDao.updateLastEditedTab(id, tab, System.currentTimeMillis())
+
     suspend fun archiveRecipe(id: String, archivedAt: Long, updatedAt: Long) = recipeDao.archiveRecipe(id, archivedAt, updatedAt)
     suspend fun deleteRecipe(recipe: RecipeEntity) = recipeDao.deleteRecipe(recipe)
 

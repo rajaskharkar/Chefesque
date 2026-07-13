@@ -22,4 +22,6 @@ data class RecipeStepEntity(
     val equipment: String?,
     val whileTimerRuns: String?,
     val sortOrder: Int,
+    val title: String? = null,
+    val meanwhile: String? = whileTimerRuns,
 )
